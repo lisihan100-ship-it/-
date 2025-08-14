@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us | Chinese Association of Mississauga</title>
+  <style>
+    /* ====== 变量 & 基础 ====== */
+    :root{
+      --brand:#2f8e2f;        /* 主绿：保持与你首页一致 */
+      --brand-dark:#237023;
+      --text:#1e293b;
+      --muted:#64748b;
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --shadow:0 8px 24px rgba(2,6,23,.08);
+      --radius:14px;
+      --ring:#1d4ed8;
+      --mint:#cfeee3;         /* About 页顶部浅绿色横幅 */
+      --teal:#1f9a8a;         /* 标题青色，贴近参考截图 */
+      --line:#d4e9e3;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
+    img{max-width:100%; height:auto; display:block}
+    .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+    .visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}
+
+    /* ====== Header（与首页一致）====== */
+    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .topbar .logo img{height:56px}
+    .topbar-right{display:flex;align-items:center;gap:12px}
+    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+    .btn-primary:hover{background:#57a326}
+    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
+    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
+    .hamburger{display:none;border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
+    .hamburger svg{width:22px;height:22px}
+
+    .main-nav-wrap{background:transparent}
+    .main-nav{
+      background: var(--brand);
+      margin: 10px auto 0;
+      max-width: 1200px;
+      border-radius: 10px;
+      height: 52px;
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+      padding:0 6px;
+    }
+    .main-nav a{
+      color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px
+    }
+    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
+    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
+
+    /* 抽屉（与首页一致） */
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
+    .drawer.open{transform:translateX(0)}
+    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
+    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
+
+    @media (max-width:1024px){ .search{display:none} }
+    @media (max-width:860px){ .hamburger{display:inline-flex;margin-left:8px} .main-nav-wrap{display:none} }
+
+    /* ====== About 页专属 ====== */
+    .page-hero{
+      background:var(--mint);
+      padding:32px 0;
+      margin-bottom:18px;
+      border-bottom:1px solid var(--line);
+    }
+    .page-hero h1{
+      margin:0; text-align:center; font-size:clamp(28px,4.2vw,40px);
+      color:var(--teal); font-weight:800; letter-spacing:.2px;
+    }
+
+    /* 顶部图文（参考截图：左大图，右侧活动/海报） */
+    .about-top{
+      display:grid; grid-template-columns: 2fr 1.2fr; gap:22px; align-items:start;
+      margin: 14px 0 26px;
+    }
+    .about-top .poster{
+      background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden;
+      border:1px solid #eef2f7;
+    }
+    .about-top .poster figure{margin:0}
+    .about-top .poster img{width:100%; height:auto; display:block}
+    .about-top .poster figcaption{padding:12px 14px; font-size:15px}
+
+    @media (max-width:900px){ .about-top{ grid-template-columns:1fr } }
+
+    /* Vision / Mission */
+    .split-2{
+      display:grid; grid-template-columns:1fr 1fr; gap:26px; margin:10px 0 32px;
+    }
+    .split-2 h2{
+      color:var(--teal); font-size:28px; margin:0 0 8px;
+    }
+    .lead{ color:#0f172a; line-height:1.7 }
+
+    @media (max-width:900px){ .split-2{ grid-template-columns:1fr } }
+
+    /* Strategic Plan 手风琴 */
+    .section-title{
+      color:var(--teal); font-size:28px; font-weight:800; margin:0 0 10px;
+    }
+    .accordion{ border-top:2px solid var(--line); }
+    .acc-item{ border-bottom:2px solid var(--line); }
+    .acc-btn{
+      width:100%; background:#fff; border:0; text-align:left; cursor:pointer; padding:14px;
+      display:flex; align-items:center; gap:12px; font-size:20px; line-height:1.3; color:#0f172a;
+    }
+    .acc-btn .plus{
+      width:22px; height:22px; flex:0 0 22px; display:inline-grid; place-items:center;
+      border-radius:6px; background:#e9f6f2; color:#0b7b6d; font-weight:800;
+      transition: transform .18s ease;
+    }
+    .acc-btn[aria-expanded="true"] .plus{ transform:rotate(45deg); }
+    .acc-panel{ max-height:0; overflow:hidden; transition:max-height .25s ease; }
+    .acc-panel-inner{ padding:0 14px 14px; color:#374151 }
+
+    /* 分隔线 */
+    .divider{ height:4px; background:var(--teal); width:52%; margin:24px 0 }
+
+    /* Privacy / Annual Reports */
+    .simple-section h2{ color:var(--teal); font-size:28px; margin:0 0 10px; }
+    .list-clean{ list-style:none; padding:0; margin:0 }
+    .list-clean li{ padding:8px 0 }
+    .list-clean a{ text-decoration:underline }
+
+    /* Milestones：表格/时间线风格 */
+    .milestones{ margin:26px 0 40px; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; background:#fff }
+    .ms-row{ display:grid; grid-template-columns:140px 1fr; border-top:1px solid #e5e7eb; }
+    .ms-row:first-child{ border-top:0 }
+    .ms-year{ background:#f8fafb; padding:16px; font-weight:700; color:#0f172a }
+    .ms-desc{ padding:16px; }
+    .ms-desc p{ margin:6px 0 }
+    .ms-desc ul{ margin:6px 0 0 18px }
+    .ms-title{ font-weight:600; }
+
+    /* ====== Footer（与首页一致）====== */
+    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
+    footer a{color:#fff}
+    footer a:hover{text-decoration:underline}
+    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
+    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
+    footer h4{margin:0 0 10px;font-weight:800}
+    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
+    .footer-social{display:flex;gap:12px;margin-top:12px}
+    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;transition:background .2s ease, transform .1s ease}
+    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+    .footer-social svg{width:22px;height:22px;display:block}
+  </style>
+</head>
+<body>
+  <!-- ====== Header（与你首页一致） ====== -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+  <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+</a>
+      <div class="topbar-right">
+        <select class="lang" aria-label="Language selector">
+          <option>English</option>
+          <option selected>简体中文</option>
+          <option>繁體中文</option>
+        </select>
+        <form class="search" role="search" action="#">
+          <input type="search" placeholder="Search ..." aria-label="Search" />
+          <button aria-label="Submit search">🔍</button>
+        </form>
+        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
+        <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+  <a href="home.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="team.html">Our Team</a>
+  <a href="services.html">Services</a>
+  <a href="program.html">Program</a>
+  <a href="events.html">Events</a>
+  <a href="join.html">Join Us</a>
+  <a href="contact.html">Contact Us</a>
+</nav>
+
+    </div>
+  </header>
+
+  <!-- 抽屉导航（与首页一致） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong>Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu">关闭</button>
+    </header>
+    <!-- Logo -->
+
+
+<!-- 抽屉 -->
+<nav style="overflow:auto;padding-bottom:20px">
+  <a href="home.html">Home</a>
+  <a href="about.html">About Us</a>
+<a href="team.html">Our Team</a>
+  <a href="services.html">Services</a>
+  <a href="program.html">Program</a>
+  <a href="events.html">Events</a>
+  <a href="join.html">Join Us</a>
+  <a href="contact.html">Contact Us</a>
+</nav>
+
+  </aside>
+
+  <!-- ====== 页面横幅 ====== -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>About Us</h1>
+    </div>
+  </section>
+
+  <main class="container" id="main">
+    <!-- 顶部图文：左侧大图 + 右侧活动/海报（可替换图片） -->
+    <section class="about-top" aria-label="About cover and featured event">
+      <div>
+        <img src="IMG_8718.JPG" alt="CAM office building exterior">
+      </div>
+      <article class="poster">
+        <figure>
+          <img src="Blue & Green Modern Travel Poster.jpg" alt="Community / Senior Housing Workshop Poster">
+          <figcaption>
+            <strong>Summer travel activities</strong><br>
+          </figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- Vision / Mission -->
+    <section class="split-2" aria-label="Vision and Mission">
+      <div>
+        <h2>Vision</h2>
+        <p class="lead">Community Family Services of Ontario is recognized as the premier provider of family services to support our community, where all families live in a safe and harmonious environment.</p>
+      </div>
+      <div>
+        <h2>Mission</h2>
+        <p class="lead">We help build a safe and harmonious community by providing professional counselling, settlement, disabilities, and special needs services to individuals and families in need.</p>
+      </div>
+    </section>
+
+    <!-- Annual Reports -->
+    <section class="simple-section" aria-label="Annual Reports">
+      <h2>Annual Reports</h2>
+      <ul class="list-clean">
+        <li><a href="#">Annual Report 2023/2024</a></li>
+        <li><a href="#">Annual Report 2022/2023</a></li>
+        <li><a href="#">Annual Report 2021/2022</a></li>
+        <li><a href="#">Annual Report 2020/2021 (p.12)</a></li>
+        <li><a href="#">Annual Report 2019/2020</a></li>
+        <li><a href="#">Annual Report 2018/2019</a></li>
+      </ul>
+      <p style="margin-top:8px;color:#475569;"><em>*Audited Financial Statement available upon request</em></p>
+      <div class="divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- Milestones -->
+    <section aria-label="Milestones">
+      <h2 class="section-title">Milestones</h2>
+      <div class="milestones">
+        <div class="ms-row">
+          <div class="ms-year">2020s</div>
+          <div class="ms-desc">
+            
+      
+            <p>Continued growth in programs for newcomers, youth, seniors, and multi-ethnic communities, reinforcing CAM as a welcoming hub for immigrants in the Greater Toronto Area.</p>
+           
+          </div>
+        </div>
+		  <div class="ms-row">
+          <div class="ms-year">2010s</div>
+          <div class="ms-desc"><p>Expanded cultural events and community programs, including New Year celebrations, Mid-Autumn Festival, Hong Kong Festival, Rainbow Festival, and Dragon Boat races.</p></div>
+		  </div>
+		  
+        <div class="ms-row">
+          <div class="ms-year">2009</div>
+          <div class="ms-desc"><p>Moved to a larger 5,600 sq. ft. facility at 16 Golden Square to accommodate expanding programs and services.</p></div>
+        </div>
+        <div class="ms-row">
+          <div class="ms-year">1994–Present</div>
+          <div class="ms-desc">
+            <p>Became a regular participant in Carassauga, Mississauga’s largest multicultural festival, hosting the Chinese Pavilion every year.</p>
+          </div>
+        </div>
+        <div class="ms-row">
+          <div class="ms-year">1994</div>
+          <div class="ms-desc"><p>Launched the federally funded LINC (Language Instruction for Newcomers to Canada) program; first class began on September 19 with over 30 students.</p></div>
+        </div>
+        <div class="ms-row">
+          <div class="ms-year">1993</div>
+          <div class="ms-desc"><p>Opened first permanent premises at 80 Golden Square; grand opening attended by Mississauga Mayor Hazel McCallion and over 500 guests.</p></div>
+        </div>
+        <div class="ms-row">
+          <div class="ms-year">1987</div>
+          <div class="ms-desc"><p>Registered as a charitable non-profit organization with the Canada Revenue Agency on May 3.</p></div>
+        </div>
+        <div class="ms-row">
+          <div class="ms-year">1982</div>
+          <div class="ms-desc"><p>Chinese Association of Mississauga (CAM) officially established on January 23 to promote Chinese culture and provide community services.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+	
+	 
+
+  <!-- ====== Footer（与你首页一致） ====== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Chinese Association of Mississauga</h4>
+        <p>Serving newcomers and diverse communities in Mississauga</p>
+        <a class="btn btn-primary" href="#donate" role="button">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="https://weixin.qq.com/" target="_blank" rel="noopener" aria-label="WeChat">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+  <!-- ====== JS：与首页同款的抽屉 + About 页手风琴 ====== -->
+  <script>
+    // 抽屉
+    const drawer = document.getElementById('drawer');
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+
+    function setDrawer(open){
+      if(!drawer) return;
+      drawer.classList.toggle('open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    openBtn?.addEventListener('click', ()=> setDrawer(true));
+    closeBtn?.addEventListener('click', ()=> setDrawer(false));
+    drawer?.addEventListener('click', (e)=> { if(e.target === drawer) setDrawer(false) });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false) });
+
+    // 手风琴
+    document.querySelectorAll('.acc-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(btn.disabled) return;
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if(panel){
+          panel.style.maxHeight = expanded ? '0px' : panel.scrollHeight + 'px';
+        }
+      });
+    });
+    // 初始展开第一项
+    const firstBtn = document.querySelector('.acc-btn');
+    if(firstBtn){
+      firstBtn.click();
+    }
+  </script>
+</body>
+</html>
