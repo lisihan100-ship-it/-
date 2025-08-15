@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settlement Services | Chinese Association of Mississauga</title>
+  <style>
+    :root{
+      --brand:#2f8e2f; 
+      --brand-dark:#237023; 
+      --text:#1e293b; 
+      --muted:#64748b;
+      --bg:#f8fafc; 
+      --card:#ffffff; 
+      --shadow:0 8px 24px rgba(2,6,23,.08);
+      --radius:14px; 
+      --ring:#1d4ed8;
+      --teal:#1f9a8a; 
+      --line:#d4e9e3;
+      --light-green: rgba(47,142,47,.04);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
+    img{max-width:100%; height:auto; display:block}
+    .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+
+    /* 页眉保持不变 */
+    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .topbar .logo img{height:56px}
+    .topbar-right{display:flex;align-items:center;gap:12px}
+    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+    .btn-primary:hover{background:#57a326}
+    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
+    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
+    .hamburger{display:none;border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
+    .hamburger svg{width:22px;height:22px}
+
+    .main-nav-wrap{background:transparent}
+    .main-nav{
+      background: var(--brand); margin: 10px auto 0; max-width: 1200px; border-radius: 10px;
+      height: 52px; display:flex;align-items:center;justify-content:center;gap:6px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04); padding:0 6px;
+    }
+    .main-nav a{color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px}
+    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
+    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
+
+    /* 抽屉菜单保持不变 */
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
+    .drawer.open{transform:translateX(0)}
+    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
+    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
+
+    /* 响应式规则 */
+    @media (max-width:1024px){ .search{display:none} }
+    @media (max-width:860px){ 
+      .hamburger{display:inline-flex;margin-left:8px} 
+      .main-nav-wrap{display:none} 
+    }
+
+    /* 内容区域样式 - 优化排版和格式 */
+    .content{padding:48px 0}
+    .section{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:32px;max-width:900px;margin-left:auto;margin-right:auto}
+    .section h2{font-size:2.2rem;font-family:serif;font-weight:700;color:var(--teal);margin-bottom:28px;line-height:1.3;position:relative;padding-bottom:12px}
+    .section h2::after{content:'';position:absolute;left:0;bottom:0;width:60px;height:3px;background:var(--brand);border-radius:2px}
+    .section h3{font-size:1.65rem;font-weight:600;color:var(--text);margin:40px 0 22px 0;border-bottom:2px solid var(--line);padding-bottom:12px;line-height:1.4}
+    .section h3:first-of-type{margin-top:0}
+    .section p{color:var(--muted);margin-bottom:22px;line-height:1.7;font-size:17px}
+    .section-intro{font-size:1.15rem;line-height:1.8;margin-bottom:36px;padding-right:8%;color:var(--text);font-weight:400}
+    
+    /* 重点提示样式 */
+    .important-notice{
+      background:#fff8e6; 
+      border-left:4px solid #ffb300; 
+      padding:18px; 
+      margin:24px 0; 
+      border-radius:6px;
+    }
+    .important-notice p{
+      margin:0; 
+      color:#e65100; 
+      font-weight:500;
+    }
+    .important-notice p strong{
+      text-decoration:underline;
+    }
+    
+    /* 步骤列表样式 - 移除了细分标题前的大绿圆点 */
+    .step-list{padding-left:0;list-style:none;margin:32px 0 40px}
+    .step-item{margin-bottom:32px;padding:28px;border-radius:10px;background:var(--light-green);border-left:4px solid var(--brand)}
+    .step-item h4{font-size:1.4rem;font-weight:600;color:var(--brand);margin-bottom:16px;display:flex;align-items:center}
+    /* 移除大绿圆点，保留步骤数字 */
+    .step-item h4::before{content:attr(data-step);display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--brand);color:white;border-radius:50%;margin-right:12px;font-size:1rem}
+    .step-item p{color:var(--text);margin-bottom:16px;line-height:1.7}
+    .step-item em{color:var(--muted);font-style:italic}
+    .step-item ul{margin:0 0 16px 0;padding-left:24px;line-height:1.7}
+    .step-item li{margin-bottom:12px;position:relative;padding-left:8px}
+    .step-item li::before{content:"•";color:var(--brand);font-weight:bold;position:absolute;left:-16px}
+    
+    /* 文档列表样式 - 保持不变 */
+    .document-list-section{
+      background:white;
+      border:1px solid #e8f5e9;
+      border-radius:8px;
+      padding:20px;
+      margin:16px 0;
+    }
+    .document-list-section h5{
+      margin:0 0 16px 0;
+      color:var(--brand);
+      font-size:1.1rem;
+    }
+    .document-list{
+      padding-left:24px;
+      margin:0;
+    }
+    .document-list li{
+      margin-bottom:12px;
+      line-height:1.6;
+      position:relative;
+      padding-left:8px;
+    }
+    .document-list li::before{
+      content:"•";
+      color:var(--brand);
+      font-weight:bold;
+      position:absolute;
+      left:-16px;
+    }
+
+    /* 居住要求部分 */
+    .residency-requirements{
+      background:var(--light-green);
+      border-radius:10px;
+      padding:28px;
+      border-left:4px solid var(--brand);
+      margin:32px 0 40px;
+    }
+    .residency-requirements h3{
+      margin-top:0;
+      margin-bottom:24px;
+      border-bottom:2px solid var(--line);
+      padding-bottom:12px;
+    }
+    .residency-item{
+      margin-bottom:24px;
+    }
+    .residency-item h4{
+      color:var(--brand);
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:1.2rem;
+    }
+    .residency-item p{
+      margin-bottom:12px;
+      line-height:1.7;
+    }
+    .residency-item ul{
+      margin:0 0 16px 0;
+      padding-left:24px;
+      line-height:1.7;
+    }
+    .residency-item li{
+      margin-bottom:8px;
+      position:relative;
+      padding-left:8px;
+    }
+    .residency-item li::before{content:"•";color:var(--brand);font-weight:bold;position:absolute;left:-16px}
+
+    /* 服务部分样式 - 保持不变 */
+    .service-categories{
+      margin:40px 0;
+    }
+    .main-service-section{
+      margin-bottom:48px;
+    }
+    .main-service-section h3{
+      margin-top:0;
+      margin-bottom:24px;
+      color:var(--brand);
+      border-bottom:2px solid var(--line);
+      padding-bottom:12px;
+    }
+    .service-card{
+      background:var(--light-green);
+      border-radius:10px;
+      padding:28px;
+      margin-bottom:32px;
+      border-left:4px solid var(--brand);
+    }
+    .services-list{
+      padding-left:0;
+      list-style:none;
+      margin:24px 0 32px;
+    }
+    .service-item{
+      margin-bottom:20px;
+      border:1px solid rgba(47,142,47,.1);
+      border-radius:8px;
+      overflow:hidden;
+      transition:all 0.2s ease;
+    }
+    .service-item:hover{
+      border-color:var(--brand);
+      box-shadow:0 3px 10px rgba(47,142,47,0.05);
+    }
+    .service-item h4{
+      margin:0;
+      font-weight:500;
+      color:var(--brand);
+      padding:12px 16px;
+      background:rgba(47,142,47,.03);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .service-item h4 span{
+      font-weight:normal;
+      color:var(--muted);
+      font-size:0.9em;
+    }
+    .service-item div{
+      color:var(--muted);
+      padding:16px 20px;
+      background:white;
+      line-height:1.7;
+      border-top:1px solid rgba(47,142,47,.05);
+    }
+    .service-item div p{
+      margin:0 0 12px 0;
+    }
+    .service-item div p:last-child{
+      margin-bottom:0;
+    }
+    .service-item ul{
+      margin:0 0 16px 0;
+      padding-left:24px;
+      line-height:1.7;
+    }
+    .service-item li{
+      margin-bottom:8px;
+      position:relative;
+      padding-left:8px;
+    }
+    .service-item li::before{content:"•";color:var(--brand);font-weight:bold;position:absolute;left:-16px}
+
+    /* 页脚保持不变 */
+    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
+    footer a{color:#fff}
+    footer a:hover{text-decoration:underline}
+    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
+    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
+    footer h4{margin:0 0 10px;font-weight:800}
+    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
+    .footer-social{display:flex;gap:12px;margin-top:12px}
+    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff}
+    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+    .footer-social svg{width:22px;height:22px;display:block}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main-content">Skip to main content</a>
+
+  <!-- 页眉保持不变 -->
+  <header>
+    <div class="topbar container">
+      <!-- Logo -->
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo">
+      </a>
+
+      <!-- 右侧：语言 + 搜索 + Donate + 汉堡 -->
+      <div class="topbar-right">
+        <select class="lang" aria-label="Language selector">
+          <option selected>English</option>
+          <option>简体中文</option>
+          <option>繁體中文</option>
+        </select>
+
+        <form class="search" role="search" action="#">
+          <input type="search" placeholder="Search ..." aria-label="Search">
+          <button aria-label="Submit search">🔍</button>
+        </form>
+
+        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 第二行导航 -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="team.html">Our Team</a>
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="program.html">Program</a>
+        <a href="events.html">Events</a>
+        <a href="join.html">Join Us</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 抽屉菜单保持不变 -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong>Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="team.html">Our Team</a>
+      <a href="services.html">Services</a>
+      <a href="program.html">Program</a>
+      <a href="events.html">Events</a>
+      <a href="join.html">Join Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="#donate">Donate</a>
+    </nav>
+  </aside>
+
+  <main id="main-content" class="container content">
+    <section class="section">
+      <h2>Settlement Services</h2>
+      <p class="section-intro">
+        The Chinese Association of Mississauga helps new immigrants and seniors with important documents and settlement services. Our staff can assist you every step of the way through one-on-one or group consultations.
+      </p>
+
+      <!-- PR Card Renewal Section -->
+      <div class="main-service-section">
+        <h3>PR Card Renewal (枫叶卡更新)</h3>
+        
+        <p>A PR card is your proof of permanent residency in Canada. You need to renew it when it expires. We can help you with this process.</p>
+        
+        <div class="important-notice">
+          <p>⚠️ Important: You must apply online. We can help you with this.</p>
+        </div>
+        
+        <div class="step-list">
+          <div class="step-item" data-step="1">
+            <h3>Who Can Apply?</h3>
+            <p>You can renew your PR card if:</p>
+            <ul>
+              <li>Your current PR card has expired OR will expire in the next 9 months</li>
+              <li>Your card is lost, damaged, or your name has changed</li>
+              <li>You have lived in Canada for at least 2 years (730 days) in the last 5 years</li>
+            </ul>
+          </div>
+          
+          <div class="step-item" data-step="2">
+            <h3>Required Documents</h3>
+            <p>Prepare these items before you apply:</p>
+            
+            <div class="document-list-section">
+              <h5>Mandatory Documents</h5>
+              <ul class="document-list">
+                <li>Current PR Card</li>
+                <li>Landing paper</li>
+                <li>Passport or travel document valid within 5 years</li>
+                <li>Photocopy of all pages of the passport valid within 5 years</li>
+                <li>Social Insurance Number (SIN)</li>
+                <li>Two photos taken within 1 year (size 50mm x 70mm)</li>
+                <li>Address records in Canada and other countries within 5 years</li>
+                <li>Education records within 5 years (date, school name, city, province)</li>
+                <li>Employment records within 5 years (date, company name, city, province)</li>
+                <li>For underage applicants (under 18): birth certificate, school attendance record and transcript</li>
+                <li>All legal documents if official name was changed</li>
+                <li>Record of leaving and returning to Canada within 5 years (includes city and country while outside Canada)</li>
+                <li>If you left Canada for over 1095 days but stayed with a Canadian citizen spouse: spouse's Citizenship certificate, marriage certificate, and employment information</li>
+                <li>Application fee: CAD $50</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="step-item" data-step="3">
+            <h3>How to Apply (5 Simple Steps)</h3>
+            <ol style="padding-left:24px;line-height:1.8">
+              <li>Get all your documents ready (see Step 2)</li>
+              <li>Create an account on the Government of Canada's Permanent Residence Portal</li>
+              <li>Fill out the online form (we can help you with this)</li>
+              <li>Upload your documents and pay the $50 fee online</li>
+              <li>Submit your application and keep the confirmation number</li>
+            </ol>
+            
+            <div class="important-notice">
+              <p>You cannot send a paper application by mail. It must be done online.</p>
+            </div>
+            
+            <p>All information can be found on the IRCC website under: 
+              <br><strong>"Immigration and citizenship" → "New immigrants" → "Get a permanent resident card" → "Apply for, renew or replace a PR card"</strong>
+            </p>
+            <p>If you find any mistakes here, please refer to the IRCC website for accurate information.</p>
+          </div>
+          
+          <div class="step-item" data-step="4">
+            <h3>After You Apply</h3>
+            <p>Once you submit your application:</p>
+            <ul>
+              <li>You will get a confirmation number to check your status online</li>
+              <li>Processing takes several weeks (check current times on government website)</li>
+              <li>Your new card will be mailed to your Canadian address</li>
+              <li>Do not travel outside Canada while waiting for your new card</li>
+            </ul>
+          </div>
+          
+          <div class="step-item" data-step="5">
+            <h3>Traveling While Waiting?</h3>
+            <p>If you must travel outside Canada before getting your new PR card:</p>
+            <ul>
+              <li>You need to apply for a PR Travel Document (PRTD)</li>
+              <li>Apply at a Canadian embassy, high commission, or consulate</li>
+              <li>This takes 4-6 weeks and costs extra money</li>
+            </ul>
+            <p>We recommend waiting until you receive your new PR card before traveling.</p>
+          </div>
+        </div>
+
+        <!-- 居住要求部分 -->
+        <div class="residency-requirements">
+          <h3>Residency Requirements</h3>
+          
+          <div class="residency-item">
+            <h4>How Long Must I Live in Canada?</h4>
+            <p>To keep your permanent resident status, you must live in Canada for at least 730 days (2 years) during the past 5 years. This includes days before you became a permanent resident.</p>
+          </div>
+          
+          <div class="residency-item">
+            <h4>What Counts as Living in Canada?</h4>
+            <p>Days you are physically in Canada count toward your 730-day requirement. Time spent outside Canada may count if:</p>
+            <ul>
+              <li>You are accompanying a Canadian citizen spouse or partner</li>
+              <li>You are working for a Canadian company outside Canada</li>
+            </ul>
+          </div>
+          
+          <div class="residency-item">
+            <h4>Special Situations</h4>
+            <p>If you haven't lived in Canada for 2 years, you may still qualify if you have special reasons, such as:</p>
+            <ul>
+              <li>Serious health problems</li>
+              <li>Family emergencies</li>
+              <li>Other exceptional circumstances</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citizenship Application Section -->
+      <div class="main-service-section">
+        <h3>Citizenship Application (入籍申请)</h3>
+        
+        <p>We provide assistance with Canadian citizenship applications, helping you navigate the process from document preparation to submission.</p>
+        
+        <div class="step-list">
+          <div class="step-item" data-step="1">
+            <h3>Eligibility Requirements</h3>
+            <p>To apply for Canadian citizenship, you must:</p>
+            <ul>
+              <li>Be a permanent resident of Canada</li>
+              <li>Have lived in Canada for at least 1,095 days out of the past 5 years</li>
+              <li>Have filed your taxes (if required) for at least 3 years out of the past 5</li>
+              <li>Be able to speak and understand English or French</li>
+              <li>Pass a citizenship test (for applicants aged 18-54)</li>
+              <li>Not have any prohibitions (criminal convictions, etc.)</li>
+            </ul>
+          </div>
+          
+          <div class="step-item" data-step="2">
+            <h3>Required Documents</h3>
+            <p>Prepare these items before you apply:</p>
+            
+            <div class="document-list-section">
+              <h5>Mandatory Documents</h5>
+              <ul class="document-list">
+                <li>Landing Paper & PR Card</li>
+                <li>Two pieces of government ID (such as SIN card, OHIP card, Driver's Licence, etc.)</li>
+                <li>Passport valid within 5 years (color photocopy required for commissioner certified true copy)</li>
+                <li>Previous citizenship applied date (if applicable)</li>
+                <li>Residential address within 5 years (date, address)</li>
+                <li>Record of leaving & returning to Canada within 5 years (date, country/city, reason for leaving)</li>
+                <li>Record of employment OR/AND education within 5 years (documents required, such as letter of employment, school transcript)</li>
+                <li>For child applications: Birth Certificate, and date of parents' Canadian citizenship if applicable</li>
+                <li>Two photos for citizenship application</li>
+                <li>English language ability proof for applicants aged 18 – 54 (such as LINC LV 4 and up certificate, CELPIP test certificate, transcript of local high school/university)</li>
+                <li>Any 3 years' Notice of Assessment within 5 years (all 5 years recommended)</li>
+                <li>If you stayed in one country over 183 days within last 4 years: local criminal check record</li>
+                <li>Application fee: adult – CAD $630, child (under 18) – CAD $100</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="step-item" data-step="3">
+            <h3>Application Process</h3>
+            <ol style="padding-left:24px;line-height:1.8">
+              <li>Gather all required documents (see Step 2)</li>
+              <li>Complete the application form (we can assist with this)</li>
+              <li>Pay the application fee</li>
+              <li>Submit your application online or by mail</li>
+              <li>Take the citizenship test (if between 18-54 years old)</li>
+              <li>Attend a citizenship ceremony</li>
+            </ol>
+            
+            <p>All information can be found on the IRCC website under: 
+              <br><strong>"Immigration and citizenship" → "Citizenship" → "Apply for citizenship"</strong>
+            </p>
+            <p>If you find any mistakes here, please refer to the IRCC website for accurate information.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Services -->
+      <div class="main-service-section">
+        <h3>Other Settlement Services</h3>
+        
+        <div class="services-list">
+          <div class="service-item">
+            <h4>In-Home Visit Service <span>上门服务</span></h4>
+            <div>
+              <p>If you are not able to come to the office due to transportation, handicap, or other issues, CAM is now providing in-home visit service.</p>
+              <p>Please contact our office first, we will determine if you need in-home visit service, and arrange an appointment for our social worker to visit you.</p>
+            </div>
+          </div>
+          
+          <div class="service-item">
+            <h4>Low Income Energy Assistance <span>低收入电费补助申请</span></h4>
+            <div>
+              <p><strong>Eligibility:</strong></p>
+              <ul>
+                <li>You must be the utility account holder</li>
+                <li>Your AFTER TAX income must meet the following amounts:
+                  <ul>
+                    <li>1 person household: $28,000 or less</li>
+                    <li>2 people household: $39,000 or less</li>
+                    <li>3 – 4 people household: $48,000 or less</li>
+                    <li>5 + people household: $52,000 or less</li>
+                  </ul>
+                </li>
+                <li>Anyone living in the house over age 18 must be included</li>
+                <li>Everyone included in the household must have filed income tax for the previous year</li>
+              </ul>
+              
+              <p><strong>Documents required:</strong></p>
+              <ul>
+                <li>Utility bill</li>
+                <li>Driver's license of the utility bill account holder</li>
+                <li>Birthdates and names of all household members</li>
+                <li>Social Insurance Number (SIN) of all household members</li>
+                <li>Income Statement (Notice of Assessment) of everyone included in the household</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="service-item">
+            <h4>Government Benefits Assistance</h4>
+            <div>
+              <ul>
+                <li>OHIP card application <span>医疗卡申请</span></li>
+                <li>EI application <span>失业补助申请</span></li>
+                <li>Trillium Drug Benefit application <span>低收入药物补助申请</span></li>
+                <li>Ontario Works application <span>OW 救助申请</span></li>
+                <li>Active Assist Program application <span>低收入健身运动补助申请</span></li>
+                <li>Canada Child Benefit application <span>牛奶金申请</span></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="service-item">
+            <h4>Information and Referral Services</h4>
+            <div>
+              <ul>
+                <li>School search support for newcomer parents <span>孩子学校查询</span></li>
+                <li>Housing application <span>低收入保障房申请</span></li>
+                <li>Human Rights <span>人权信息</span></li>
+                <li>Landlord and Tenant's rights <span>房东房客权利义务信息</span></li>
+                <li>Anti-family violence <span>反家庭暴力信息</span></li>
+                <li>Workplace rights and Employment Standards Act <span>工作场所权利义务及劳工法规</span></li>
+                <li>Banking information <span>银行金融信息</span></li>
+                <li>Tax information <span>税务信息</span></li>
+                <li>Community safety information <span>社区安全信息</span></li>
+                <li>Mental health information <span>精神健康信息</span></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="service-item">
+            <h4>Support Services</h4>
+            <div>
+              <ul>
+                <li>Translation services <span>翻译服务</span></li>
+                <li>Commissioner services <span>公证服务</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚保持不变 -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Hours of Operations</h4>
+        <p>Mon To Fri: 9 am – 5 pm</p>
+        <h4>Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="#donate" role="button">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="https://weixin.qq.com/" target="_blank" rel="noopener" aria-label="WeChat">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"></path>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"></circle>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"></circle>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"></path>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"></circle>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"></circle>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"></circle>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // 汉堡菜单逻辑保持不变
+    const drawer = document.getElementById('drawer');
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+
+    const setDrawer = (open) => {
+      drawer.classList.toggle('open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    openBtn?.addEventListener('click', () => setDrawer(true));
+    closeBtn?.addEventListener('click', () => setDrawer(false));
+    drawer?.addEventListener('click', (e) => {
+      if (e.target === drawer) setDrawer(false);
+    });
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && drawer.classList.contains('open')) setDrawer(false);
+    });
+  </script>
+</body>
+</html>
+    
