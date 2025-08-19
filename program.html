@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programs | Chinese Association of Mississauga</title>
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b;
+      --bg:#f8fafc; --card:#ffffff; --shadow:0 8px 24px rgba(2,6,23,.08);
+      --radius:14px; --ring:#1d4ed8;
+      --mint:#cfeee3;              /* 顶部横幅浅绿 */
+      --teal:#1f9a8a;              /* 标题青色 */
+      --line:#d4e9e3;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
+    img{max-width:100%; height:auto; display:block}
+    .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+
+    /* ===== Header：与你首页一致 ===== */
+    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .topbar .logo img{height:56px}
+    .topbar-right{display:flex;align-items:center;gap:12px}
+    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+    .btn-primary:hover{background:#57a326}
+    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
+    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
+    .hamburger{display:none;border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
+    .hamburger svg{width:22px;height:22px}
+
+    .main-nav-wrap{background:transparent}
+    .main-nav{
+      background: var(--brand); margin: 10px auto 0; max-width: 1200px; border-radius: 10px;
+      height: 52px; display:flex;align-items:center;justify-content:center;gap:6px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04); padding:0 6px;
+    }
+    .main-nav a{color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px}
+    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
+    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
+
+    /* 抽屉 */
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
+    .drawer.open{transform:translateX(0)}
+    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
+    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
+
+    @media (max-width:1024px){ .search{display:none} }
+    @media (max-width:860px){ .hamburger{display:inline-flex;margin-left:8px} .main-nav-wrap{display:none} }
+
+    /* Footer：与你首页一致 */
+    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
+    footer a{color:#fff} footer a:hover{text-decoration:underline}
+    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
+    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
+    footer h4{margin:0 0 10px;font-weight:800}
+    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
+    .footer-social{display:flex;gap:12px;margin-top:12px}
+    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;transition:background .2s ease, transform .1s ease}
+    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+    .footer-social svg{width:22px;height:22px;display:block}
+
+    /* ===== Our Team 页面样式 ===== */
+    .page-hero{background:var(--mint);padding:32px 0;margin-bottom:18px;border-bottom:1px solid var(--line)}
+    .page-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800;letter-spacing:.2px}
+    /* Calendar Section */
+    #calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    #calendar div {
+      font-weight: 600;
+      text-align: center;
+      color: var(--brand);
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- header -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+      </a>
+      <div class="topbar-right">
+        <select class="lang" aria-label="Language selector">
+          <option>English</option>
+          <option selected>简体中文</option>
+          <option>繁體中文</option>
+        </select>
+        <form class="search" role="search" action="#">
+          <input type="search" placeholder="Search ..." aria-label="Search" />
+          <button aria-label="Submit search">🔍</button>
+        </form>
+        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
+        <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html">Home</a>
+        <a href="about.html">About Us</a>
+		  <a href="team.html">Our Team</a>
+        <a href="services.html">Services</a>
+        <a href="program.html">Program</a>
+        <a href="#events">Events</a>
+        <a href="#join">Join Us</a>
+        <a href="#contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner Section START -->
+  <section style="background:#d4ede5;max-width:100vw;padding:32px 0 18px 0;margin:0 auto;">
+    <h1 style="text-align:center;font-size:2.25rem;font-weight:800;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f9a8a;letter-spacing:1px;margin:0;">
+      Programs
+    </h1>
+  </section>
+  <!-- Banner Section END -->
+
+  <!-- Add this slider above the Weekly Program Schedule section in program.html -->
+
+<section style="background:linear-gradient(135deg,#eafaf6 0%,#d4ede5 100%);border-radius:24px;max-width:1400px;margin:0 auto;padding:40px 32px 32px 32px;box-shadow:0 8px 32px rgba(2,6,23,.08), 0 1.5px 0 #b7e3d6;">
+  <div class="slider-container" style="max-width:1200px;margin:0 auto;position:relative;">
+    <div class="slider" style="overflow:hidden;border-radius:18px;box-shadow:0 4px 16px rgba(2,6,23,.08);background:rgba(255,255,255,0.85);border:1.5px solid #b7e3d6;">
+      <div class="slides" style="display:flex;transition:transform 0.5s ease;">
+        <!-- Slide 1 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/mahjong.jpg" alt="Mahjong" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Mahjong</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Enjoy free mahjong games every Sunday afternoon with friends and community members.</p>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/dance.jpg" alt="Chinese Dance" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Chinese Dance</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Join our Chinese dance classes to learn traditional moves and stay active.</p>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/taiji.jpg" alt="Tai Ji Class" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Tai Ji Class</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Relax and improve your health with our weekly Tai Ji classes.</p>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/family.jpg" alt="Family Support" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Family Support</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Get help and resources for families every Friday afternoon.</p>
+          </div>
+        </div>
+        <!-- Slide 5 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/painting.jpg" alt="Chinese Painting" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Chinese Painting</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Learn traditional Chinese painting techniques every Saturday morning.</p>
+          </div>
+        </div>
+        <!-- Slide 6 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/computer.jpg" alt="Computer Class" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Computer Class</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Improve your computer skills in our Saturday afternoon classes.</p>
+          </div>
+        </div>
+        <!-- Slide 7 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/community.jpg" alt="Community Event" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Chinese Painting</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Special events and workshops for all ages throughout the week.</p>
+          </div>
+        </div>
+        <!-- Slide 8 -->
+        <div class="slide" style="min-width:100%;box-sizing:border-box;padding:32px;background:transparent;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;">
+          <img src="images/yoga.jpg" alt="Yoga Group" style="width:340px;height:200px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+          <div style="max-width:400px;">
+            <h3 style="color:#1f9a8a;font-size:1.35rem;margin-bottom:12px;">Yoga Group</h3>
+            <p style="color:#64748b;font-size:1.08rem;">Join our yoga group for relaxation and wellness every Monday afternoon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-pagination" style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2;">
+      <!-- Pagination dots will be rendered here by JS -->
+    </div>
+    <button class="slider-btn prev" style="position:absolute;top:50%;left:12px;transform:translateY(-50%);background:#1f9a8a;color:#fff;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.5rem;z-index:2;">&#8592;</button>
+    <button class="slider-btn next" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);background:#1f9a8a;color:#fff;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.5rem;z-index:2;">&#8594;</button>
+  </div>
+</section>
+<script>
+  // Simple slider logic
+  const slides = document.querySelector('.slides');
+  const slideCount = document.querySelectorAll('.slide').length;
+  let currentIndex = 0;
+
+  // Pagination setup
+  const pagination = document.querySelector('.slider-pagination');
+  function renderPagination() {
+    pagination.innerHTML = '';
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('span');
+      dot.style.width = '14px';
+      dot.style.height = '14px';
+      dot.style.borderRadius = '50%';
+      dot.style.display = 'inline-block';
+      dot.style.background = i === currentIndex ? '#1f9a8a' : '#b7e3d6';
+      dot.style.cursor = 'pointer';
+      dot.onclick = () => {
+        currentIndex = i;
+        showSlide(currentIndex);
+      };
+      pagination.appendChild(dot);
+    }
+  }
+
+  function showSlide(index) {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    renderPagination();
+  }
+
+  document.querySelector('.slider-btn.prev').onclick = function() {
+    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+    showSlide(currentIndex);
+  };
+  document.querySelector('.slider-btn.next').onclick = function() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    showSlide(currentIndex);
+  };
+
+  setInterval(function() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    showSlide(currentIndex);
+  }, 7000);
+
+  // Initial render
+  showSlide(currentIndex);
+</script>
+
+  <!-- Weekly Program Schedule Section -->
+  <!-- Visually appealing weekly schedule section -->
+
+<section style="background:linear-gradient(120deg,#eafaf6 0%,#f8fafc 100%);border-radius:24px;max-width:1200px;margin:32px auto 0;padding:36px 18px 32px 18px;box-shadow:0 8px 32px rgba(2,6,23,.08), 0 1.5px 0 #b7e3d6;">
+  <h2 style="text-align:center;font-size:2.3rem;font-weight:800;color:#1f9a8a;margin-bottom:32px;font-family:system-ui,serif;letter-spacing:1px;">
+    Weekly Program Schedule
+  </h2>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:18px;">
+    <!-- Day headers -->
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Sun</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Mon</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Tue</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Wed</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Thu</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Fri</div>
+    <div style="font-weight:700;text-align:center;color:#2f8e2f;font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid #b7e3d6;background:rgba(255,255,255,0.7);border-radius:12px 12px 0 0;">Sat</div>
+    <!-- Activities -->
+    <div style="background:linear-gradient(120deg,#d4ede5 60%,#eafaf6 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);padding:18px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Mahjong (Free)</span>
+        <div style="color:#64748b;font-size:1rem;">12:30–5:30</div>
+      </div>
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Line Dance</span>
+        <div style="color:#64748b;font-size:1rem;">2:20–4:00</div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(120deg,#eafaf6 60%,#d4ede5 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);display:flex;justify-content:center;align-items:center;">
+      <span style="font-weight:700;color:#b7e3d6;font-size:1.15rem;">No Activities</span>
+    </div>
+    <div style="background:linear-gradient(120deg,#eafaf6 60%,#d4ede5 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);display:flex;justify-content:center;align-items:center;">
+      <span style="font-weight:700;color:#b7e3d6;font-size:1.15rem;">No Activities</span>
+    </div>
+    <div style="background:linear-gradient(120deg,#d4ede5 60%,#eafaf6 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);padding:18px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Tai Ji Class</span>
+        <div style="color:#64748b;font-size:1rem;">9:00–11:00</div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(120deg,#d4ede5 60%,#eafaf6 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);padding:18px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Chinese Dance</span>
+        <div style="color:#64748b;font-size:1rem;">8:00–10:00</div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(120deg,#d4ede5 60%,#eafaf6 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);padding:18px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Family Support</span>
+        <div style="color:#64748b;font-size:1rem;">2:30–4:30</div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(120deg,#d4ede5 60%,#eafaf6 100%);border-radius:0 0 16px 16px;min-height:170px;box-shadow:0 2px 12px rgba(2,6,23,.07);padding:18px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Chinese Painting</span>
+        <div style="color:#64748b;font-size:1rem;">9:00–10:00</div>
+      </div>
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Computer Class</span>
+        <div style="color:#64748b;font-size:1rem;">12:30–2:30</div>
+      </div>
+      <div>
+        <span style="font-weight:700;color:#1f9a8a;font-size:1.08rem;">Mahjong (Free)</span>
+        <div style="color:#64748b;font-size:1rem;">3:00–8:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Sample descriptions for each program, placed below the weekly schedule section -->
+
+<section style="max-width:1200px;margin:32px auto 0;padding:24px 18px 32px 18px;background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(2,6,23,.06);">
+  <h3 style="text-align:center;font-size:1.5rem;font-weight:700;color:#1f9a8a;margin-bottom:18px;">
+    Program Descriptions
+  </h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;">
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Mahjong (Free)</h4>
+      <p style="color:#64748b;">Join our friendly mahjong group every Sunday afternoon. All skill levels are welcome. Enjoy games, make new friends, and relax in a welcoming environment.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Chinese Dance</h4>
+      <p style="color:#64748b;">Experience the beauty of traditional Chinese dance. Our classes are open to all ages and skill levels, focusing on movement, music, and cultural expression.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Tai Ji Class</h4>
+      <p style="color:#64748b;">Practice Tai Ji to improve balance, flexibility, and overall wellness. Our weekly sessions are led by experienced instructors and suitable for beginners and advanced students.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Family Support</h4>
+      <p style="color:#64748b;">Receive guidance and resources for families adjusting to life in Canada. We offer support groups, counseling, and information sessions to help you thrive.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Chinese Painting</h4>
+      <p style="color:#64748b;">Discover the art of Chinese painting. Learn brush techniques, color mixing, and traditional styles in a relaxed and creative atmosphere.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Computer Class</h4>
+      <p style="color:#64748b;">Build your digital skills with our computer classes. Topics include basic computer use, internet safety, and popular software applications. Open to all ages.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Yoga Group</h4>
+      <p style="color:#64748b;">Relax and rejuvenate with our yoga group. Sessions focus on gentle stretching, breathing exercises, and mindfulness for all experience levels.</p>
+    </div>
+    <div>
+      <h4 style="color:#2f8e2f;margin-bottom:8px;">Community Event</h4>
+      <p style="color:#64748b;">Participate in special events and workshops throughout the year. These gatherings are designed to build community, share knowledge, and celebrate cultural traditions.</p>
+    </div>
+  </div>
+</section>
+
+  <!-- Membership Fee Info Section -->
+  <section style="background:#fff;border-radius:18px;max-width:1400px;margin:0 auto;padding:0px 24px 0 24px;box-shadow:0 8px 24px rgba(2,6,23,.04);">
+    <p style="text-align:center;font-size:1.25rem;color:#1f9a8a;font-weight:600;margin:0;">
+      Annual membership fee: $30/adult (65 and under)<br>
+      $25/senior (65 and up)
+    </p>
+  </section>
+
+</body>
+
+  <!-- Footer（与你首页一致） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Chinese Association of Mississauga</h4>
+        <p>Serving newcomers and diverse communities in Mississauga</p>
+        <a class="btn btn-primary" href="#donate" role="button">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <a href="https://weixin.qq.com/" target="_blank" rel="noopener" aria-label="WeChat">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+</html>
