@@ -192,3 +192,10 @@ footer h4{margin:0 0 10px;font-weight:800}
   font-weight:700;
   box-shadow:0 1px 0 rgba(0,0,0,.03);
 }
+/* 只让主体与横幅变窄 */
+.page-team main.container,
+.page-team .page-hero .container{ max-width:1000px }
+
+/* 头部与导航保持全站宽度（可选，明确声明） */
+.page-team header .container,
+.page-team .main-nav.container{ max-width:1200px }
