@@ -1,17 +1,24 @@
-<!DOCTYPE html>
+# We'll write an updated version of team.html that aligns the header/footer with home.html,
+# while preserving the team page content and styles. We'll also merge the i18n dictionaries
+# so header/footer strings are consistent with home and team-specific strings remain available.
+
+updated_html = r"""<!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Our Team | Chinese Association of Mississauga</title>
+
+  <!-- 全站公共样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <!-- 本页样式 -->
   <style>
     :root{
-      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b;
-      --bg:#f8fafc; --card:#ffffff; --shadow:0 8px 24px rgba(2,6,23,.08);
-      --radius:14px; --ring:#1d4ed8;
-      --mint:#cfeee3;              /* 顶部横幅浅绿 */
-      --teal:#1f9a8a;              /* 标题青色 */
-      --line:#d4e9e3;
+      --text:#1e293b; --teal:#1f9a8a; --line:#d4e9e3; --bg:#f8fafc;
+      --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.08);
+      --brand:#2f8e2f; --pill-bg:#eaf7ee; --pill-ring:#cfe9d6;
+      --ring:#1d4ed8;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -20,260 +27,240 @@
     a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
     img{max-width:100%; height:auto; display:block}
     .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);z-index:999}
 
-    /* ===== Header：与你首页一致 ===== */
-    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .topbar .logo img{height:56px}
-    .topbar-right{display:flex;align-items:center;gap:12px}
-    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
-    .btn-primary:hover{background:#57a326}
-    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
-    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
-    .hamburger{display:none;border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
-    .hamburger svg{width:22px;height:22px}
+    /* 顶部横幅 */
+    .page-hero{background:#d4ede5;padding:32px 0 20px;border-bottom:1px solid var(--line);margin-bottom:18px}
+    .page-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800}
 
-    .main-nav-wrap{background:transparent}
-    .main-nav{
-      background: var(--brand); margin: 10px auto 0; max-width: 1200px; border-radius: 10px;
-      height: 52px; display:flex;align-items:center;justify-content:center;gap:6px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04); padding:0 6px;
-    }
-    .main-nav a{color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px}
-    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
-    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
+    /* 顶部区域：单列（与下方内容同宽） */
+    .team-top{display:grid;grid-template-columns:1fr;gap:22px;align-items:start;margin:14px 0 26px}
 
-    /* 抽屉 */
-    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
-    .drawer.open{transform:translateX(0)}
-    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
-    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
-
-    @media (max-width:1024px){ .search{display:none} }
-    @media (max-width:860px){ .hamburger{display:inline-flex;margin-left:8px} .main-nav-wrap{display:none} }
-
-    /* ===== Our Team 页面样式 ===== */
-    .page-hero{background:var(--mint);padding:32px 0;margin-bottom:18px;border-bottom:1px solid var(--line)}
-    .page-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800;letter-spacing:.2px}
-
-    /* 顶部：左 Board 表格 + 右 海报/活动 */
-    .team-top{display:grid;grid-template-columns: 2fr 1.2fr;gap:22px;align-items:start;margin:14px 0 26px}
-    @media (max-width:900px){ .team-top{grid-template-columns:1fr} }
-    .board{
-      background:#fff;border-radius:12px;box-shadow:var(--shadow);border:1px solid #eef2f7;overflow:hidden
-    }
+    /* Board 卡片 */
+    .board{background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid #eef2f7;overflow:hidden}
     .board-title{color:var(--teal);font-size:28px;font-weight:800;padding:18px;border-bottom:1px solid #e5e7eb}
     .board-grid{display:grid;grid-template-columns:1.2fr 1.8fr}
     .board-grid div{padding:14px 18px;border-top:1px solid #eef2f7}
-    .board-grid div:nth-child(4n+1),
-    .board-grid div:nth-child(4n+2){background:#fafafa}
+    .board-grid div:nth-child(4n+1), .board-grid div:nth-child(4n+2){background:#fafafa}
     .cell-label{color:#475569}
     .cell-value{font-weight:600}
 
-    .poster{background:#fff;border-radius:12px;box-shadow:var(--shadow);border:1px solid #eef2f7;overflow:hidden}
-    .poster figure{margin:0}
-    .poster img{width:100%;display:block}
-    .poster figcaption{padding:12px 14px;font-size:15px}
-
-    /* Our Team 手风琴 */
-    .section-title{color:var(--teal);font-size:28px;font-weight:800;margin:8px 0 10px}
-    .accordion{border-top:2px solid var(--line)}
-    .acc-item{border-bottom:2px solid var(--line)}
-    .acc-btn{
-      width:100%;background:#fff;border:0;text-align:left;cursor:pointer;padding:14px;
-      display:flex;align-items:center;gap:12px;font-size:20px;line-height:1.3;color:#0f172a
+    /* 董事姓名胶囊 */
+    .name-pill{
+      display:inline-block; width:100%; text-align:center;
+      background:var(--pill-bg);
+      border:1px solid var(--pill-ring);
+      color:#206a20; font-weight:700;
+      padding:14px 16px; border-radius:28px;
     }
-    .acc-btn .plus{
-      width:22px;height:22px;flex:0 0 22px;display:inline-grid;place-items:center;border-radius:6px;
-      background:#e9f6f2;color:#0b7b6d;font-weight:800;transition:transform .18s ease
-    }
-    .acc-btn[aria-expanded="true"] .plus{transform:rotate(45deg)}
-    .acc-panel{max-height:0;overflow:hidden;transition:max-height .25s ease}
-    .acc-panel-inner{padding:0 14px 14px;color:#374151}
-    .people{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px}
-    @media (max-width:700px){ .people{grid-template-columns:1fr} }
-    .person{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
-    .person strong{display:block}
-    .person small{color:#64748b}
 
-    /* Footer：与你首页一致 */
-    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
-    footer a{color:#fff} footer a:hover{text-decoration:underline}
-    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
-    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
-    footer h4{margin:0 0 10px;font-weight:800}
-    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
-    .footer-social{display:flex;gap:12px;margin-top:12px}
-    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;transition:background .2s ease, transform .1s ease}
-    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
-    .footer-social svg{width:22px;height:22px;display:block}
+    /* Directors 列表胶囊网格 */
+    .director-grid{
+      list-style:none; margin:0; padding:4px 0 10px;
+      display:grid; grid-template-columns:repeat(2,minmax(220px,1fr)); gap:12px;
+    }
+    @media (max-width:700px){ .director-grid{grid-template-columns:1fr} }
+    .director-grid li{
+      background:var(--pill-bg); border:1px solid var(--pill-ring);
+      padding:12px 14px; border-radius:999px; text-align:center; font-weight:700; color:#206a20;
+    }
+
+    /* “Our Team” 主标题 */
+    .section-title{color:var(--teal);font-size:28px;font-weight:800;margin:8px 0 16px}
+
+    /* 员工卡片栅格（无小标题，仅人名+职位） */
+    .staff-grid{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+    }
+    @media (max-width:900px){ .staff-grid{grid-template-columns:1fr} }
+    .person-card{
+      background:var(--card); border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 1px 0 rgba(0,0,0,.03); padding:18px 16px;
+    }
+    .person-card strong{display:block; font-size:18px; line-height:1.3}
+    .person-card small{display:block; margin-top:6px; color:#64748b}
   </style>
 </head>
-<body>
-  <!-- Header（保持与你的首页一致） -->
+<body class="page-team">
+  <a class="skip" href="#main">跳到主内容</a>
+
+  <!-- ===== 头部（与 home.html 保持一致，仅将当前页高亮改为 Our Team） ===== -->
   <header>
     <div class="topbar container">
       <a class="logo" href="home.html" aria-label="Home">
         <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
       </a>
+
       <div class="topbar-right">
-        <select class="lang" aria-label="Language selector">
-          <option>English</option>
-          <option selected>简体中文</option>
-          <option>繁體中文</option>
-        </select>
-        <form class="search" role="search" action="#">
-          <input type="search" placeholder="Search ..." aria-label="Search" />
-          <button aria-label="Submit search">🔍</button>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
         </form>
-        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
+
+        <a class="btn btn-primary" href="#donate" role="button" data-i18n="btn.donate">DONATE</a>
+
         <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
+
     <div class="main-nav-wrap">
       <nav class="main-nav container" aria-label="Primary">
-        <a href="home.html">Home</a>
-        <a href="about.html">About Us</a>
-		  <a href="team.html">Our Team</a>
-        <a href="services.com">Services</a>
-        <a href="#calendar">Program</a>
-        <a href="#events">Events</a>
-        <a href="#join">Join Us</a>
-        <a href="#contact">Contact Us</a>
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" aria-current="page" data-i18n="nav.team">Our Team</a>
+
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.services">Services</a>
+          <div class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.join">Join Us</a>
+          <div class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
       </nav>
     </div>
   </header>
 
-  <!-- 抽屉导航 -->
+  <!-- ===== 移动端抽屉（与 home.html 一致；将 Team 标记为当前页；子链接与 home 对齐） ===== -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <header>
-      <strong>Menu</strong>
-      <button class="btn" style="margin-left:auto" id="closeMenu">关闭</button>
+      <strong data-i18n="nav.menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="nav.close">Close</button>
     </header>
     <nav style="overflow:auto;padding-bottom:20px">
-      <a href="home.html">Home</a>
-      <a href="about%20us.html">About Us</a>
-      <!-- 需要的话加入：<a href="team.html" aria-current="page">Our Team</a> -->
-      <a href="#services">Services</a>
-      <a href="#calendar">Program Calendar</a>
-      <a href="#events">Events</a>
-      <a href="#join">Join Us</a>
-      <a href="#contact">Contact Us</a>
-      <a href="#donate">Donate</a>
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" aria-current="page" data-i18n="nav.team">Our Team</a>
+
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-services" data-i18n="nav.services">Services</button>
+      <div id="drawer-services" class="drawer-submenu" role="group" aria-label="Services submenu">
+        <a href="services.html#settlement" data-i18n="nav.services.settlement">Settlement Services</a>
+        <a href="services.html#language"   data-i18n="nav.services.language">Language & Training</a>
+        <a href="services.html#community"  data-i18n="nav.services.community">Community Services</a>
+      </div>
+
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-join" data-i18n="nav.join">Join Us</button>
+      <div id="drawer-join" class="drawer-submenu" role="group" aria-label="Join Us submenu">
+        <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+        <a href="Volunteer.html"  data-i18n="nav.join.volunteer">Volunteer</a>
+        <a href="Donate.html"     data-i18n="nav.join.donate">Donate</a>
+      </div>
+
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a href="#donate" data-i18n="btn.donate">DONATE</a>
     </nav>
   </aside>
 
-  <!-- 顶部横幅 -->
+  <!-- 横幅 -->
   <section class="page-hero">
-    <div class="container"><h1>Our Team</h1></div>
+    <div class="container"><h1 data-i18n="hero.team">Our Team</h1></div>
   </section>
 
   <main class="container" id="main">
-    <!-- 顶部布局：左 Board 表格 + 右 海报 -->
-    <section class="team-top" aria-label="Board and Featured Event">
-      <!-- Board -->
+    <!-- Board of Directors -->
+    <section class="team-top" aria-label="Board of Directors">
       <div class="board">
-        <div class="board-title">Board</div>
+        <div class="board-title" data-i18n="board.title">Board of Directors</div>
         <div class="board-grid" role="table" aria-label="Board">
-          <div class="cell-label" role="rowheader">President</div>
-          <div class="cell-value" role="cell">Ricky Zhen</div>
+          <div class="cell-label" role="rowheader" data-i18n="board.president">President</div>
+          <div class="cell-value" role="cell"><span class="name-pill">Fiona Yang</span></div>
 
-          <div class="cell-label" role="rowheader">Treasurer report&nbsp;</div>
-          <div class="cell-value" role="cell">Jie Chen</div>
+          <div class="cell-label" role="rowheader" data-i18n="board.vicepresident">Vice President</div>
+          <div class="cell-value" role="cell"><span class="name-pill">Amanda Lu</span></div>
 
-          <div class="cell-label" role="rowheader">Secretary</div>
-          <div class="cell-value" role="cell">Fiona Yang</div>
+          <div class="cell-label" role="rowheader" data-i18n="board.secretary">Secretary</div>
+          <div class="cell-value" role="cell"><span class="name-pill">Vicki Liu</span></div>
 
-          <div class="cell-label" role="rowheader">&nbsp;Registrar</div>
-          <div class="cell-value" role="cell">&nbsp;Amanda Lu</div>
+          <div class="cell-label" role="rowheader" data-i18n="board.registrar">Registrar</div>
+          <div class="cell-value" role="cell"><span class="name-pill">Hong Mei Liu</span></div>
 
-          <div class="cell-label" role="rowheader">Culture</div>
-          <div class="cell-value" role="cell">Joyce Wang</div>
-			   <div class="cell-label" role="rowheader">Public Relation</div>
-          <div class="cell-value" role="cell">Vicki Liu</div>
-			   <div class="cell-label" role="rowheader">Service</div>
-          <div class="cell-value" role="cell">Annie Wu</div>
-			<div class="cell-label" role="rowheader">Premises</div>
-          <div class="cell-value" role="cell">David Wang</div>
-			
-			  </div>
+          <div class="cell-label" role="rowheader" data-i18n="board.treasurer">Treasurer</div>
+          <div class="cell-value" role="cell"><span class="name-pill">Jie Chen</span></div>
+
+          <!-- Directors 列表 -->
+          <div class="cell-label" role="rowheader" data-i18n="board.director">Directors</div>
+          <div role="cell">
+            <ul class="director-grid">
+              <li>Annie Wu</li><li>Candie Yang</li><li>David Wang</li><li>Eric Wen</li>
+              <li>Joyce Wang</li><li>Kalen Liang</li><li>Ricky Zhen</li><li>Roy Wu</li>
+              <li>Shelley Shi</li><li>Suzy Zhao</li><li>Terri Long</li><li>Yiyan Cai</li>
+            </ul>
+          </div>
+        </div>
       </div>
-
-      <!-- 右侧海报（可替换图片与文字） -->
-      <aside class="poster" aria-label="Featured event">
-        <figure>
-          <img src="Blue & Green Modern Travel Poster.jpg" alt="Community / Senior Housing Workshop poster">
-          <figcaption>
-            <strong>Summer travel activities</strong><br>
-          </figcaption>
-        </figure>
-      </aside>
     </section>
 
-    <!-- Our Team 手风琴 -->
-    <section aria-label="Departments">
-      <h2 class="section-title">Our Team</h2>
-      <div class="accordion" id="team-acc">
-        <div class="acc-item">
-          <button class="acc-btn" aria-expanded="false" aria-controls="dept1" id="btn1">
-            <span class="plus">＋</span> LINC/ESL program
-          </button>
-          <div class="acc-panel" id="dept1" role="region" aria-labelledby="btn1">
-            <div class="acc-panel-inner">
-              <div class="people">
-                <div class="person"><strong>May Ren</strong><small>Program Manager</small></div>
-                <div class="person"><strong>Yang Yang</strong><small> LINC Staff</small></div>
-              </div>
-            </div>
-          </div>
+    <!-- Staff（无小标题，仅人名 + 职位） -->
+    <section aria-label="Staff">
+      <h2 class="section-title" data-i18n="staff.title">Our Team</h2>
+
+      <div class="staff-grid">
+        <div class="person-card">
+          <strong>May Ren</strong>
+          <small data-i18n="role.pm">Program Manager</small>
         </div>
 
-        <div class="acc-item">
-          <button class="acc-btn" aria-expanded="false" aria-controls="dept2" id="btn2">
-            <span class="plus">＋</span> Settlement Services
-          </button>
-          <div class="acc-panel" id="dept2" role="region" aria-labelledby="btn2">
-            <div class="acc-panel-inner">
-              <div class="people">
-                <div class="person"><strong>Jenny Yan</strong><small>Settlement Worker</small></div>
-              </div>
-            </div>
-          </div>
+        <div class="person-card">
+          <strong>Yang Yang</strong>
+          <small data-i18n="role.pa">Program Assistant</small>
         </div>
 
-        <div class="acc-item">
-          <button class="acc-btn" aria-expanded="false" aria-controls="dept3" id="btn3">
-            <span class="plus">＋</span> Maintenance Services
-          </button>
-          <div class="acc-panel" id="dept3" role="region" aria-labelledby="btn3">
-            <div class="acc-panel-inner">
-              <div class="people">
-                <div class="person"><strong>Kevin Mao</strong><small>Maintenance worker/Computer teacher</small></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="person-card">
+          <strong>Jenny Yan</strong>
+          <small data-i18n="role.settlement">Settlement Worker</small>
         </div>
 
-        
+        <div class="person-card">
+          <strong>Kevin Mao</strong>
+          <small data-i18n="role.settlement_home">Settlement Worker / Home Visit</small>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- Footer（与你首页一致） -->
+  <!-- ===== 页脚（与 home.html 一致） ===== -->
   <footer>
     <div class="footer-container">
       <div class="footer-section">
-        <h4>Chinese Association of Mississauga</h4>
-        <p>Serving newcomers and diverse communities in Mississauga</p>
-        <a class="btn btn-primary" href="#donate" role="button">DONATE</a>
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="#donate" role="button" data-i18n="btn.donate">DONATE</a>
       </div>
       <div class="footer-section">
-        <h4>Contact</h4>
+        <h4 data-i18n="footer.contact">Contact</h4>
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
         <div class="footer-social" aria-label="Social links">
@@ -304,37 +291,192 @@
         </div>
       </div>
     </div>
-    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
   </footer>
 
+  <!-- ========= 多语言脚本（合并 home 的词条并加入 team 专属词条） ========= -->
   <script>
-    // 抽屉
+    const I18N = {
+      en: {
+        "nav.menu":"Menu","nav.close":"Close",
+        "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+        "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+        "nav.contact":"Contact Us",
+        "btn.donate":"DONATE",
+
+        /* home 词条 */
+        "about.title1":"About Chinese Association of Mississauga (CAM)",
+        "about.p1":"The Chinese Association of Mississauga (CAM) is a non-profit and registered charity. For over four decades, CAM has supported thousands of individuals and families every year through programs and services that help newcomers, seniors, youth and families connect, access resources and thrive in Mississauga and surrounding areas. While CAM receives funding from governments, foundations and partners, your donations are vital to sustaining our services.",
+        "about.title2":"Our Vision and Mission","about.p2":"With 40+ years serving the local community, CAM is dedicated to promoting Chinese culture and showcasing both traditional and modern Chinese civilization.",
+        "about.title3":"Our Purpose","about.p3":"We educate the public about Chinese and other cultures through multicultural programs; help immigrants and residents adapt to Canadian society; and promote harmony between the Chinese community and other communities.",
+        "cards.events":"Events","cards.events_desc":"Workshops, seminars and community events schedule.","btn.view_events":"View events",
+        "cards.services":"Services","cards.services_desc":"Settlement, employment, youth programs, counselling and more.","btn.learn_services":"Learn more",
+        "cards.program":"Program","cards.program_desc":"Explore classes, workshops, and community activities for all ages. See schedules and sign up.","btn.view_program":"Browse programs",
+        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved.",
+        "fr.notice.title":"French Settlement and Language Services",
+        "fr.notice.frprefix":"Français: ","fr.notice.enprefix":"English: ",
+        "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+        "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:",
+
+        /* team 词条 */
+        "hero.team":"Our Team",
+        "board.title":"Board of Directors","board.president":"President","board.vicepresident":"Vice President","board.secretary":"Secretary","board.registrar":"Registrar","board.treasurer":"Treasurer","board.director":"Directors",
+        "staff.title":"Our Team",
+        "role.pm":"Program Manager","role.pa":"Program Assistant","role.settlement":"Settlement Worker","role.settlement_home":"Settlement Worker / Home Visit"
+      },
+      zh: {
+        "nav.menu":"菜单","nav.close":"关闭",
+        "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+        "nav.program":"课程/项目","nav.events":"活动",
+        "nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+        "nav.contact":"联系我们",
+        "btn.donate":"捐赠",
+
+        /* home 词条 */
+        "about.title1":"关于密西沙加华人协会（CAM）",
+        "about.p1":"密西沙加华人协会（CAM）是一家非营利及注册慈善机构。四十多年来，我们每年通过多样的项目与服务支持数以千计的个人与家庭，帮助新移民、长者与青少年在密西沙加及周边地区建立连接、获取资源并茁壮成长。除政府、基金会与合作伙伴资助外，您的捐赠对我们持续服务至关重要。",
+        "about.title2":"愿景与使命","about.p2":"密西沙加华人协会（CAM）深耕本地社区 40 余年，致力于推广中国文化，展示中华传统与现代文明。",
+        "about.title3":"宗旨","about.p3":"通过多元文化教育项目向大众介绍中华与其他文化；协助移民与居民适应加拿大社会；促进华人社区与其他社区的和谐。",
+        "cards.events":"活动","cards.events_desc":"工作坊、讲座与社区活动时间表。","btn.view_events":"查看活动",
+        "cards.services":"服务","cards.services_desc":"安居辅导、就业服务、青少年项目与心理咨询等。","btn.learn_services":"了解服务",
+        "cards.program":"课程/项目","cards.program_desc":"探索适合全年龄段的课程、工作坊与社区活动，查看时间表并报名。","btn.view_program":"查看项目",
+        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式","footer.copyright":"© 密西沙加华人协会 保留所有权利",
+        "fr.notice.title":"法语安居／语言服务",
+        "fr.notice.frprefix":"法语：","fr.notice.enprefix":"英文：",
+        "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+        "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:",
+
+        /* team 词条 */
+        "hero.team":"我们的团队",
+        "board.title":"董事会","board.president":"会长","board.vicepresident":"副会长","board.secretary":"秘书","board.registrar":"注册主任","board.treasurer":"财务","board.director":"董事",
+        "staff.title":"我们的团队",
+        "role.pm":"项目经理","role.pa":"项目助理","role.settlement":"安居辅导员","role.settlement_home":"安居辅导员／家访"
+      },
+      zhHant: {
+        "nav.menu":"選單","nav.close":"關閉",
+        "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+        "nav.program":"課程／項目","nav.events":"活動",
+        "nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+        "nav.contact":"聯絡我們",
+        "btn.donate":"捐贈",
+
+        /* home 词条 */
+        "about.title1":"關於密西沙加華人協會（CAM）",
+        "about.p1":"密西沙加華人協會（CAM）為非營利及註冊慈善機構。四十多年來，我們每年透過多元服務支援數以千計的個人與家庭，協助新移民、長者與青年在密西沙加及周邊地區建立連結、獲取資源並茁壯成長。除了政府、基金會與合作夥伴資助外，您的捐贈對我們持續服務至關重要。",
+        "about.title2":"願景與使命","about.p2":"密西沙加華人協會（CAM）深耕社區逾四十年，致力推廣中華文化，展現傳統與現代文明。",
+        "about.title3":"宗旨","about.p3":"透過多元文化教育向大眾介紹中華與其他文化；協助移民與居民融入加拿大社會；促進華人社群與其他社群的和諧。",
+        "cards.events":"活動","cards.events_desc":"工作坊、講座與社區活動時間表。","btn.view_events":"查看活動",
+        "cards.services":"服務","cards.services_desc":"安居輔導、就業服務、青少年項目與心理諮詢等。","btn.learn_services":"了解服務",
+        "cards.program":"課程／項目","cards.program_desc":"探索適合各年齡的課程、工作坊與社區活動，查看時段並報名。","btn.view_program":"瀏覽項目",
+        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式","footer.copyright":"© 密西沙加華人協會 保留所有權利",
+        "fr.notice.title":"法語安居／語言服務",
+        "fr.notice.frprefix":"法語：","fr.notice.enprefix":"英文：",
+        "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+        "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:",
+
+        /* team 词条 */
+        "hero.team":"我們的團隊",
+        "board.title":"董事會","board.president":"會長","board.vicepresident":"副會長","board.secretary":"秘書","board.registrar":"註冊主任","board.treasurer":"財務","board.director":"董事",
+        "staff.title":"我們的團隊",
+        "role.pm":"項目經理","role.pa":"項目助理","role.settlement":"安居輔導員","role.settlement_home":"安居輔導員／家訪"
+      }
+    };
+
+    const LANGS = ["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const value = I18N[lang]?.[key];
+        if(typeof value === 'string') el.textContent = value;
+      });
+      const searchInput = document.querySelector('.search input[name="q"]');
+      if (searchInput){
+        searchInput.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…");
+      }
+      document.documentElement.lang = (lang==="en") ? "en" : (lang==="zh" ? "zh-Hans" : "zh-Hant");
+      LANGS.forEach(code=>{
+        const btn = document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(btn) btn.setAttribute('aria-pressed', String(code===lang));
+      });
+    }
+
+    // 初始化（统一 cam_lang）
+    (function(){
+      const legacy = localStorage.getItem('lang');
+      if (legacy && !localStorage.getItem('cam_lang')) {
+        localStorage.setItem('cam_lang', legacy);
+      }
+      localStorage.removeItem('lang');
+      const saved = localStorage.getItem('cam_lang') || 'zh';
+      applyI18n(saved);
+    })();
+
+    // 语言切换
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const lang = btn.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+  </script>
+
+  <!-- 交互脚本：抽屉/下拉（与 home.html 同步） -->
+  <script>
+    function bindDropdown(id){
+      const dd = document.getElementById(id);
+      if(!dd) return;
+      const toggle = dd.querySelector('.drop-toggle');
+      let timer;
+      const open = ()=>{ clearTimeout(timer); dd.classList.add('open'); toggle?.setAttribute('aria-expanded','true'); };
+      const close= ()=>{ clearTimeout(timer); timer=setTimeout(()=>{ dd.classList.remove('open'); toggle?.setAttribute('aria-expanded','false'); },140); };
+      dd.addEventListener('mouseenter', open);
+      dd.addEventListener('mouseleave', close);
+      dd.addEventListener('focusin', open);
+      dd.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ close(); toggle?.focus(); }});
+    }
+    bindDropdown('nav-services');
+    bindDropdown('nav-join');
+
     const drawer = document.getElementById('drawer');
     const openBtn = document.getElementById('openMenu');
     const closeBtn = document.getElementById('closeMenu');
-    function setDrawer(open){
+    const setDrawer = (open) => {
       if(!drawer) return;
       drawer.classList.toggle('open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
       if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
-    }
-    openBtn?.addEventListener('click', ()=> setDrawer(true));
-    closeBtn?.addEventListener('click', ()=> setDrawer(false));
-    drawer?.addEventListener('click', (e)=> { if(e.target === drawer) setDrawer(false) });
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false) });
+    };
+    openBtn?.addEventListener('click', () => setDrawer(true));
+    closeBtn?.addEventListener('click', () => setDrawer(false));
+    drawer?.addEventListener('click', (e) => { if (e.target === drawer) setDrawer(false); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && drawer?.classList.contains('open')) setDrawer(false); });
 
-    // 手风琴
-    document.querySelectorAll('.acc-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const panel = document.getElementById(btn.getAttribute('aria-controls'));
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        if(panel){ panel.style.maxHeight = expanded ? '0px' : panel.scrollHeight + 'px'; }
+    function bindDrawerToggle(ctrlId){
+      const t = document.querySelector(`.drawer-toggle[aria-controls="${ctrlId}"]`);
+      const panel = document.getElementById(ctrlId);
+      if(!t || !panel) return;
+      t.addEventListener('click', ()=>{
+        const isOpen = t.getAttribute('aria-expanded') === 'true';
+        t.setAttribute('aria-expanded', String(!isOpen));
+        panel.classList.toggle('open', !isOpen);
       });
-    });
-    // 默认展开第一项
-    document.querySelector('.acc-btn')?.click();
+    }
+    bindDrawerToggle('drawer-services');
+    bindDrawerToggle('drawer-join');
   </script>
 </body>
 </html>
+"""
+
+# Write the updated file
+with open('/mnt/data/team_updated.html', 'w', encoding='utf-8') as f:
+    f.write(updated_html)
+
+'/mnt/data/team_updated.html'
+
