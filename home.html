@@ -4,17 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chinese Association of Mississauga</title>
+
+  <!-- 引用：导航&页脚样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
   <style>
     :root{
-      --brand:#2f8e2f;            /* 主色 */
-      --brand-dark:#237023;
-      --text:#1e293b;
-      --muted:#64748b;
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --shadow:0 8px 24px rgba(2,6,23,.08);
-      --radius:14px;
-      --ring:#1d4ed8;
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b; --bg:#f8fafc;
+      --card:#ffffff; --shadow:0 10px 30px rgba(2,6,23,.10); --radius:14px; --ring:#1d4ed8;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -23,54 +20,10 @@
     a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
     img{max-width:100%; height:auto; display:block}
     .container{max-width:1200px;margin-inline:auto;padding:0 20px}
-
-    /* 跳转主内容 */
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);z-index:999}
 
-    /* Header */
-    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .topbar .logo img{height:56px}
-    .topbar-right{display:flex;align-items:center;gap:12px}
-    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
-    .btn-primary:hover{background:#57a326}
-
-    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
-    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
-
-    /* Hamburger */
-    .hamburger{display:none; border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
-    .hamburger svg{width:22px;height:22px}
-
-    /* 二行导航（绿色条） */
-    .main-nav-wrap{background:transparent}
-    .main-nav{
-      background: var(--brand);
-      margin: 10px auto 0;
-      max-width: 1200px;
-      border-radius: 10px;
-      height: 52px;
-      display:flex;align-items:center;justify-content:center;gap:6px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
-      padding:0 6px;
-    }
-    .main-nav a{
-      color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px
-    }
-    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
-    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
-
-    /* Mobile 抽屉 */
-    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
-    .drawer.open{transform:translateX(0)}
-    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
-    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
-
+    /* ===== 页面自身样式（非导航/非页脚） ===== */
     /* Hero slider */
     .hero{margin-top:14px; position: relative;}
     .hero-viewport{position:relative;overflow:hidden;border-radius:12px}
@@ -86,7 +39,6 @@
     .dots button{width:9px;height:9px;border-radius:999px;border:0;background:#c9cdd3;cursor:pointer}
     .dots button[aria-selected="true"]{background:#2b6cb0;width:24px;border-radius:6px}
 
-	  
     /* Cards */
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:26px auto;max-width:1200px;padding:0 20px}
     @media (max-width:900px){.cards{grid-template-columns:1fr}}
@@ -101,58 +53,45 @@
     .about h2{margin-top:0;text-align:center}
     .about .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
     @media (max-width:900px){.about .two{grid-template-columns:1fr}}
-    .chip{display:inline-block;background:#e8f7e8;color:#115e11;border:1px solid #bfe3bf;padding:4px 10px;border-radius:999px;font-size:12px}
 
-    /* Footer */
-    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
-    footer a{color:#fff}
-    footer a:hover{text-decoration:underline}
-    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
-    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
-    footer h4{margin:0 0 10px;font-weight:800}
-    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
-    .footer-social{display:flex;gap:12px;margin-top:12px}
-    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;transition:background .2s ease, transform .1s ease}
-    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
-    .footer-social svg{width:22px;height:22px;display:block}
-
-    /* 响应式隐藏显示 */
-    @media (max-width:1024px){ .search{display:none} }
-    @media (max-width:860px){
-      .hamburger{display:inline-flex;margin-left:8px}
-      .main-nav-wrap{display:none}
+    /* ===== French Notice Banner ===== */
+    .fr-banner{
+      margin-top:16px;background:#f0f7ff;border:1px solid #dbeafe;border-left:4px solid var(--ring);
+      border-radius:12px;box-shadow:var(--shadow);padding:16px 18px
     }
-    @media (max-width:768px){
-      .slide img{height:38vh}
-      .hero-badge{left:10px;right:10px;bottom:10px}
-    }
+    .fr-banner h3{margin:0 0 6px;color:#1d4ed8;font-size:1.05rem}
+    .fr-banner p{margin:6px 0;color:#0f172a}
+    .fr-banner a{text-decoration:underline}
   </style>
 </head>
 <body>
   <a class="skip" href="#main">跳到主内容</a>
 
-  <!-- Header -->
+  <!-- ===== Header（样式来自 cam-layout.css） ===== -->
   <header>
     <div class="topbar container">
-      <!-- Logo -->
       <a class="logo" href="home.html" aria-label="Home">
         <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
       </a>
 
-      <!-- 右侧：语言 + 搜索 + Donate + 汉堡 -->
       <div class="topbar-right">
-        <select class="lang" aria-label="Language selector">
-          <option>English</option>
-          <option selected>简体中文</option>
-          <option>繁體中文</option>
-        </select>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
 
-        <form class="search" role="search" action="#">
-          <input type="search" placeholder="Search ..." aria-label="Search" />
-          <button aria-label="Submit search">🔍</button>
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
         </form>
 
-        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
+        <a class="btn btn-primary" href="#donate" role="button" data-i18n="btn.donate">DONATE</a>
 
         <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
@@ -160,39 +99,69 @@
       </div>
     </div>
 
-    <!-- 第二行导航（桌面显示） -->
-	  <div>
-   <nav class="main-nav container" aria-label="Primary">
-  <a href="home.html" aria-current="page">Home</a>
-  <a href="about.html">About Us</a>
-<a href="team.html">Our Team</a>
-  <a href="services.html">Services</a>
-  <a href="program.html">Program</a>
-  <a href="events.html">Events</a>
-  <a href="join.html">Join Us</a>
-  <a href="contact.html">Contact Us</a>
-</nav>
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" aria-current="page" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
 
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.services">Services</a>
+          <div class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.join">Join Us</a>
+          <div class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Mobile 抽屉 -->
+  <!-- ===== Mobile Drawer（样式来自 cam-layout.css） ===== -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <header>
-      <strong>Menu</strong>
-      <button class="btn" style="margin-left:auto" id="closeMenu">关闭</button>
+      <strong data-i18n="nav.menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="nav.close">Close</button>
     </header>
     <nav style="overflow:auto;padding-bottom:20px">
-  <a href="home.html">Home</a>
-  <a href="about.html">About Us</a>
-  <a href="services.html">Services</a>
-  <a href="program.html">Program</a>
-  <a href="events.html">Events</a>
-  <a href="join.html">Join Us</a>
-  <a href="contact.html">Contact Us</a>
-  <a href="#donate">Donate</a>
-</nav>
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
 
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-services" data-i18n="nav.services">Services</button>
+      <div id="drawer-services" class="drawer-submenu" role="group" aria-label="Services submenu">
+        <a href="services.html#settlement" data-i18n="nav.services.settlement">Settlement Services</a>
+        <a href="services.html#language"   data-i18n="nav.services.language">Language & Training</a>
+        <a href="services.html#community"  data-i18n="nav.services.community">Community Services</a>
+      </div>
+
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-join" data-i18n="nav.join">Join Us</button>
+      <div id="drawer-join" class="drawer-submenu" role="group" aria-label="Join Us submenu">
+        <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+        <a href="Volunteer.html"  data-i18n="nav.join.volunteer">Volunteer</a>
+        <a href="Donate.html"     data-i18n="nav.join.donate">Donate</a>
+      </div>
+
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a href="#donate" data-i18n="btn.donate">DONATE</a>
+    </nav>
   </aside>
 
   <main id="main" class="container">
@@ -200,14 +169,9 @@
     <section class="hero" aria-label="Hero">
       <div class="hero-viewport">
         <div class="slides" id="slides" aria-live="polite">
-          <div class="slide"><img src="IMG_8718.JPG" alt="Community centre lobby" /></div>
-          <div class="slide"><img src="IMG_8720.JPG" alt="People talking in a building" /></div>
+          <div class="slide"><img src="截屏2025-08-15 15.09.05.jpeg" alt="Community centre lobby" /></div>
+          <div class="slide"><img src="截屏2025-08-22 13.56.22.jpeg" alt="People talking in a building" /></div>
           <div class="slide"><img src="IMG_8721.JPG" alt="Notebook and laptop on desk" /></div>
-        </div>
-
-        <div class="hero-badge" role="note">
-          <h2>密西沙加华人协会</h2>
-          <small>Welcome to the Chinese Association of Mississauga</small>
         </div>
 
         <button class="hero-nav hero-prev" aria-label="Previous slide" id="prevBtn">‹</button>
@@ -216,57 +180,75 @@
 
       <div class="dots" id="dots" aria-label="Slide navigation" role="tablist"></div>
     </section>
-
+	  
+ <!-- ===== 法语安居/语言服务提示 ===== -->
+      <div class="fr-banner" role="note" aria-label="French services notice">
+        <h3 data-i18n="fr.notice.title">French Settlement and Language Services</h3>
+        <p>
+          <strong data-i18n="fr.notice.frprefix">Français: </strong>
+          <span data-i18n="fr.notice.frtext">Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :</span>
+          <a href="https://ircc.canada.ca/francais/nouveaux/services/index.asp" target="_blank" rel="noopener">ircc.canada.ca/francais/…/services</a>
+        </p>
+        <p>
+          <strong data-i18n="fr.notice.enprefix">English: </strong>
+          <span data-i18n="fr.notice.entext">If you wish to access French language training and/or French settlement services, please contact:</span>
+          <a href="https://ircc.canada.ca/english/newcomers/services/index.asp" target="_blank" rel="noopener">ircc.canada.ca/english/…/services</a>
+        </p>
+      </div>
+	  
     <!-- About -->
     <section id="about" class="about" aria-label="About Chinese Association of Mississauga">
-      <h2>About Chinese Association of Mississauga (CAM)</h2>
-      <p>The Chinese Association of Mississauga (CAM) is a non-profit organization and a registered charity organization. For over four decades, the CAM has been dedicated to supporting thousands of individuals and families in the community each year. Through a wide range of programs and services, CAM helps newcomers, seniors, youth, and families build connections, access resources, and thrive in the City of Mississauga and surrounding areas. While CAM receives funding from various government bodies, foundations, and community partners, your generous donations play a vital role in sustaining our efforts to serve and empower the community—helping people create a better life in their new home.</p>
-      <h2>Our Vision and Mission</h2>
-      <p>The Chinese Association of Mississauga (CAM) is a non-profit organization and a registered charity organization. With over 40 years of record of experience serving the local communities, CAM has always been dedicated to promoting Chinese culture and showcasing both traditional and modern Chinese civilization.</p>
-      <h2>Our Purpose</h2>
-      <p>To educate the community at large about the Chinese and other cultures by means of multicultural education programs and activities. To assist and educate immigrants and citizens including those of Chinese origin to understand and cope with Canadian cultures and to integrate into Canada’s multicultural society. To promote harmony between the Chinese community and other local communities.</p>
+      <h2 data-i18n="about.title1">About Chinese Association of Mississauga (CAM)</h2>
+      <p data-i18n="about.p1">The Chinese Association of Mississauga (CAM) is a non-profit and registered charity. For over four decades, CAM has supported thousands of individuals and families every year through programs and services that help newcomers, seniors, youth and families connect, access resources and thrive in Mississauga and surrounding areas. While CAM receives funding from governments, foundations and partners, your donations are vital to sustaining our services.</p>
+
+      <h2 data-i18n="about.title2">Our Vision and Mission</h2>
+      <p data-i18n="about.p2">With 40+ years serving the local community, CAM is dedicated to promoting Chinese culture and showcasing both traditional and modern Chinese civilization.</p>
+
+      <h2 data-i18n="about.title3">Our Purpose</h2>
+      <p data-i18n="about.p3">We educate the public about Chinese and other cultures through multicultural programs; help immigrants and residents adapt to Canadian society; and promote harmony between the Chinese community and other communities.</p>
+
+     
     </section>
   </main>
 
   <!-- Quick links -->
   <section class="cards" id="services" aria-label="Quick links">
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1400&auto=format&fit=crop" alt="Calendar page with circled date" />
-      <h3>Events</h3>
-      <p>Workshops、讲座与社区活动的时间表。</p>
-      <a class="btn btn-primary" href="#events">查看活动</a>
+      <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1400&auto=format&fit=crop" alt="" />
+      <h3 data-i18n="cards.events">Events</h3>
+      <p data-i18n="cards.events_desc">Workshops, seminars and community events schedule.</p>
+      <a class="btn btn-primary" href="#events" data-i18n="btn.view_events">View events</a>
     </article>
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop" alt="Gears with the word service" />
-      <h3>Services</h3>
-      <p>安居辅导、就业服务、青少年项目与心理咨询等。</p>
-      <a class="btn btn-primary" href="#">了解服务</a>
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop" alt="" />
+      <h3 data-i18n="cards.services">Services</h3>
+      <p data-i18n="cards.services_desc">Settlement, employment, youth programs, counselling and more.</p>
+      <a class="btn btn-primary" href="services.html" data-i18n="btn.learn_services">Learn more</a>
     </article>
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop" alt="Cork board with Latest News" />
-      <h3>Hot Topics</h3>
-      <p>最新公告、政策变化与项目更新。</p>
-      <a class="btn btn-primary" href="#">查看新闻</a>
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop" alt="" />
+      <h3 data-i18n="cards.program">Program</h3>
+      <p data-i18n="cards.program_desc">Explore classes, workshops, and community activities for all ages. See schedules and sign up.</p>
+      <a class="btn btn-primary" href="program.html" data-i18n="btn.view_program">Browse programs</a>
     </article>
   </section>
 
-  <!-- Footer -->
+  <!-- ===== Footer（样式来自 cam-layout.css） ===== -->
   <footer>
     <div class="footer-container">
       <div class="footer-section">
-	    <h4>Hours of Operations</h4>
-        <p>Mon To Fri: 9 am – 5 pm</p>
-		  <h4>Our Location</h4>
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
         <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
-        <a class="btn btn-primary" href="#donate" role="button">DOnATE</a>
+        <a class="btn btn-primary" href="#donate" role="button" data-i18n="btn.donate">DONATE</a>
       </div>
       <div class="footer-section">
-        <h4>Contact</h4>
+        <h4 data-i18n="footer.contact">Contact</h4>
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
 
         <div class="footer-social" aria-label="Social links">
-          <!-- WeChat -->
           <a href="https://weixin.qq.com/" target="_blank" rel="noopener" aria-label="WeChat">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -279,7 +261,6 @@
               <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
             </svg>
           </a>
-          <!-- Instagram -->
           <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -287,7 +268,6 @@
               <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
             </svg>
           </a>
-          <!-- Facebook -->
           <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
@@ -296,70 +276,214 @@
         </div>
       </div>
     </div>
-    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
   </footer>
 
+  <!-- ========= 多语言脚本（统一 cam_lang） ========= -->
+<script>
+  const I18N = {
+    en: {
+      "nav.menu":"Menu","nav.close":"Close",
+      "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+      "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+      "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+      "nav.contact":"Contact Us",
+      "hero.title":"Chinese Association of Mississauga",
+      "hero.subtitle":"Welcome to the Chinese Association of Mississauga",
+      "about.title1":"About Chinese Association of Mississauga (CAM)",
+      "about.p1":"The Chinese Association of Mississauga (CAM) is a non-profit and registered charity. For over four decades, CAM has supported thousands of individuals and families every year through programs and services that help newcomers, seniors, youth and families connect, access resources and thrive in Mississauga and surrounding areas. While CAM receives funding from governments, foundations and partners, your donations are vital to sustaining our services.",
+      "about.title2":"Our Vision and Mission","about.p2":"With 40+ years serving the local community, CAM is dedicated to promoting Chinese culture and showcasing both traditional and modern Chinese civilization.",
+      "about.title3":"Our Purpose","about.p3":"We educate the public about Chinese and other cultures through multicultural programs; help immigrants and residents adapt to Canadian society; and promote harmony between the Chinese community and other communities.",
+
+      "cards.events":"Events","cards.events_desc":"Workshops, seminars and community events schedule.","btn.view_events":"View events",
+      "cards.services":"Services","cards.services_desc":"Settlement, employment, youth programs, counselling and more.","btn.learn_services":"Learn more",
+
+      "cards.program":"Program",
+      "cards.program_desc":"Explore classes, workshops, and community activities for all ages. See schedules and sign up.",
+      "btn.view_program":"Browse programs",
+
+      "btn.donate":"DONATE",
+      "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved.",
+
+      "fr.notice.title":"French Settlement and Language Services",
+      "fr.notice.frprefix":"Français: ",
+      "fr.notice.enprefix":"English: ",
+      "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+      "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:"
+    },
+    zh: {
+      "nav.menu":"菜单","nav.close":"关闭",
+      "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+      "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+      "nav.program":"课程/项目","nav.events":"活动",
+      "nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+      "nav.contact":"联系我们",
+      "hero.title":"密西沙加华人协会","hero.subtitle":"欢迎来到密西沙加华人协会",
+      "about.title1":"关于密西沙加华人协会（CAM）",
+      "about.p1":"密西沙加华人协会（CAM）是一家非营利及注册慈善机构。四十多年来，我们每年通过多样的项目与服务支持数以千计的个人与家庭，帮助新移民、长者与青少年在密西沙加及周边地区建立连接、获取资源并茁壮成长。除政府、基金会与合作伙伴资助外，您的捐赠对我们持续服务至关重要。",
+      "about.title2":"愿景与使命","about.p2":"密西沙加华人协会（CAM）深耕本地社区 40 余年，致力于推广中国文化，展示中华传统与现代文明。",
+      "about.title3":"宗旨","about.p3":"通过多元文化教育项目向大众介绍中华与其他文化；协助移民与居民适应加拿大社会；促进华人社区与其他社区的和谐。",
+
+      "cards.events":"活动","cards.events_desc":"工作坊、讲座与社区活动时间表。","btn.view_events":"查看活动",
+      "cards.services":"服务","cards.services_desc":"安居辅导、就业服务、青少年项目与心理咨询等。","btn.learn_services":"了解服务",
+
+      "cards.program":"课程/项目",
+      "cards.program_desc":"探索适合全年龄段的课程、工作坊与社区活动，查看时间表并报名。",
+      "btn.view_program":"查看项目",
+
+      "btn.donate":"捐赠",
+      "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式",
+      "footer.copyright":"© 密西沙加华人协会 保留所有权利",
+
+      "fr.notice.title":"法语安居／语言服务",
+      "fr.notice.frprefix":"法语：",
+      "fr.notice.enprefix":"英文：",
+      "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+      "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:"
+    },
+    zhHant: {
+      "nav.menu":"選單","nav.close":"關閉",
+      "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+      "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+      "nav.program":"課程／項目","nav.events":"活動",
+      "nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+      "nav.contact":"聯絡我們",
+      "hero.title":"密西沙加華人協會","hero.subtitle":"歡迎來到密西沙加華人協會",
+      "about.title1":"關於密西沙加華人協會（CAM）",
+      "about.p1":"密西沙加華人協會（CAM）為非營利及註冊慈善機構。四十多年來，我們每年透過多元服務支援數以千計的個人與家庭，協助新移民、長者與青年在密西沙加及周邊地區建立連結、獲取資源並茁壯成長。除了政府、基金會與合作夥伴資助外，您的捐贈對我們持續服務至關重要。",
+      "about.title2":"願景與使命","about.p2":"密西沙加華人協會（CAM）深耕社區逾四十年，致力推廣中華文化，展現傳統與現代文明。",
+      "about.title3":"宗旨","about.p3":"透過多元文化教育向大眾介紹中華與其他文化；協助移民與居民融入加拿大社會；促進華人社群與其他社群的和諧。",
+
+      "cards.events":"活動","cards.events_desc":"工作坊、講座與社區活動時間表。","btn.view_events":"查看活動",
+      "cards.services":"服務","cards.services_desc":"安居輔導、就業服務、青少年項目與心理諮詢等。","btn.learn_services":"了解服務",
+
+      "cards.program":"課程／項目",
+      "cards.program_desc":"探索適合各年齡的課程、工作坊與社區活動，查看時段並報名。",
+      "btn.view_program":"瀏覽項目",
+
+      "btn.donate":"捐贈",
+      "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式",
+      "footer.copyright":"© 密西沙加華人協會 保留所有權利",
+
+      "fr.notice.title":"法語安居／語言服務",
+      "fr.notice.frprefix":"法語：",
+      "fr.notice.enprefix":"英文：",
+      "fr.notice.frtext":"Pour des services d’établissement en français et/ou la formation linguistique en français, veuillez contacter :",
+      "fr.notice.entext":"If you wish to access French language training and/or French settlement services, please contact:"
+    }
+  };
+
+  const LANGS = ["en","zh","zhHant"];
+
+  function applyI18n(lang){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      const value = I18N[lang]?.[key];
+      if(typeof value === 'string') el.textContent = value;
+    });
+    const searchInput = document.querySelector('.search input');
+    if (searchInput){
+      searchInput.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…");
+    }
+    document.documentElement.lang = (lang==="en") ? "en" : (lang==="zh" ? "zh-Hans" : "zh-Hant");
+    LANGS.forEach(code=>{
+      const btn = document.querySelector(`.lang-btn[data-lang="${code}"]`);
+      if(btn) btn.setAttribute('aria-pressed', String(code===lang));
+    });
+  }
+
+  // 初始化（统一 cam_lang）
+  (function(){
+    const legacy = localStorage.getItem('lang');
+    if (legacy && !localStorage.getItem('cam_lang')) {
+      localStorage.setItem('cam_lang', legacy);
+    }
+    localStorage.removeItem('lang');
+    const saved = localStorage.getItem('cam_lang') || 'zh';
+    applyI18n(saved);
+  })();
+
+  // 语言切换
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const lang = btn.getAttribute('data-lang');
+      localStorage.setItem('cam_lang', lang);
+      applyI18n(lang);
+    });
+  });
+</script>
+
+  <!-- 交互脚本：抽屉/下拉/轮播（保持不变） -->
   <script>
-    // 汉堡菜单
+    function bindDropdown(id){
+      const dd = document.getElementById(id);
+      if(!dd) return;
+      const toggle = dd.querySelector('.drop-toggle');
+      let timer;
+      const open = ()=>{ clearTimeout(timer); dd.classList.add('open'); toggle.setAttribute('aria-expanded','true'); };
+      const close= ()=>{ clearTimeout(timer); timer=setTimeout(()=>{ dd.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); },140); };
+      dd.addEventListener('mouseenter', open);
+      dd.addEventListener('mouseleave', close);
+      dd.addEventListener('focusin', open);
+      dd.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ close(); toggle.focus(); }});
+    }
+    bindDropdown('nav-services');
+    bindDropdown('nav-join');
+
     const drawer = document.getElementById('drawer');
     const openBtn = document.getElementById('openMenu');
     const closeBtn = document.getElementById('closeMenu');
-
     const setDrawer = (open) => {
+      if(!drawer) return;
       drawer.classList.toggle('open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-      openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
     };
     openBtn?.addEventListener('click', () => setDrawer(true));
     closeBtn?.addEventListener('click', () => setDrawer(false));
-    drawer?.addEventListener('click', (e) => {
-      if (e.target === drawer) setDrawer(false);
-    });
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape' && drawer.classList.contains('open')) setDrawer(false);
-    });
+    drawer?.addEventListener('click', (e) => { if (e.target === drawer) setDrawer(false); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && drawer?.classList.contains('open')) setDrawer(false); });
 
-    // Hero 轮播（无外部依赖）
+    function bindDrawerToggle(ctrlId){
+      const t = document.querySelector(`.drawer-toggle[aria-controls="${ctrlId}"]`);
+      const panel = document.getElementById(ctrlId);
+      if(!t || !panel) return;
+      t.addEventListener('click', ()=>{
+        const isOpen = t.getAttribute('aria-expanded') === 'true';
+        t.setAttribute('aria-expanded', String(!isOpen));
+        panel.classList.toggle('open', !isOpen);
+      });
+    }
+    bindDrawerToggle('drawer-services');
+    bindDrawerToggle('drawer-join');
+
     const slides = document.getElementById('slides');
     const dotsWrap = document.getElementById('dots');
     const prev = document.getElementById('prevBtn');
     const next = document.getElementById('nextBtn');
     const slideCount = slides?.children.length || 0;
     let index = 0, timer;
-
     function go(i){
       index = (i + slideCount) % slideCount;
       slides.style.transform = `translateX(-${index * 100}%)`;
       [...dotsWrap.children].forEach((b, bi)=> b.setAttribute('aria-selected', bi===index ? 'true':'false'));
     }
-
     function buildDots(){
       for(let i=0;i<slideCount;i++){
         const b = document.createElement('button');
-        b.type='button';
-        b.role='tab';
+        b.type='button'; b.role='tab';
         b.setAttribute('aria-label', `Slide ${i+1}`);
         b.addEventListener('click', ()=>{ go(i); restart(); });
         dotsWrap.appendChild(b);
       }
     }
-
-    function autoplay(){
-      timer = setInterval(()=>{ go(index+1); }, 5000);
-    }
-    function restart(){
-      clearInterval(timer);
-      autoplay();
-    }
-
+    function autoplay(){ timer = setInterval(()=>{ go(index+1); }, 5000); }
+    function restart(){ clearInterval(timer); autoplay(); }
     if(slideCount>0){
-      buildDots();
-      go(0);
-      autoplay();
+      buildDots(); go(0); autoplay();
       prev.addEventListener('click', ()=>{ go(index-1); restart(); });
       next.addEventListener('click', ()=>{ go(index+1); restart(); });
-      // 减少动画：尊重系统设置
       const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
       if(mq.matches){ clearInterval(timer); }
     }
