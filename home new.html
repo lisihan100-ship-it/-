@@ -23,29 +23,6 @@
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);z-index:999}
 
-	  /* Footer 社交图标：横向排列 */
-.footer-section .footer-social{
-  display:flex;
-  flex-direction: row;      /* 横排 */
-  gap:12px;                 /* 间距 */
-  align-items:center;       /* 垂直居中 */
-  justify-content:flex-start; /* 若要居中改为 center，右对齐改为 flex-end */
-  flex-wrap:wrap;           /* 屏幕窄时自动换行 */
-}
-
-/* 图标按钮样式（保持和绿色底相容） */
-.footer-social .icon-btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:44px; height:44px; border-radius:12px;
-  background:rgba(255,255,255,.18);
-  color:#fff;                      /* 让 SVG 的 currentColor 为白色 */
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  transition:all .15s ease;
-}
-.footer-social .icon-btn:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
-.footer-social .icon-btn svg{ width:22px; height:22px; }
-
-
     /* ===== 页面自身样式（非导航/非页脚） ===== */
     /* Hero slider */
     .hero{margin-top:14px; position: relative;}
@@ -85,6 +62,28 @@
     .fr-banner h3{margin:0 0 6px;color:#1d4ed8;font-size:1.05rem}
     .fr-banner p{margin:6px 0;color:#0f172a}
     .fr-banner a{text-decoration:underline}
+
+	   /* 强制社交图标横排（比外部规则更“具体”） */
+.footer-container .footer-social{
+  display:flex !important;
+  flex-direction:row !important;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap; /* 窄屏自动换行 */
+}
+
+/* 统一每个图标的按钮样式 */
+.footer-social a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,.18);
+  color:#fff;                /* 让 SVG 的 currentColor 为白色 */
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  transition:all .15s ease;
+}
+.footer-social a:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
+.footer-social svg{ width:22px; height:22px; display:block; }
+
   </style>
 </head>
 <body>
@@ -271,33 +270,18 @@
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
 
-      <div class="footer-social" aria-label="Social links">
-  <!-- WeChat：点击打开二维码图片新标签 -->
-  <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
-      <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
-      <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
-      <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
-      <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
-      <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
-    </svg>
+    <div class="footer-social" aria-label="Social links">
+  <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR">
+    <!-- WeChat SVG -->
   </a>
+  <a href="https://www.instagram.com/carassaugachinapavilion/?..." target="_blank" rel="noopener" aria-label="Instagram">
+    <!-- Instagram SVG -->
+  </a>
+  <a href="https://www.facebook.com/chinapavilion.carassauga/" target="_blank" rel="noopener" aria-label="Facebook">
+    <!-- Facebook SVG -->
+  </a>
+</div>
 
-          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
-              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
-            </svg>
-          </a>
-          <a href="https://www.facebook.com/chinapavilion.carassauga/" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
-            </svg>
-          </a>
         </div>
       </div>
     </div>
