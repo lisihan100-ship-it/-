@@ -23,24 +23,28 @@
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);z-index:999}
 
-	  .footer-social{
-  display:flex;           /* 横向一排；如果想垂直排列见下一段 */
-  gap:12px;
-  align-items:center;
+	  /* Footer 社交图标：横向排列 */
+.footer-section .footer-social{
+  display:flex;
+  flex-direction: row;      /* 横排 */
+  gap:12px;                 /* 间距 */
+  align-items:center;       /* 垂直居中 */
+  justify-content:flex-start; /* 若要居中改为 center，右对齐改为 flex-end */
+  flex-wrap:wrap;           /* 屏幕窄时自动换行 */
 }
+
+/* 图标按钮样式（保持和绿色底相容） */
 .footer-social .icon-btn{
   display:inline-flex; align-items:center; justify-content:center;
   width:44px; height:44px; border-radius:12px;
-  background:rgba(255,255,255,.18);  /* 绿色底上的半透明白 */
-  color:#fff;                        /* 让 SVG 的 currentColor 变白 */
+  background:rgba(255,255,255,.18);
+  color:#fff;                      /* 让 SVG 的 currentColor 为白色 */
   box-shadow:0 2px 8px rgba(0,0,0,.08);
   transition:all .15s ease;
 }
 .footer-social .icon-btn:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
 .footer-social .icon-btn svg{ width:22px; height:22px; }
 
-/* 如果你希望像截图那样“垂直三枚图标”，加上这段覆盖： */
-.footer-section .footer-social{ flex-direction:column; align-items:flex-start; }
 
     /* ===== 页面自身样式（非导航/非页脚） ===== */
     /* Hero slider */
