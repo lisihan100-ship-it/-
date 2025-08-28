@@ -83,29 +83,8 @@
 }
 .footer-social a:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
 .footer-social svg{ width:22px; height:22px; display:block; }
-/* 强制横排 + 让 svg 正确继承颜色 */
-footer .footer-social{
-  display:flex !important;
-  flex-direction:row !important;
-  gap:12px; align-items:center; flex-wrap:wrap;
-}
 
-/* 图标按钮 */
-footer .footer-social a{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:44px; height:44px; border-radius:12px;
-  background:rgba(255,255,255,.18);
-  color:#fff !important;          /* 关键：给 currentColor 赋白色 */
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  transition:all .15s ease;
-}
-footer .footer-social a:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
 
-/* 关键：让 svg 明确继承 color（修复 Safari 等） */
-footer .footer-social svg{
-  width:22px; height:22px; display:block;
-  color:inherit;
-}
 
   </style>
 </head>
@@ -293,17 +272,20 @@ footer .footer-social svg{
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
 
-    <div class="footer-social" aria-label="Social links">
-  <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR">
-    <!-- WeChat SVG -->
-  </a>
-  <a href="https://www.instagram.com/carassaugachinapavilion/?..." target="_blank" rel="noopener" aria-label="Instagram">
-    <!-- Instagram SVG -->
-  </a>
-  <a href="https://www.facebook.com/chinapavilion.carassauga/" target="_blank" rel="noopener" aria-label="Facebook">
-    <!-- Facebook SVG -->
-  </a>
-</div>
+    <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <!-- ... paths/circles，保持 stroke/fill="currentColor" 即可 ... -->
+  </svg>
+</a>
+
+<a href="https://www.instagram.com/..." target="_blank" rel="noopener" aria-label="Instagram">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"> … </svg>
+</a>
+
+<a href="https://www.facebook.com/..." target="_blank" rel="noopener" aria-label="Facebook">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"> … </svg>
+</a>
+
 
         </div>
       </div>
