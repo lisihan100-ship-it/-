@@ -89,6 +89,15 @@
 .footer-social a:hover{ background:rgba(255,255,255,.28); transform:translateY(-1px); }
 .footer-social svg{ width:22px; height:22px; display:block; }  /* 防止被全局放大 */
 
+/* 版权行满宽 + 居中对齐文本 */
+footer .bottom{
+  width:100%;
+  max-width:none;        /* 取消 1200px 限制 */
+  margin:16px 0 0;       /* 不再居中收窄 */
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.3);
+  text-align:center;
+}
 
   </style>
 </head>
@@ -197,8 +206,9 @@
     <section class="hero" aria-label="Hero">
       <div class="hero-viewport">
         <div class="slides" id="slides" aria-live="polite">
-          <div class="slide"><img src="34.jpeg" alt="Community centre lobby" /></div>
 			<div class="slide"><img src="78.jpeg" alt="picture three" /></div>
+          <div class="slide"><img src="34.jpeg" alt="Community centre lobby" /></div>
+			
           <div class="slide"><img src="45.jpeg" alt="picture" /></div>
         </div>
 
