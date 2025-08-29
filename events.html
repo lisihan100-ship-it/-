@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
@@ -176,7 +177,7 @@
 
       <!-- UTM Fair (9/12) -->
       <article class="card">
-        <figure><img src="DSC_6596.JPG" alt="UTM Welcome Fair — Sept 12" /></figure>
+        <figure><img src="0123.jpeg" alt="UTM Welcome Fair — Sept 12" /></figure>
         <div class="body">
           <h3 data-i18n="utm.title">UTM Welcome Fair — Sept 12</h3>
           <div class="meta">
@@ -188,7 +189,7 @@
           </p>
           <div class="actions">
             <a class="btn btn-primary" href="#" data-i18n="btn.rsvp">Coming Soon</a>
-            <a class="btn btn-primary" href="contact.html" data-i18n="btn.contact">Contact us</a>
+            
           </div>
         </div>
       </article>
@@ -411,7 +412,16 @@
       bindDrawerToggle('drawer-services');
       bindDrawerToggle('drawer-join');
     })();
-  </script>
+  
+    // —— 语言按钮：点击切换（保存 cam_lang 到 localStorage）
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const lang = btn.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+    </script>
 </body>
 </html>
 
