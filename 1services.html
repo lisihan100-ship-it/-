@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services | Chinese Association of Mississauga</title>
+
+  <!-- 新增：引用公共导航/页脚样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b; --bg:#f8fafc;
+      --card:#ffffff; --shadow:0 8px 24px rgba(2,6,23,.08); --radius:14px; --ring:#1d4ed8;
+      --teal:#1f9a8a; --line:#d4e9e3;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
+    img{max-width:100%; height:auto; display:block}
+    .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+
+    /* 本页用到的按钮变体 */
+    .btn-outline{background:#fff;border:1.5px solid var(--brand);color:var(--brand);height:42px}
+    .btn-outline:hover{background:#eaf6ea}
+
+    /* ===== 页面主体（保留） ===== */
+    .hero-simple{background:#d4ede5;padding:32px 0 24px;margin:0 0 20px;border-bottom:1px solid var(--line)}
+    .hero-simple h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800;letter-spacing:.2px}
+    .hero-simple p{margin:10px 0 0;text-align:center;color:#64748b}
+
+    .cards3{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;max-width:1200px;margin:28px auto 0;padding:0 20px}
+    .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(2,6,23,.08);padding:36px 28px;flex:1 1 320px;max-width:370px;min-width:280px}
+    .card .icon{background:#57a326;border-radius:12px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+    .card h2{font-size:1.6rem;font-weight:600;margin:0 0 12px;color:#1e293b}
+    .card p{color:#64748b;margin:0 0 18px}
+    .card ul{padding-left:0;list-style:none;font-size:1.06rem;margin:0}
+    .card summary{cursor:pointer;font-weight:600;padding:6px 0;color:#2f8e2f}
+    .card .actions{margin-top:16px}
+
+    /* Eligibility（收敛字号） */
+    .elig2{background:#f8fafc;padding:24px 0 36px;border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7;margin-top:14px}
+    .elig2 h2{ text-align:center; font-size:clamp(22px,3.6vw,36px); font-weight:300; font-family:ui-serif,Georgia,"Times New Roman",serif; color:#1e293b; letter-spacing:.5px; margin:12px 0 26px; }
+    .elig2-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1200px; margin:0 auto; align-items:flex-start;
+      background:#fff; border:1px solid #eef2f7; border-radius:18px; box-shadow:0 8px 24px rgba(2,6,23,.06); padding:24px 28px;
+    }
+    @media (max-width:900px){ .elig2-grid{ grid-template-columns:1fr; gap:26px; padding:18px } }
+    .elig2-item{ display:flex; gap:20px; align-items:flex-start; padding:8px 6px }
+    .elig2-item .ico{ width:52px; height:52px; border-radius:14px; background:#2f8e2f; display:grid; place-items:center }
+    .elig2-item .ico svg{ width:24px; height:24px; color:#fff }
+    .elig2-item h3{ margin:0 0 6px; font-size:clamp(16px,2vw,26px); font-weight:200; color:#0f172a }
+    .elig2-item p{ margin:0; color:#64748b; font-size:clamp(13px,1.4vw,18px); line-height:1.55 }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+      </a>
+
+      <div class="topbar-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 顶部导航（含 Services & Join Us 下拉） -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+        <!-- Services dropdown -->
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" aria-haspopup="true" aria-expanded="true" class="drop-toggle" data-i18n="nav.services" aria-current="page">Services</a>
+          <div class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html" role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html" role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <!-- Join Us dropdown -->
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" aria-haspopup="true" aria-expanded="false" class="drop-toggle" data-i18n="nav.join">Join Us</a>
+          <div class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html" role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html" role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 抽屉（移动端） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong data-i18n="nav.menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="nav.close">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+      <!-- Services 折叠 -->
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-svc" data-i18n="nav.services">Services</button>
+      <div id="drawer-svc" class="drawer-submenu" role="group">
+        <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
+        <a href="language.html"   data-i18n="nav.services.language">Language & Training</a>
+        <a href="community.html"  data-i18n="nav.services.community">Community Services</a>
+      </div>
+
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+
+      <!-- Join Us 折叠 -->
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-join" data-i18n="nav.join">Join Us</button>
+      <div id="drawer-join" class="drawer-submenu" role="group">
+        <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+        <a href="Volunteer.html"  data-i18n="nav.join.volunteer">Volunteer</a>
+        <a href="Donate.html"     data-i18n="nav.join.donate">Donate</a>
+      </div>
+
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a href="#donate" data-i18n="btn.donate">DONATE</a>
+    </nav>
+  </aside>
+
+  <!-- 顶部横幅 -->
+  <section class="hero-simple">
+    <div class="container">
+      <h1 data-i18n="svc.title">Our Services</h1>
+      <p data-i18n="svc.subtitle">We provide comprehensive, FREE services for Permanent Residents and Convention Refugees/Protected Person.</p>
+    </div>
+  </section>
+
+  <!-- 三个服务卡片 -->
+  <section id="settlement">
+    <div class="cards3">
+      <!-- Settlement -->
+      <article class="card">
+        <div class="icon" aria-hidden="true">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24">
+            <rect x="5" y="4" width="14" height="16" rx="3" fill="none" stroke="#fff" stroke-width="2"/>
+            <rect x="8" y="8" width="8" height="2" rx="1" fill="#fff"/>
+            <rect x="8" y="12" width="8" height="2" rx="1" fill="#fff"/>
+          </svg>
+        </div>
+        <h2 data-i18n="svc.settle.h">Settlement Services</h2>
+        <p data-i18n="svc.settle.p">Complete support for your Canadian settlement journey.</p>
+        <ul>
+          <li>
+            <details>
+              <summary data-i18n="svc.settle.s1">PR card renewal assistance</summary>
+              <div data-i18n="svc.settle.d1">We help prepare documents and provide guidance for PR card renewal.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.settle.s2">Information and referral services</summary>
+              <div data-i18n="svc.settle.d2">Connect to local resources, government programs and partner agencies.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.settle.s3">Government document support</summary>
+              <div data-i18n="svc.settle.d3">Assistance with filling out and submitting various government forms.</div>
+            </details>
+          </li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-outline" href="settlement.html" data-i18n="btn.learn_more">Learn more</a>
+        </div>
+      </article>
+
+      <!-- Language & Training -->
+      <article class="card" id="language">
+        <div class="icon" aria-hidden="true">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24">
+            <rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#fff" stroke-width="2"/>
+            <path d="M9 9h6M9 12h6M9 15h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h2 data-i18n="svc.lang.h">Language & Training</h2>
+        <p data-i18n="svc.lang.p">Free English instruction with comprehensive support.</p>
+        <ul>
+          <li>
+            <details>
+              <summary data-i18n="svc.lang.s1">LINC classes (Levels 1–5)</summary>
+              <div data-i18n="svc.lang.d1">Language Instruction for Newcomers to Canada from basic to advanced.</div>
+            </details>
+          </li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-outline" href="language.html" data-i18n="btn.learn_more">Learn more</a>
+        </div>
+      </article>
+
+      <!-- Community -->
+      <article class="card" id="community">
+        <div class="icon" aria-hidden="true">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24">
+            <circle cx="12" cy="10" r="3" fill="#fff"/>
+            <rect x="7" y="16" width="10" height="2" rx="1" fill="#fff"/>
+            <rect x="4" y="18" width="16" height="2" rx="1" fill="#fff"/>
+          </svg>
+        </div>
+        <h2 data-i18n="svc.comm.h">Community Services</h2>
+        <p data-i18n="svc.comm.p">Building connections and providing ongoing support.</p>
+        <ul>
+          <li>
+            <details>
+              <summary data-i18n="svc.comm.s1">Community events and activities</summary>
+              <div data-i18n="svc.comm.d1">Participate in events that connect and engage residents.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.comm.s2">Cultural integration programs</summary>
+              <div data-i18n="svc.comm.d2">Programs to help newcomers integrate into Canadian society.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.comm.s3">Family support services</summary>
+              <div data-i18n="svc.comm.d3">Counselling, resources and referrals for families.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.comm.s4">Free childcare support</summary>
+              <div data-i18n="svc.comm.d4">Childcare available for students attending our classes.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary data-i18n="svc.comm.s5">Free bus tickets for qualified students</summary>
+              <div data-i18n="svc.comm.d5">Eligible students can receive bus tickets for transportation.</div>
+            </details>
+          </li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-outline" href="community.html" data-i18n="btn.learn_more">Learn more</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 资格板块 ===== -->
+  <section class="elig2" id="eligibility" aria-label="Eligibility Requirements">
+    <h2 data-i18n="elig.title">Eligibility Requirements</h2>
+    <div class="elig2-grid">
+      <div class="elig2-item">
+        <div class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="4" width="14" height="16" rx="3" stroke="currentColor" stroke-width="2"/>
+            <rect x="8" y="9" width="8" height="2" rx="1" fill="currentColor"/>
+            <rect x="8" y="13" width="8" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h3 data-i18n="elig.k1">Valid PR Status:</h3>
+          <p data-i18n="elig.v1">Must have valid PR Card or PR confirmation letter (landing paper)</p>
+        </div>
+      </div>
+
+      <div class="elig2-item">
+        <div class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="9" r="2.4" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h3 data-i18n="elig.k2">Convention Refugees:</h3>
+          <p data-i18n="elig.v2">Protected person with Notice of Decision</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Footer（统一样式与结构） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+
+  <!-- 多语言词典（保持不变） -->
+ 
+<script>
+  const I18N = {
+    en: {
+      "nav.menu":"Menu","nav.close":"Close",
+      "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team","nav.services":"Services",
+      "nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+      "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.contact":"Contact Us",
+      "nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+
+      "btn.donate":"DONATE","btn.learn_more":"Learn more",
+
+      "svc.title":"Our Services",
+      "svc.subtitle":"We provide comprehensive, FREE services for Permanent Residents and Convention Refugees/Protected Person.",
+      "svc.settle.h":"Settlement Services","svc.settle.p":"Complete support for your Canadian settlement journey.",
+      "svc.settle.s1":"PR card renewal assistance","svc.settle.d1":"We help prepare documents and provide guidance for PR card renewal.",
+      "svc.settle.s2":"Information and referral services","svc.settle.d2":"Connect to local resources, government programs and partner agencies.",
+      "svc.settle.s3":"Government document support","svc.settle.d3":"Assistance with filling out and submitting various government forms.",
+
+      "svc.lang.h":"Language & Training","svc.lang.p":"Free English instruction with comprehensive support.",
+      "svc.lang.s1":"LINC classes (Levels 1–5)","svc.lang.d1":"Language Instruction for Newcomers to Canada from basic to advanced.",
+
+      "svc.comm.h":"Community Services","svc.comm.p":"Building connections and providing ongoing support.",
+      "svc.comm.s1":"Community events and activities","svc.comm.d1":"Participate in events that connect and engage residents.",
+      "svc.comm.s2":"Cultural integration programs","svc.comm.d2":"Programs to help newcomers integrate into Canadian society.",
+      "svc.comm.s3":"Family support services","svc.comm.d3":"Counselling, resources and referrals for families.",
+      "svc.comm.s4":"Free childcare support","svc.comm.d4":"Childcare available for students attending our classes.",
+      "svc.comm.s5":"Free bus tickets for qualified students","svc.comm.d5":"Eligible students can receive bus tickets for transportation.",
+
+      "elig.title":"Eligibility Requirements",
+      "elig.k1":"Valid PR Status:","elig.v1":"Must have valid PR Card or PR confirmation letter (landing paper)",
+      "elig.k2":"Convention Refugees:","elig.v2":"Protected person with Notice of Decision",
+
+      "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact",
+      "footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
+    },
+    zh: {
+      "nav.menu":"菜单","nav.close":"关闭",
+      "nav.home":"首页","nav.about":"关于我们","nav.team":"团队","nav.services":"服务",
+      "nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+      "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们","nav.contact":"联系我们",
+      "nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+
+      "btn.donate":"捐赠","btn.learn_more":"了解更多",
+
+      "svc.title":"我们的服务",
+      "svc.subtitle":"我们为永久居民和公约难民/受保护者提供全面、免费的服务。",
+      "svc.settle.h":"安居服务","svc.settle.p":"为您在加拿大安居提供全方位支持。",
+      "svc.settle.s1":"枫叶卡（PR）续期协助","svc.settle.d1":"提供资料准备与递交指引，协助您顺利完成枫叶卡续期。",
+      "svc.settle.s2":"信息咨询与转介服务","svc.settle.d2":"链接社区资源、政府项目与合作机构。",
+      "svc.settle.s3":"政府文件表格协助","svc.settle.d3":"为各类政府表格填写与递交提供协助。",
+
+      "svc.lang.h":"语言与培训","svc.lang.p":"提供免费的英语课程与配套支持。",
+      "svc.lang.s1":"LINC 英语课程（1–5级）","svc.lang.d1":"面向新移民的 LINC 英语课程，涵盖从基础到进阶。",
+
+      "svc.comm.h":"社区服务","svc.comm.p":"连接社区并提供持续支持。",
+      "svc.comm.s1":"社区活动与节庆","svc.comm.d1":"参与连结邻里的活动，融入社区。",
+      "svc.comm.s2":"文化融入项目","svc.comm.d2":"帮助新移民更好地融入加拿大社会。",
+      "svc.comm.s3":"家庭支持服务","svc.comm.d3":"提供咨询、资源与转介等家庭支持服务。",
+      "svc.comm.s4":"免费托儿支持","svc.comm.d4":"为上课学员提供托儿支持。",
+      "svc.comm.s5":"符合资格学员免费公交票","svc.comm.d5":"符合条件的学员可领取公交车票。",
+
+      "elig.title":"服务资格",
+      "elig.k1":"有效永久居民身份：","elig.v1":"须持有有效的枫叶卡或登陆纸（PR 确认信）",
+      "elig.k2":"公约难民：","elig.v2":"有庇护令的受保护者",
+
+      "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式",
+      "footer.copyright":"© 密西沙加华人协会 保留所有权利"
+    },
+    zhHant: {
+      "nav.menu":"選單","nav.close":"關閉",
+      "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊","nav.services":"服務",
+      "nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+      "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們","nav.contact":"聯絡我們",
+      "nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+
+      "btn.donate":"捐贈","btn.learn_more":"了解更多",
+
+      "svc.title":"我們的服務",
+      "svc.subtitle":"我們為永久居民和公約難民/受保護者提供全面、免費的服務。",
+      "svc.settle.h":"安居服務","svc.settle.p":"為您在加拿大安居提供全方位支援。",
+      "svc.settle.s1":"楓葉卡（PR）續期協助","svc.settle.d1":"提供資料準備與遞交指引，協助順利完成續期。",
+      "svc.settle.s2":"資訊諮詢與轉介服務","svc.settle.d2":"連結社區資源、政府專案與合作機構。",
+      "svc.settle.s3":"政府文件表格協助","svc.settle.d3":"提供各類政府表格填寫與遞交協助。",
+
+      "svc.lang.h":"語言與培訓","svc.lang.p":"提供免費英語課程與配套支援。",
+      "svc.lang.s1":"LINC 英語課程（1–5級）","svc.lang.d1":"面向新移民的 LINC 英語課程，從基礎到進階。",
+
+      "svc.comm.h":"社區服務","svc.comm.p":"連結社區並提供持續支援。",
+      "svc.comm.s1":"社區活動與節慶","svc.comm.d1":"參與連結鄰里的活動，融入社區。",
+      "svc.comm.s2":"文化融入專案","svc.comm.d2":"協助新移民更好融入加拿大社會。",
+      "svc.comm.s3":"家庭支援服務","svc.comm.d3":"提供諮詢、資源與轉介等家庭支援服務。",
+      "svc.comm.s4":"免費托育支援","svc.comm.d4":"為就讀學員提供托育服務。",
+      "svc.comm.s5":"符合資格學員免費公車票","svc.comm.d5":"符合條件者可領取公車票以便通勤。",
+
+      "elig.title":"服務資格",
+      "elig.k1":"有效永久居民身分：","elig.v1":"須持有效楓葉卡或登錄紙（PR 確認信）",
+      "elig.k2":"公约难民：","elig.v2":"有庇护令的受保护者",
+
+      "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式",
+      "footer.copyright":"© 密西沙加華人協會 保留所有權利"
+    }
+  };
+
+  const LANGS = ["en","zh","zhHant"];
+
+  function applyI18n(lang){
+    // 文本替换
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      const val = I18N[lang]?.[key];
+      if(typeof val === 'string') el.textContent = val;
+    });
+    // 搜索占位
+    const input = document.querySelector('.search input');
+    if(input){ input.placeholder = lang==="en" ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…"); }
+    // html lang
+    document.documentElement.lang = (lang==="en") ? "en" : (lang==="zh" ? "zh-Hans" : "zh-Hant");
+    // 胶囊状态
+    LANGS.forEach(code=>{
+      const btn = document.querySelector(`.lang-btn[data-lang="${code}"]`);
+      if(btn) btn.setAttribute('aria-pressed', String(code===lang));
+    });
+  }
+
+  // —— 初始化：迁移旧键 -> cam_lang，并删除旧键，只保留 cam_lang
+  (function(){
+    const legacy = localStorage.getItem('lang');
+    if (legacy && !localStorage.getItem('cam_lang')) {
+      localStorage.setItem('cam_lang', legacy);
+    }
+    localStorage.removeItem('lang'); // 永久删除旧键
+    const saved = localStorage.getItem('cam_lang') || 'zh';
+    applyI18n(saved);
+  })();
+
+  // —— 点击事件：只写 cam_lang
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const lang = btn.getAttribute('data-lang');
+      localStorage.setItem('cam_lang', lang);
+      applyI18n(lang);
+    });
+  });
+</script>
+
+ 
+
+  <!-- 下拉/抽屉行为脚本 -->
+  <script>
+    // 桌面下拉（稳定悬停/可点/可键盘）
+    (function(){
+      document.querySelectorAll('.main-nav .dropdown').forEach(dd=>{
+        const toggle = dd.querySelector('.drop-toggle');
+        let timer;
+        const open = ()=>{ clearTimeout(timer); dd.classList.add('open'); toggle?.setAttribute('aria-expanded','true'); };
+        const close= ()=>{ clearTimeout(timer); timer=setTimeout(()=>{ dd.classList.remove('open'); toggle?.setAttribute('aria-expanded','false'); },140); };
+        dd.addEventListener('mouseenter', open);
+        dd.addEventListener('mouseleave', close);
+        dd.addEventListener('focusin', open);
+        dd.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ close(); toggle?.focus(); }});
+      });
+    })();
+
+    // 抽屉开关
+    const drawer = document.getElementById('drawer');
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    function setDrawer(open){
+      if(!drawer) return;
+      drawer.classList.toggle('open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    openBtn?.addEventListener('click', ()=> setDrawer(true));
+    closeBtn?.addEventListener('click', ()=> setDrawer(false));
+    drawer?.addEventListener('click', (e)=> { if(e.target === drawer) setDrawer(false) });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false) });
+
+    // 抽屉折叠（Services / Join Us）
+    document.querySelectorAll('.drawer-toggle').forEach(btn=>{
+      const id = btn.getAttribute('aria-controls');
+      const panel = document.getElementById(id);
+      if(!panel) return;
+      btn.addEventListener('click', ()=>{
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        panel.classList.toggle('open', !open);
+      });
+    });
+  </script>
+</body>
+</html>
