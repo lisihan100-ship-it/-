@@ -5,31 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Events | Chinese Association of Mississauga</title>
 
-  <!-- 统一：公共导航/页脚样式 -->
+  <!-- 公共导航/页脚样式（保持与其它页面一致） -->
   <link rel="stylesheet" href="cam-layout.css" />
 
-  <!-- 本页样式 -->
+  <!-- 本页仅活动相关样式，不覆盖 header/footer -->
   <style>
     :root{
       --brand:#2f8e2f; --brand-dark:#237023; --text:#0f172a; --muted:#64748b; --bg:#f8fafc;
       --card:#ffffff; --shadow:0 10px 30px rgba(2,6,23,.08); --radius:16px; --ring:#1d4ed8;
       --chip:#e6f4ea; --chip-text:#136f36;
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
 
-    /* 页面抬头 */
+    /* 页面抬头（不影响导航） */
     .page-hero{background:#dff1e6;padding:34px 0;border-bottom:1px solid #cfe6db}
     .page-hero h1{margin:0;text-align:center;font-weight:800;color:#166b3b;font-size:clamp(28px,4.2vw,44px);letter-spacing:.2px}
 
-    /* 活动网格 */
-    .events.container{max-width:1200px;margin-inline:auto;padding:20px}
-    .events-grid{
-      display:grid; gap:22px;
-      grid-template-columns:repeat(3,1fr);
-    }
-    @media (max-width:1100px){ .events-grid{ grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:720px){  .events-grid{ grid-template-columns:1fr;} }
+    /* 活动网格与卡片 */
+    .events-grid{display:grid;gap:22px;grid-template-columns:repeat(3,1fr)}
+    @media (max-width:1100px){ .events-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:720px){  .events-grid{grid-template-columns:1fr} }
 
     .event-card{
       background:var(--card); border-radius:var(--radius); overflow:hidden;
@@ -40,41 +34,34 @@
     .event-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
     .event-card:hover .event-media img{transform:scale(1.03)}
 
-    /* 顶部日期/地点徽标 */
-    .meta-badges{
-      position:absolute; left:12px; top:12px; display:flex; gap:8px; flex-wrap:wrap;
-    }
+    .meta-badges{position:absolute;left:12px;top:12px;display:flex;gap:8px;flex-wrap:wrap}
     .badge{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 10px; border-radius:999px; font-size:13px; font-weight:700;
-      background:rgba(255,255,255,.9); color:#0f172a; box-shadow:0 1px 4px rgba(2,6,23,.08);
-      border:1px solid rgba(15,23,42,.08);
-      backdrop-filter: blur(4px);
+      display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:13px;font-weight:700;
+      background:rgba(255,255,255,.9);color:#0f172a;box-shadow:0 1px 4px rgba(2,6,23,.08);border:1px solid rgba(15,23,42,.08);backdrop-filter:blur(4px);
     }
 
-    .event-body{padding:16px 16px 18px; display:flex; flex-direction:column; gap:10px; flex:1}
-    .event-title{margin:0; font-size:20px; font-weight:800}
-    .event-desc{margin:0; color:var(--muted)}
+    .event-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .event-title{margin:0;font-size:20px;font-weight:800}
+    .event-desc{margin:0;color:var(--muted)}
 
-    .tags{display:flex; gap:8px; flex-wrap:wrap; margin:4px 0 2px; padding:0; list-style:none}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 2px;padding:0;list-style:none}
     .tags li{
-      background:var(--chip); color:var(--chip-text);
-      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
-      border:1px solid #cfe9da;
+      background:var(--chip);color:var(--chip-text);
+      padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid #cfe9da;
     }
 
-    .event-actions{margin-top:auto; display:flex; gap:10px; align-items:center}
-    .btn-link{font-weight:800; color:#166b3b; text-decoration:none}
-    .btn-link:hover{ text-decoration:underline }
+    .event-actions{margin-top:auto;display:flex;gap:10px;align-items:center}
+    .btn-link{font-weight:800;color:#166b3b;text-decoration:none}
+    .btn-link:hover{text-decoration:underline}
 
-    /* 让页脚版权横跨全宽（避免某些容器限制）*/
+    /* 版权条跨全宽（避免被容器限制） */
     footer .bottom{
-      width:100vw; max-width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+      width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
     }
   </style>
 </head>
 <body>
-  <!-- ===== Header（来自 cam-layout.css 的统一导航） ===== -->
+  <!-- ===== Header（与其它页面完全一致） ===== -->
   <header>
     <div class="topbar container">
       <a class="logo" href="home.html" aria-label="Home">
@@ -82,7 +69,6 @@
       </a>
 
       <div class="topbar-right">
-        <!-- 语言切换（与全站一致） -->
         <div class="lang-switch" role="group" aria-label="Language">
           <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
           <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
@@ -99,10 +85,9 @@
           </button>
         </form>
 
-        <!-- 统一按钮样式 -->
         <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
 
-        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+        <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
@@ -140,7 +125,7 @@
     </div>
   </header>
 
-  <!-- 移动端抽屉 -->
+  <!-- 抽屉（移动端导航，与其它页面一致） -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <header>
       <strong data-i18n="nav.menu">Menu</strong>
@@ -181,7 +166,7 @@
   </section>
 
   <!-- 活动列表 -->
-  <main class="events container">
+  <main class="container" id="main">
     <div class="events-grid">
 
       <!-- Carassauga 2025 -->
@@ -210,7 +195,7 @@
         </div>
       </article>
 
-      <!-- UTM Campus Fair (示例：9/12 UTM 活动) -->
+      <!-- UTM Campus Fair（9/12 示例） -->
       <article class="event-card">
         <div class="event-media">
           <img src="34.jpeg" alt="UTM Campus Fair" />
@@ -236,7 +221,7 @@
         </div>
       </article>
 
-      <!-- 占位活动，可按需添加/删掉 -->
+      <!-- 占位活动，可按需修改/删除 -->
       <article class="event-card">
         <div class="event-media">
           <img src="45.jpeg" alt="Community Workshop" />
@@ -263,7 +248,7 @@
     </div>
   </main>
 
-  <!-- ===== Footer（统一样式） ===== -->
+  <!-- ===== Footer（与其它页面一致） ===== -->
   <footer>
     <div class="footer-container">
       <div class="footer-section">
@@ -316,7 +301,7 @@
     <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
   </footer>
 
-  <!-- ===== 多语言字典（统一 cam_lang） ===== -->
+  <!-- ===== 多语言字典（与站内保持一致） ===== -->
   <script>
     const I18N = {
       en: {
@@ -328,18 +313,15 @@
         "nav.contact":"Contact Us",
 
         "btn.donate":"DONATE","btn.details":"View details","btn.learn_more":"Learn more",
-
         "events.title":"Events",
 
         "event.carassauga.title":"Carassauga China Pavilion 2025",
         "event.carassauga.desc":"Celebrate multiculturalism at one of Canada’s largest cultural festivals! Visit the China Pavilion for traditional and modern performances, interactive activities, and regional foods the whole family will love.",
-        "event.carassauga.date":"May 24–25, 2025",
-        "event.carassauga.place":"Mississauga, ON",
+        "event.carassauga.date":"May 24–25, 2025","event.carassauga.place":"Mississauga, ON",
 
         "event.utm.title":"UTM Campus Fair",
         "event.utm.desc":"Join us at the University of Toronto Mississauga on Sept 12 for a showcase of CAM services, summer job opportunities, and a short talk with practical tips for students and newcomers.",
-        "event.utm.date":"Sep 12, 2025",
-        "event.utm.place":"UTM, Mississauga",
+        "event.utm.date":"Sep 12, 2025","event.utm.place":"UTM, Mississauga",
 
         "event.placeholder.title":"Community Workshop",
         "event.placeholder.desc":"Hands-on sessions for newcomers, families and youth. Explore resources, connect with peers, and learn useful skills.",
@@ -361,18 +343,15 @@
         "nav.contact":"联系我们",
 
         "btn.donate":"捐赠","btn.details":"查看详情","btn.learn_more":"了解更多",
-
         "events.title":"活动",
 
         "event.carassauga.title":"Carassauga 中国馆 2025",
         "event.carassauga.desc":"加拿大大型多元文化节之一！欢迎来到中国馆，欣赏传统与现代表演、参与互动活动，并品尝各地特色美食，适合全家同乐。",
-        "event.carassauga.date":"2025年5月24–25日",
-        "event.carassauga.place":"密西沙加，安省",
+        "event.carassauga.date":"2025年5月24–25日","event.carassauga.place":"密西沙加，安省",
 
         "event.utm.title":"多大密西沙加校区展会",
         "event.utm.desc":"9月12日于多伦多大学密西沙加校区展示CAM服务、暑期工作机会，并带来简短分享，提供给学生与新移民的实用建议。",
-        "event.utm.date":"2025年9月12日",
-        "event.utm.place":"UTM，密西沙加",
+        "event.utm.date":"2025年9月12日","event.utm.place":"UTM，密西沙加",
 
         "event.placeholder.title":"社区工作坊",
         "event.placeholder.desc":"面向新移民、家庭与青少年的动手体验课堂；获取资源、结交伙伴、学习实用技能。",
@@ -394,18 +373,15 @@
         "nav.contact":"聯絡我們",
 
         "btn.donate":"捐贈","btn.details":"查看詳情","btn.learn_more":"了解更多",
-
         "events.title":"活動",
 
         "event.carassauga.title":"Carassauga 中國館 2025",
         "event.carassauga.desc":"加拿大重要的多元文化節之一！歡迎蒞臨中國館，欣賞傳統與現代表演、參與互動活動，並品嚐各地特色美食，闔家同樂。",
-        "event.carassauga.date":"2025年5月24–25日",
-        "event.carassauga.place":"密西沙加，安省",
+        "event.carassauga.date":"2025年5月24–25日","event.carassauga.place":"密西沙加，安省",
 
         "event.utm.title":"多大密西沙加校區展會",
         "event.utm.desc":"9月12日於多倫多大學密西沙加校區展示 CAM 服務、暑期工作機會，並帶來簡短分享，提供給學生與新移民的實用建議。",
-        "event.utm.date":"2025年9月12日",
-        "event.utm.place":"UTM，密西沙加",
+        "event.utm.date":"2025年9月12日","event.utm.place":"UTM，密西沙加",
 
         "event.placeholder.title":"社區工作坊",
         "event.placeholder.desc":"面向新移民、家庭與青少年的實作課程；獲取資源、結交同伴、學習實用技能。",
@@ -428,11 +404,8 @@
         const val = I18N[lang]?.[key];
         if(typeof val === 'string') el.textContent = val;
       });
-      // 搜索框占位
       const searchInput = document.querySelector('.search input[name="q"]');
-      if(searchInput){
-        searchInput.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…");
-      }
+      if(searchInput){ searchInput.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…"); }
       document.documentElement.lang = (lang==="en")?"en":(lang==="zh"?"zh-Hans":"zh-Hant");
       LANGS.forEach(code=>{
         const btn = document.querySelector(`.lang-btn[data-lang="${code}"]`);
@@ -440,7 +413,7 @@
       });
     }
 
-    // 统一语言：只用 cam_lang
+    // 统一使用 cam_lang
     (function(){
       const legacy = localStorage.getItem('lang');
       if (legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
@@ -458,7 +431,7 @@
       });
     });
 
-    // 下拉与抽屉交互（与全站一致）
+    // 下拉与抽屉（保持与其它页面一致）
     function bindDropdown(id){
       const dd = document.getElementById(id);
       if(!dd) return;
@@ -506,3 +479,4 @@
   </script>
 </body>
 </html>
+
