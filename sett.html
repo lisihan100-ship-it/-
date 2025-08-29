@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settlement Services | Chinese Association of Mississauga</title>
+
+  <!-- 统一全站样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <!-- 页面级样式（作用域：.page-settlement） -->
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b;
+      --bg:#f8fafc; --card:#ffffff; --shadow:0 10px 30px rgba(2,6,23,.10);
+      --radius:14px; --ring:#1d4ed8; --teal:#1f9a8a; --line:#d4e9e3;
+      --light-green: rgba(47,142,47,.04);
+    }
+    /* 与全站基础样式统一 */
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:var(--bg);
+    }
+    a{ color:inherit; text-decoration:none }
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{
+      outline:none; box-shadow:0 0 0 3px var(--ring); outline-offset:2px; border-radius:8px;
+    }
+    img{ max-width:100%; height:auto; display:block }
+    .container{ max-width:1200px; margin-inline:auto; padding:0 20px }
+
+    /* 保证主导航外观一致 */
+    .main-nav a, .main-nav a:visited, .main-nav a:hover, .main-nav a:focus-visible { text-decoration:none !important; }
+    .main-nav .dropdown{position:relative}
+    .main-nav .drop-toggle{
+      color:#fff;font-weight:600;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px;
+    }
+    .main-nav .drop-toggle::after{content:"▾";margin-left:6px;font-size:12px;opacity:.9}
+    .main-nav .drop-toggle:hover,.main-nav .dropdown:focus-within .drop-toggle{background:rgba(255,255,255,.14)}
+    .main-nav .drop-menu{
+      position:absolute;left:0;top:calc(100% + 8px);background:#fff;border-radius:14px;box-shadow:var(--shadow);
+      min-width:260px;padding:10px;display:none;z-index:70;border:1px solid #eef2f7
+    }
+    .main-nav .drop-menu a{
+      display:flex;align-items:center;min-height:42px;padding:0 12px;border-radius:10px;color:#0f172a;font-weight:700;font-size:18px
+    }
+    .main-nav .drop-menu a:hover,.main-nav .drop-menu a:focus-visible{background:#f1f5f9}
+    .main-nav .dropdown:hover .drop-menu,
+    .main-nav .dropdown.open .drop-menu,
+    .main-nav .dropdown:focus-within .drop-menu{display:block}
+    .main-nav .dropdown::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}
+
+    /* --- 页面主体 --- */
+    .page-settlement { padding:48px 0 }
+    .page-settlement .section{
+      background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);
+      padding:40px 32px;margin-bottom:32px;max-width:900px;margin-left:auto;margin-right:auto;
+      border:1px solid #eaf2ec;
+    }
+    .page-settlement .section h2{
+      font-size:2.2rem;font-family:serif;font-weight:700;color:var(--teal);
+      margin-bottom:28px;line-height:1.3;position:relative;padding-bottom:12px
+    }
+    .page-settlement .section h2::after{
+      content:'';position:absolute;left:0;bottom:0;width:96px;height:4px;
+      background:linear-gradient(90deg,var(--brand) 0%, #5cc79b 100%);border-radius:3px
+    }
+    .page-settlement .section h3{
+      font-size:1.6rem;font-weight:700;color:var(--text);
+      margin:40px 0 18px;border-bottom:2px solid var(--line);padding-bottom:12px;line-height:1.4
+    }
+    .page-settlement .section h3:first-of-type{margin-top:0}
+    .page-settlement .section p{color:var(--muted);margin-bottom:18px;line-height:1.8;font-size:17px}
+    .page-settlement .section-intro{
+      font-size:1.05rem;line-height:1.9;margin-bottom:28px;padding:16px 14px;color:#334155;font-weight:400;
+      background:linear-gradient(180deg,#f7fdfa 0%, #eef8f3 100%);border:1px solid #e3f0ea;border-radius:12px;
+    }
+
+    .important-notice{background:#fff8e6;border-left:4px solid #ffb300;padding:14px;margin:18px 0;border-radius:8px}
+    .important-notice p{margin:0;color:#b45309;font-weight:600}
+
+    .step-list{padding-left:0;list-style:none;margin:28px 0}
+    .step-item{margin-bottom:22px;padding:22px;border-radius:12px;background:var(--light-green);border-left:5px solid var(--brand)}
+    .step-item h3{margin:0 0 10px;color:var(--brand)}
+
+    .document-list-section{background:#fbfdfc;border:1px solid #e8f5e9;border-radius:10px;padding:16px;margin:14px 0}
+    .document-list-section h5{margin:0 0 10px;color:#0f766e;font-size:1.05rem}
+    .document-list{padding-left:24px;margin:0}
+    .document-list li{margin-bottom:10px;line-height:1.7;position:relative;padding-left:8px}
+    .document-list li::before{content:"•";color:var(--brand);font-weight:bold;position:absolute;left:-16px}
+
+    .residency-requirements{background:var(--light-green);border-radius:12px;padding:22px;border-left:5px solid var(--brand);margin:28px 0 34px}
+    .residency-requirements h3{margin-top:0;margin-bottom:18px;border-bottom:2px solid var(--line);padding-bottom:10px}
+
+    /* 服务列表卡片化 + 宽屏两列 */
+    .services-list{ display:flex; flex-direction:column; gap:16px }
+    .service-item{
+      border:1px solid #eaf2ec; border-radius:12px; padding:16px 18px;
+      background:linear-gradient(180deg,#ffffff 0%, #f9fdfb 100%); box-shadow:0 2px 10px rgba(2,6,23,.03);
+    }
+    .service-item h4{ margin:0 0 10px; color:#0f172a; font-size:1.12rem }
+    .service-item ul{ margin:0; padding-left:20px; line-height:1.8 }
+    .service-item li{ margin:6px 0 }
+    @media (min-width: 880px){
+      .service-item ul{ columns:2; column-gap:24px }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 头部（与全站一致） -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+      </a>
+
+      <div class="topbar-right">
+        <!-- 语言 -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <!-- 搜索 -->
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 主导航（含下拉） -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+        <!-- Services 下拉 -->
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-services" data-i18n="nav.services">Services</a>
+          <div id="menu-services" class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <!-- Join Us 下拉 -->
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-join" data-i18n="nav.join">Join Us</a>
+          <div id="menu-join" class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 抽屉（移动端） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong data-i18n="menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="btn.close">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
+      <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
+      <a href="language.html" data-i18n="nav.services.language">Language & Training</a>
+      <a href="community.html" data-i18n="nav.services.community">Community Services</a>
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+      <a href="Volunteer.html" data-i18n="nav.join.volunteer">Volunteer</a>
+      <a href="Donate.html" data-i18n="nav.join.donate">Donate</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+    </nav>
+  </aside>
+
+  <!-- 主体 -->
+  <main id="main-content" class="container page-settlement">
+    <section class="section">
+      <h2 data-i18n="svc.title">Settlement Services</h2>
+      <p class="section-intro" data-i18n="svc.intro">
+        The Chinese Association of Mississauga (CAM) will continue to provide settlement related programming targeting newcomers residing in Peel and Halton regions. The following components of the settlement themes will be delivered: Needs and Assets Assessment and Referral Services, Information and Orientation, and Community Connections.
+      </p>
+
+      <!-- === 列表型 Settlement Services === -->
+      <div class="main-service-section">
+        <h3 data-i18n="svc.other.title">Settlement Services</h3>
+        <div class="services-list">
+          <div class="service-item">
+            <h4><span data-i18n="svc.other.h1">PR Card Renewal</span> <span>&nbsp;</span></h4>
+            <div><p data-i18n="svc.other.z1">A PR card is your proof of permanent residency in Canada. You need to renew it when it expires. We can help you with this process.</p></div>
+          </div>
+          <div class="service-item">
+            <h4><span data-i18n="svc.other.h2">Citizenship Application</span> <span>&nbsp;</span></h4>
+            <div><p data-i18n="svc.other.w1">We provide assistance with Canadian citizenship applications, helping you navigate the process from document preparation to submission.</p></div>
+          </div>
+          <div class="service-item">
+            <h4 data-i18n="svc.other.h3">Government Benefits Assistance</h4>
+            <div>
+              <ul>
+                <li data-i18n="svc.other.b1">OHIP card application</li>
+                <li data-i18n="svc.other.b2">EI application</li>
+                <li data-i18n="svc.other.b3">Trillium Drug Benefit application</li>
+                <li data-i18n="svc.other.b4">Ontario Works application (OW)</li>
+                <li data-i18n="svc.other.b5">Active Assist Program application</li>
+                <li data-i18n="svc.other.b6">Canada Child Benefit application</li>
+                <li data-i18n="svc.other.b7">Ontario Electricity Support Program (OESP)</li>
+                <li data-i18n="svc.other.b8">Housing application</li>
+              </ul>
+            </div>
+          </div>
+          <div class="service-item">
+            <h4 data-i18n="svc.other.h4">Information and Referral Services</h4>
+            <div>
+              <ul>
+                <li data-i18n="svc.other.c1">School search support for newcomer parents</li>
+                <li data-i18n="svc.other.c3">Human rights</li>
+                <li data-i18n="svc.other.c4">Landlord and tenant’s rights</li>
+                <li data-i18n="svc.other.c5">Anti-family violence</li>
+                <li data-i18n="svc.other.c6">Workplace rights & Employment Standards Act</li>
+                <li data-i18n="svc.other.c7">Banking information</li>
+                <li data-i18n="svc.other.c8">Tax information</li>
+                <li data-i18n="svc.other.c9">Community safety information</li>
+                <li data-i18n="svc.other.c10">Mental health information</li>
+              </ul>
+            </div>
+          </div>
+          <div class="service-item">
+            <h4 data-i18n="svc.other.h5">Support Services</h4>
+            <div>
+              <ul>
+                <li data-i18n="svc.other.d1">Translation services</li>
+                <li data-i18n="svc.other.d2">Commissioner services</li>
+              </ul>
+            </div>
+          </div>
+          <div class="service-item">
+            <h4><span data-i18n="svc.other.h6">In-Home Visit Service</span> <span>&nbsp;</span></h4>
+            <div><p data-i18n="svc.other.p1">If you are not able to come to the office due to transportation, handicap, or other issues, CAM provides in-home visit service. Please contact our office to assess and arrange.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === Senior Services === -->
+      <div class="main-service-section">
+        <h3 data-i18n="svc.sen.title">Senior Services</h3>
+        <div class="services-list">
+          <div class="service-item">
+            <ul>
+              <li data-i18n="svc.sen.h1">Senior Housing Application</li>
+              <li data-i18n="svc.sen.h2">Seniors' Drug Plan Benefit</li>
+              <li data-i18n="svc.sen.h3">Old Age Security (OAS) & Guaranteed Income Supplement (GIS)</li>
+              <li data-i18n="svc.sen.h4">Canada Pension Plan (CPP)</li>
+              <li data-i18n="svc.sen.h5">Seniors' Transportation Support</li>
+              <li data-i18n="svc.sen.h6">Allowance for the Survivor</li>
+              <li data-i18n="svc.sen.h7">Senior Dental Program</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- === Settlement Information Sessions === -->
+      <div class="main-service-section">
+        <h3 data-i18n="svc.info.title">Settlement Information Sessions</h3>
+        <div class="services-list">
+          <div class="service-item">
+            <ul>
+              <li data-i18n="svc.info.i1">Essential information about services, laws, and rights within Canada</li>
+              <li data-i18n="svc.info.i2">Mental health, physical health, and overall well-being</li>
+              <li data-i18n="svc.info.i3">Tax Filing for Newcomers to Canada</li>
+              <li data-i18n="svc.info.i4">Financial Literacy for Newcomers to Canada</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+<!-- Footer（统一样式与结构） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+
+  <!-- 语言与交互 -->
+  <script>
+    /* ============ I18N 词库（英/简/繁） ============ */
+    const I18N = {
+      en:{
+        "menu":"Menu","btn.close":"Close",
+        "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+        "nav.program":"Program","nav.events":"Events",
+        "nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+        "nav.contact":"Contact Us","btn.donate":"DONATE",
+
+        "svc.title":"Settlement Services",
+        "svc.intro":"The Chinese Association of Mississauga (CAM) will continue to provide settlement related programming targeting newcomers residing in Peel and Halton regions. The following components of the settlement themes will be delivered: Needs and Assets Assessment and Referral Services, Information and Orientation, and Community Connections.",
+
+        "svc.other.title":"Settlement Services",
+        "svc.other.h1":"PR Card Renewal",
+        "svc.other.z1":"A PR card is your proof of permanent residency in Canada. You need to renew it when it expires. We can help you with this process.",
+        "svc.other.h2":"Citizenship Application",
+        "svc.other.w1":"We provide assistance with Canadian citizenship applications, helping you navigate the process from document preparation to submission.",
+        "svc.other.h3":"Government Benefits Assistance",
+        "svc.other.b1":"OHIP card application",
+        "svc.other.b2":"EI application",
+        "svc.other.b3":"Trillium Drug Benefit application",
+        "svc.other.b4":"Ontario Works application (OW)",
+        "svc.other.b5":"Active Assist Program application",
+        "svc.other.b6":"Canada Child Benefit application",
+        "svc.other.b7":"Ontario Electricity Support Program (OESP)",
+        "svc.other.b8":"Housing application",
+        "svc.other.h4":"Information and Referral Services",
+        "svc.other.c1":"School search support for newcomer parents",
+        "svc.other.c3":"Human rights",
+        "svc.other.c4":"Landlord and tenant’s rights",
+        "svc.other.c5":"Anti-family violence",
+        "svc.other.c6":"Workplace rights & Employment Standards Act",
+        "svc.other.c7":"Banking information",
+        "svc.other.c8":"Tax information",
+        "svc.other.c9":"Community safety information",
+        "svc.other.c10":"Mental health information",
+        "svc.other.h5":"Support Services",
+        "svc.other.d1":"Translation services",
+        "svc.other.d2":"Commissioner services",
+        "svc.other.h6":"In-Home Visit Service",
+        "svc.other.p1":"If you are not able to come to the office due to transportation, handicap, or other issues, CAM provides in-home visit service. Please contact our office to assess and arrange.",
+
+        "svc.sen.title":"Senior Services",
+        "svc.sen.h1":"Senior Housing Application",
+        "svc.sen.h2":"Seniors' Drug Plan Benefit",
+        "svc.sen.h3":"Old Age Security (OAS) & Guaranteed Income Supplement (GIS)",
+        "svc.sen.h4":"Canada Pension Plan (CPP)",
+        "svc.sen.h5":"Seniors' Transportation Support",
+        "svc.sen.h6":"Allowance for the Survivor",
+        "svc.sen.h7":"Senior Dental Program",
+
+        "svc.info.title":"Settlement Information Sessions",
+        "svc.info.i1":"Essential information about services, laws, and rights within Canada",
+        "svc.info.i2":"Mental health, physical health, and overall well-being",
+        "svc.info.i3":"Tax Filing for Newcomers to Canada",
+        "svc.info.i4":"Financial Literacy for Newcomers to Canada",
+
+        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact",
+        "footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
+      },
+
+      zh:{
+        "menu":"菜单","btn.close":"关闭",
+        "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+        "nav.program":"课程/项目","nav.events":"活动",
+        "nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+        "nav.contact":"联系我们","btn.donate":"捐赠",
+
+        "svc.title":"安居服务",
+        "svc.intro":"密西沙加华人协会（CAM）将持续为居住在皮尔区与荷顿区的新移民提供安居相关项目。项目内容包括：需求与优势评估及转介服务、信息与导览，以及社区连接。",
+
+        "svc.other.title":"安居服务",
+        "svc.other.h1":"PR 卡续签",
+        "svc.other.z1":"PR 卡是您在加拿大永久居留的证明。到期后您需要续签。我们可以协助您完成此流程。",
+        "svc.other.h2":"公民身份申请",
+        "svc.other.w1":"我们提供加拿大公民身份申请方面的协助，帮助您完成从文件准备到提交的整个流程。",
+        "svc.other.h3":"政府福利协助",
+        "svc.other.b1":"OHIP 医保卡申请",
+        "svc.other.b2":"就业保险（EI）申请",
+        "svc.other.b3":"安省药物补助（Trillium）申请",
+        "svc.other.b4":"安省福利（OW）申请",
+        "svc.other.b5":"Active Assist 体育补助申请",
+        "svc.other.b6":"加拿大家庭儿童金（CCB）申请",
+        "svc.other.b7":"安省低收入电费补助（OESP）",
+        "svc.other.b8":"政府公屋/租房申请",
+        "svc.other.h4":"信息与转介服务",
+        "svc.other.c1":"新生家长择校支持",
+        "svc.other.c3":"人权相关",
+        "svc.other.c4":"房东与房客权利",
+        "svc.other.c5":"反家暴资讯",
+        "svc.other.c6":"职场权益与《就业标准法》",
+        "svc.other.c7":"银行与金融信息",
+        "svc.other.c8":"税务资讯",
+        "svc.other.c9":"社区安全资讯",
+        "svc.other.c10":"心理健康资讯",
+        "svc.other.h5":"支持性服务",
+        "svc.other.d1":"翻译服务",
+        "svc.other.d2":"宣誓服务",
+        "svc.other.h6":"上门探访服务",
+        "svc.other.p1":"如因交通、伤残等原因不便来所，可预约社工上门评估与探访。",
+
+        "svc.sen.title":"长者服务",
+        "svc.sen.h1":"长者住房申请",
+        "svc.sen.h2":"长者药物补助计划",
+        "svc.sen.h3":"老人金（OAS）及补助金（GIS）",
+        "svc.sen.h4":"加拿大退休金计划（CPP）",
+        "svc.sen.h5":"长者交通支持",
+        "svc.sen.h6":"遗属津贴（Allowance for the Survivor）",
+        "svc.sen.h7":"长者牙科项目",
+
+        "svc.info.title":"安居资讯会",
+        "svc.info.i1":"关于加拿大服务、法律与权利的关键信息",
+        "svc.info.i2":"心理健康、身体健康与整体福祉",
+        "svc.info.i3":"新移民报税指南",
+        "svc.info.i4":"新移民金融理财知识",
+
+        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式",
+        "footer.copyright":"© 密西沙加华人协会 保留所有权利"
+      },
+
+      zhHant:{
+        "menu":"選單","btn.close":"關閉",
+        "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+        "nav.program":"課程／項目","nav.events":"活動",
+        "nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+        "nav.contact":"聯絡我們","btn.donate":"捐贈",
+
+        "svc.title":"安居服務",
+        "svc.intro":"密西沙加華人協會（CAM）將持續為居住在皮爾區與荷頓區的新移民提供安居相關項目。內容涵蓋：需求與資產評估及轉介服務、資訊與導覽，以及社區連結。",
+
+        "svc.other.title":"安居服務",
+        "svc.other.h1":"PR 卡續約",
+        "svc.other.z1":"PR 卡是您在加拿大永久居留的證明。到期後您需要續簽。我們可以協助您完成此流程。",
+        "svc.other.h2":"公民身分申請",
+        "svc.other.w1":"我們提供加拿大公民身分申請協助，從文件準備到遞交全程支援。",
+        "svc.other.h3":"政府福利協助",
+        "svc.other.b1":"OHIP 醫保卡申請",
+        "svc.other.b2":"就業保險（EI）申請",
+        "svc.other.b3":"Trillium 藥物補助申請",
+        "svc.other.b4":"安省福利（OW）申請",
+        "svc.other.b5":"Active Assist 體育補助申請",
+        "svc.other.b6":"加拿大兒童金（CCB）申請",
+        "svc.other.b7":"安省低收入電費補助（OESP）",
+        "svc.other.b8":"社會住房申請",
+        "svc.other.h4":"資訊與轉介",
+        "svc.other.c1":"新住民家長選校協助",
+        "svc.other.c3":"人權相關",
+        "svc.other.c4":"房東房客權益",
+        "svc.other.c5":"反家暴資訊",
+        "svc.other.c6":"職場權益與就業標準法",
+        "svc.other.c7":"銀行理財資訊",
+        "svc.other.c8":"稅務資訊",
+        "svc.other.c9":"社區安全資訊",
+        "svc.other.c10":"心理健康資訊",
+        "svc.other.h5":"支援服務",
+        "svc.other.d1":"翻譯服務",
+        "svc.other.d2":"監誓服務",
+        "svc.other.h6":"到府探訪服務",
+        "svc.other.p1":"因交通或身心狀況不便到會者，可預約社工到府評估與探訪。",
+
+        "svc.sen.title":"長者服務",
+        "svc.sen.h1":"長者住房申請",
+        "svc.sen.h2":"長者藥物補助計畫",
+        "svc.sen.h3":"老人金（OAS）與入息保障補助（GIS）",
+        "svc.sen.h4":"加拿大退休金計畫（CPP）",
+        "svc.sen.h5":"長者交通支援",
+        "svc.sen.h6":"遺屬津貼（Allowance for the Survivor）",
+        "svc.sen.h7":"長者牙科計畫",
+
+        "svc.info.title":"安居講座／資訊會",
+        "svc.info.i1":"加拿大各項服務、法律與權益之重要資訊",
+        "svc.info.i2":"心理健康、身體健康與整體福祉",
+        "svc.info.i3":"新住民報稅指南",
+        "svc.info.i4":"新住民金融理財知識",
+
+        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式",
+        "footer.copyright":"© 密西沙加華人協會 保留所有權利"
+      }
+    };
+    const LANGS = ["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); const v=I18N[lang]?.[k];
+        if(typeof v==="string"){ el.textContent=v; }
+      });
+      const input=document.querySelector('.search input[name="q"]');
+      if(input) input.placeholder = (lang==="en")?"Search …":(lang==="zh"?"搜索…":"搜尋…");
+      document.documentElement.lang = (lang==="en")?"en":(lang==="zh"?"zh-Hans":"zh-Hant");
+      LANGS.forEach(code=>{
+        const b=document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(b) b.setAttribute('aria-pressed', String(code===lang));
+      });
+    }
+
+    // 迁移旧 key -> cam_lang，避免“跳语言”
+    (function(){
+      const legacy=localStorage.getItem('lang');
+      if(legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
+      localStorage.removeItem('lang');
+      const saved=localStorage.getItem('cam_lang')||'en';
+      applyI18n(saved);
+    })();
+
+    // 切换语言
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const lang=b.getAttribute('data-lang');
+        localStorage.setItem('cam_lang',lang);
+        applyI18n(lang);
+      });
+    });
+
+    // 顶栏下拉（键盘 & 悬停）
+    function bindDropdown(id){
+      const dd=document.getElementById(id);
+      if(!dd) return;
+      const toggle=dd.querySelector('.drop-toggle');
+      let timer;
+      const open=()=>{clearTimeout(timer);dd.classList.add('open');toggle.setAttribute('aria-expanded','true');};
+      const close=()=>{clearTimeout(timer);timer=setTimeout(()=>{dd.classList.remove('open');toggle.setAttribute('aria-expanded','false');},140);};
+      dd.addEventListener('mouseenter',open);
+      dd.addEventListener('mouseleave',close);
+      dd.addEventListener('focusin',open);
+      dd.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle.focus();}});
+    }
+    bindDropdown('nav-services');
+    bindDropdown('nav-join');
+
+    // 抽屉开关
+    (function(){
+      const drawer=document.getElementById('drawer');
+      const openBtn=document.getElementById('openMenu');
+      const closeBtn=document.getElementById('closeMenu');
+      function setDrawer(open){
+        if(!drawer) return;
+        drawer.classList.toggle('open',open);
+        drawer.setAttribute('aria-hidden',open?'false':'true');
+        if(openBtn) openBtn.setAttribute('aria-expanded',open?'true':'false');
+        document.body.style.overflow=open?'hidden':'';
+      }
+      openBtn?.addEventListener('click',()=>setDrawer(true));
+      closeBtn?.addEventListener('click',()=>setDrawer(false));
+      drawer?.addEventListener('click',e=>{if(e.target===drawer) setDrawer(false)});
+      window.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer?.classList.contains('open')) setDrawer(false)});
+    })();
+  </script>
+</body>
+</html>
