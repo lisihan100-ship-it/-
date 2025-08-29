@@ -1,151 +1,177 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hans">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="title.events">Events | Chinese Association of Mississauga</title>
-  <link rel="stylesheet" href="cam-layout.css" />
-  <style>
-    :root{
-      --brand:#2f8e2f; --brand-dark:#237023; --text:#243244; --muted:#5f7288; --bg:#f6faf7;
-      --card:#fff; --shadow:0 10px 30px rgba(2,6,23,.08); --radius:14px; --ring:#1d4ed8;
-    }
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Events | Chinese Association of Mississauga</title>
+<link href="cam-layout.css" rel="stylesheet"/>
+<style>
+    :root{--teal:#1f9a8a;--line:#e6f2ee;--muted:#64748b}
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:#f8fafc;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{max-width:100%;height:auto;display:block}
-    a{color:inherit;text-decoration:none}
     .container{max-width:1200px;margin-inline:auto;padding:0 20px}
-    .page-hero{background:#dff1e4;padding:32px 0;border-bottom:1px solid #cfe7d6;margin-bottom:20px}
-    .page-hero h1{margin:0;text-align:center;color:#177f52;font-size:clamp(28px,4.2vw,40px);font-weight:800}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    @media (max-width:950px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid #eef3ef}
-    .card .media{height:190px;overflow:hidden}
-    .card .media img{width:100%;height:100%;object-fit:cover}
-    .card .bd{padding:16px}
-    .card h3{margin:0 0 8px}
-    .card p{margin:0 0 14px;color:var(--muted)}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#177f52;color:#fff;font-weight:600}
-    .btn:hover{filter:brightness(.95)}
-    /* 统一 footer 底栏拉满屏 */
-    footer .bottom{width:100vw;max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-top:1px solid rgba(255,255,255,.3);padding-top:12px;text-align:center;box-sizing:border-box}
-  </style>
+    .hero{background:#d4ede5;border-bottom:1px solid var(--line);padding:28px 0 20px;margin-bottom:18px}
+    .hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800}
+    .hero p.sub{text-align:center;margin:10px auto 0;font-weight:700}
+    .lead{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px 16px;box-shadow:0 4px 16px rgba(2,6,23,.06)}
+    .gallery{margin:22px 0} .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px} @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+    .card figcaption{padding:10px 12px;color:var(--muted);font-size:14px}
+    .pad-40{height:40px}
+  
+/* i18n: blue active language button */
+.lang-switch { display:inline-flex; gap:6px; background:#eef2ff; border-radius:16px; padding:4px; }
+.lang-btn { border:none; background:transparent; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700; }
+.lang-btn[aria-pressed="true"] { background:#1d4ed8; color:#fff; box-shadow:0 2px 6px rgba(29,78,216,.35); }
+.lang-btn:focus-visible { outline:3px solid #1d4ed8; outline-offset:2px; }
+
+/* ----- tone tweak: use slate text instead of black for copy ----- */
+.lead, .lead p { color:#334155; } /* slate-700 */
+
+</style>
 </head>
-<body>
-  <!-- Header（与你站统一） -->
-  <header>
-    <div class="topbar container">
-      <a class="logo" href="home.html" aria-label="Home"><img src="1.jpeg" alt="Chinese Association of Mississauga Logo"/></a>
-      <div class="topbar-right">
-        <div class="lang-switch" role="group" aria-label="Language">
-          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
-          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
-        </div>
-        <form class="search" role="search" action="search.html" method="GET">
-          <input type="search" name="q" placeholder="Search …" aria-label="Search"/>
-          <button type="submit" aria-label="Submit search">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          </button>
-        </form>
-        <a class="btn btn-primary" href="Donate.html" data-i18n="btn.donate">DONATE</a>
-        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="main-nav-wrap">
-      <nav class="main-nav container" aria-label="Primary">
-        <a href="home.html" data-i18n="nav.home">Home</a>
-        <a href="about.html" data-i18n="nav.about">About Us</a>
-        <a href="team.html" data-i18n="nav.team">Our Team</a>
-        <div class="dropdown" id="nav-services">
-          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.services">Services</a>
-          <div class="drop-menu" role="menu" aria-label="Services">
-            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
-            <a href="language.html" role="menuitem" data-i18n="nav.services.language">Language & Training</a>
-            <a href="community.html" role="menuitem" data-i18n="nav.services.community">Community Services</a>
-          </div>
-        </div>
-        <a href="program.html" data-i18n="nav.program">Program</a>
-        <a href="events.html" aria-current="page" data-i18n="nav.events">Events</a>
-        <div class="dropdown" id="nav-join">
-          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.join">Join Us</a>
-          <div class="drop-menu" role="menu" aria-label="Join Us">
-            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
-            <a href="Volunteer.html" role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
-            <a href="Donate.html" role="menuitem" data-i18n="nav.join.donate">Donate</a>
-          </div>
-        </div>
-        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
-      </nav>
-    </div>
-  </header>
-
-  <aside class="drawer" id="drawer" aria-hidden="true">
-    <header><strong data-i18n="nav.menu">Menu</strong><button class="btn" id="closeMenu" style="margin-left:auto" data-i18n="nav.close">Close</button></header>
-    <nav style="overflow:auto;padding-bottom:20px">
-      <a href="home.html" data-i18n="nav.home">Home</a>
-      <a href="about.html" data-i18n="nav.about">About Us</a>
-      <a href="team.html" data-i18n="nav.team">Our Team</a>
-      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-services" data-i18n="nav.services">Services</button>
-      <div id="drawer-services" class="drawer-submenu" role="group" aria-label="Services submenu">
-        <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
-        <a href="language.html" data-i18n="nav.services.language">Language & Training</a>
-        <a href="community.html" data-i18n="nav.services.community">Community Services</a>
-      </div>
-      <a href="program.html" data-i18n="nav.program">Program</a>
-      <a href="events.html" data-i18n="nav.events">Events</a>
-      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-join" data-i18n="nav.join">Join Us</button>
-      <div id="drawer-join" class="drawer-submenu" role="group" aria-label="Join Us submenu">
-        <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
-        <a href="Volunteer.html" data-i18n="nav.join.volunteer">Volunteer</a>
-        <a href="Donate.html" data-i18n="nav.join.donate">Donate</a>
-      </div>
-      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
-      <a href="Donate.html" data-i18n="btn.donate">DONATE</a>
-    </nav>
-  </aside>
-
-  <section class="page-hero">
-    <div class="container"><h1 data-i18n="events.title">Events</h1></div>
-  </section>
-
-  <main class="container" style="margin-bottom:32px">
-    <div class="grid">
-      <!-- 卡片1：Carassauga -->
-      <article class="card">
-        <div class="media"><img id="cover1" src="DSC_6543.JPG" alt="Carassauga cover"></div>
-        <div class="bd">
-          <h3 data-i18n="events.carassauga.title">Carassauga China Pavilion 2025</h3>
-          <p data-i18n="events.carassauga.brief">Join us to celebrate multiculturalism in Mississauga with performances, food and activities.</p>
-          <a class="btn" href="event-carassauga.html" data-i18n="btn.view">View details</a>
-        </div>
-      </article>
-
-      <!-- 卡片2：占位，下次新增可替换 -->
-      <article class="card">
-        <div class="media"><img id="cover2" src="0123.jpeg" alt="Upcoming event"></div>
-        <div class="bd">
-          <h3 data-i18n="events.tba.title">UTM & Chinese Association of Mississauga Exhibition (TBA)</h3>
-          <p data-i18n="events.tba.brief">Join us on September 12 at the University of Toronto Mississauga for a showcase of the Chinese Association of Mississauga’s services. Explore summer job opportunities and hear a brief talk from our team. It’s a great chance to ask questions, connect, and plan your next steps.
-.</p>
-          <a class="btn" href="#" onclick="alertSoon();return false;" data-i18n="btn.soon">Coming soon</a>
-        </div>
-      </article>
-
-      <!-- 卡片3：占位 -->
-      <article class="card">
-        <div class="media"><img id="cover3" src="0123.jpeg" alt="Upcoming event"></div>
-        <div class="bd">
-          <h3 data-i18n="events.tba2.title">Arts & Culture Night (TBA)</h3>
-          <p data-i18n="events.tba2.brief">An evening of music & arts featuring local talents. Stay tuned.</p>
-          <a class="btn" href="#" onclick="alertSoon();return false;" data-i18n="btn.soon">Coming soon</a>
-        </div>
-      </article>
-    </div>
-  </main>
-
-  <!-- Footer（与你站统一） -->
+<body class="page-events">
+<header>
+<div class="topbar container">
+<a aria-label="Home" class="logo" href="home.html">
+<img alt="Chinese Association of Mississauga Logo" src="1.jpeg"/>
+</a>
+<div class="topbar-right">
+<div aria-label="Language" class="lang-switch" role="group">
+<button aria-pressed="false" class="lang-btn" data-lang="en">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh">简</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zhHant">繁</button>
+</div>
+<form action="search.html" class="search" method="GET" role="search">
+<input aria-label="Search" name="q" placeholder="Search …" type="search"/>
+<button aria-label="Submit search" type="submit">
+<svg aria-hidden="true" height="18" viewbox="0 0 24 24" width="18">
+<path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="11" cy="11" fill="none" r="7" stroke="currentColor" stroke-width="2"></circle>
+</svg>
+</button>
+</form>
+<a class="btn btn-primary" data-i18n="btn.donate" href="Donate.html" role="button">DONATE</a>
+<button aria-controls="drawer" aria-expanded="false" aria-label="打开菜单" class="hamburger" id="openMenu">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-linecap="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+<div class="main-nav-wrap">
+<nav aria-label="Primary" class="main-nav container">
+<a aria-current="page" data-i18n="nav.home" href="home.html">Home</a>
+<a data-i18n="nav.about" href="about.html">About Us</a>
+<a data-i18n="nav.team" href="team.html">Our Team</a>
+<div class="dropdown" id="nav-services">
+<a aria-expanded="false" aria-haspopup="true" class="drop-toggle" data-i18n="nav.services" href="services.html">Services</a>
+<div aria-label="Services" class="drop-menu" role="menu">
+<a data-i18n="nav.services.settlement" href="settlement.html" role="menuitem">Settlement Services</a>
+<a data-i18n="nav.services.language" href="language.html" role="menuitem">Language &amp; Training</a>
+<a data-i18n="nav.services.community" href="community.html" role="menuitem">Community Services</a>
+</div>
+</div>
+<a data-i18n="nav.program" href="program.html">Program</a>
+<a data-i18n="nav.events" href="events.html">Events</a>
+<div class="dropdown" id="nav-join">
+<a aria-expanded="false" aria-haspopup="true" class="drop-toggle" data-i18n="nav.join" href="join.html">Join Us</a>
+<div aria-label="Join Us" class="drop-menu" role="menu">
+<a data-i18n="nav.join.membership" href="membership.html" role="menuitem">Membership</a>
+<a data-i18n="nav.join.volunteer" href="Volunteer.html" role="menuitem">Volunteer</a>
+<a data-i18n="nav.join.donate" href="Donate.html" role="menuitem">Donate</a>
+</div>
+</div>
+<a data-i18n="nav.contact" href="contact.html">Contact Us</a>
+</nav>
+</div>
+</header>
+<aside aria-hidden="true" class="drawer" id="drawer">
+<header>
+<strong data-i18n="nav.menu">Menu</strong>
+<button class="btn" data-i18n="nav.close" id="closeMenu" style="margin-left:auto">Close</button>
+</header>
+<nav style="overflow:auto;padding-bottom:20px">
+<a data-i18n="nav.home" href="home.html">Home</a>
+<a data-i18n="nav.about" href="about.html">About Us</a>
+<a data-i18n="nav.team" href="team.html">Our Team</a>
+<button aria-controls="drawer-services" aria-expanded="false" class="drawer-toggle" data-i18n="nav.services">Services</button>
+<div aria-label="Services submenu" class="drawer-submenu" id="drawer-services" role="group">
+<a data-i18n="nav.services.settlement" href="services.html#settlement">Settlement Services</a>
+<a data-i18n="nav.services.language" href="services.html#language">Language &amp; Training</a>
+<a data-i18n="nav.services.community" href="services.html#community">Community Services</a>
+</div>
+<a data-i18n="nav.program" href="program.html">Program</a>
+<a data-i18n="nav.events" href="events.html">Events</a>
+<button aria-controls="drawer-join" aria-expanded="false" class="drawer-toggle" data-i18n="nav.join">Join Us</button>
+<div aria-label="Join Us submenu" class="drawer-submenu" id="drawer-join" role="group">
+<a data-i18n="nav.join.membership" href="membership.html">Membership</a>
+<a data-i18n="nav.join.volunteer" href="Volunteer.html">Volunteer</a>
+<a data-i18n="nav.join.donate" href="Donate.html">Donate</a>
+</div>
+<a data-i18n="nav.contact" href="contact.html">Contact Us</a>
+<a data-i18n="btn.donate" href="Donate.html">DONATE</a>
+</nav>
+</aside>
+<section class="hero">
+<div class="container">
+<h1 data-i18n="hero.title">Carassauga China Pavilion 2025</h1>
+</div>
+</section>
+<main class="container" id="main">
+<section class="lead">
+<p data-i18n="body.p1">密西沙加多元文化节将于2025年5月24-25日隆重举行，这是密西沙加市政府每年初夏举行的一个大型文化节，旨在宣扬和庆祝加拿大多元文化，包括来自世界各地二十多个国家的美食、音乐、舞蹈、文化表演等，作为加拿大最大的多元文化节至今已举办了40届。</p>
+<p data-i18n="body.p2">密西沙加华人协会是中国馆的主办方，一直以来不余遗力的推广中华文化，展示中国的传统文化和现代文明。中国馆通常设有各种展示摊位，包括中国历史文化展示、艺术品展示、手工艺品展示等。参观者可以欣赏到精美的中国艺术品，品尝到正宗的中国美食，观看中国传统音乐和舞蹈表演等。</p>
+<p data-i18n="body.p3">此外，中国馆还提供一些互动活动，例如学习书法、折纸等传统手工艺。</p>
+<p data-i18n="body.p4">密西沙加多元文化节中国馆是一个了解中国文化和传统的绝佳机会，同时也是一个互动和体验中国文化的好地方。</p>
+<div class="callout" data-i18n="call.sponsor"></div>
+</section>
+<section aria-label="Photo Gallery" class="gallery">
+<div class="grid">
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 1" class="event-photo" data-base="DSC_6516" src="DSC_6516.JPG"/>
+<figcaption data-i18n="gallery.caption1">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 2" class="event-photo" data-base="DSC_6518" src="DSC_6518.JPG"/>
+<figcaption data-i18n="gallery.caption2">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 3" class="event-photo" data-base="DSC_6520" src="DSC_6520.JPG"/>
+<figcaption data-i18n="gallery.caption3">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 4" class="event-photo" data-base="DSC_6521" src="DSC_6521.JPG"/>
+<figcaption data-i18n="gallery.caption4">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 5" class="event-photo" data-base="DSC_6522" src="DSC_6522.JPG"/>
+<figcaption data-i18n="gallery.caption5">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 6" class="event-photo" data-base="DSC_6524" src="DSC_6524.JPG"/>
+<figcaption data-i18n="gallery.caption6">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 7" class="event-photo" data-base="DSC_6525" src="DSC_6525.JPG"/>
+<figcaption data-i18n="gallery.caption7">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 8" class="event-photo" data-base="DSC_6531" src="DSC_6531.JPG"/>
+<figcaption data-i18n="gallery.caption8">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 9" class="event-photo" data-base="DSC_6536" src="DSC_6536.JPG"/>
+<figcaption data-i18n="gallery.caption9">现场掠影</figcaption>
+</figure>
+<figure class="card">
+<img alt="Carassauga China Pavilion photo 10" class="event-photo" data-base="DSC_6541" src="DSC_6541.JPG"/>
+<figcaption data-i18n="gallery.caption10">现场掠影</figcaption>
+</figure>
+</div>
+</section>
+<div class="pad-40"></div>
+</main>
+  <!-- ===== Footer：直接复用 home.html 的结构 ===== -->
   <footer>
     <div class="footer-container">
       <div class="footer-section">
@@ -153,13 +179,14 @@
         <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
         <h4 data-i18n="footer.location">Our Location</h4>
         <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
-        <a class="btn btn-primary" href="Donate.html" data-i18n="btn.donate">DONATE</a>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
       </div>
       <div class="footer-section">
         <h4 data-i18n="footer.contact">Contact</h4>
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
         <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
           <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -172,14 +199,18 @@
               <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
             </svg>
           </a>
-          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
             </svg>
           </a>
-          <a href="https://www.facebook.com/chinapavilion.carassauga/" target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
             </svg>
@@ -189,69 +220,145 @@
     </div>
     <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
   </footer>
-
-  <script>
-    // ===== i18n =====
-    const I18N = {
-      en:{ "title.events":"Events | Chinese Association of Mississauga",
-        "nav.menu":"Menu","nav.close":"Close","nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
-        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
-        "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate","nav.contact":"Contact Us",
-        "btn.donate":"DONATE","events.title":"Events","btn.view":"View details","btn.soon":"Coming soon",
-        "events.carassauga.title":"Carassauga China Pavilion 2025","events.carassauga.brief":"Join us to celebrate multiculturalism in Mississauga with performances, food and activities.",
-        "events.tba.title":"UTM & Chinese Association of Mississauga Exhibition (TBA)","events.tba.brief":"Join us on 2025 September 12 at the University of Toronto Mississauga for a showcase of the Chinese Association of Mississauga’s services. Explore summer job opportunities and hear a brief talk from our team. It’s a great chance to ask questions, connect, and plan your next steps.",
-        "events.tba2.title":"Arts & Culture Night (TBA)","events.tba2.brief":"An evening of music & arts featuring local talents. Stay tuned.",
-        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact",
-        "footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
-      },
-      zh:{ "title.events":"活动 | 密西沙加华人协会",
-        "nav.menu":"菜单","nav.close":"关闭","nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
-        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
-        "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款","nav.contact":"联系我们",
-        "btn.donate":"捐赠","events.title":"活动","btn.view":"查看详情","btn.soon":"敬请期待",
-        "events.carassauga.title":"Carassauga 中国馆 2025","events.carassauga.brief":"与我们一起在密市庆祝多元文化，欣赏表演、品尝美食、参与互动活动。",
-        "events.tba.title":"UTM与密西沙加华人协会展览（待发布）","events.tba.brief":"2025年9月12日，欢迎莅临多伦多大学密西沙加分校，参加密西沙加华人协会的服务展示会。探索暑期工作机会，并聆听我们团队的简短讲座。这是一个提问、交流和规划未来发展的绝佳机会。",
-        "events.tba2.title":"艺术文化之夜（待发布）","events.tba2.brief":"本地艺术家音乐与艺术之夜，敬请关注。",
-        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式",
-        "footer.copyright":"© 密西沙加华人协会 保留所有权利"
-      },
-      zhHant:{ "title.events":"活動 | 密西沙加華人協會",
-        "nav.menu":"選單","nav.close":"關閉","nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
-        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
-        "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款","nav.contact":"聯絡我們",
-        "btn.donate":"捐贈","events.title":"活動","btn.view":"查看詳情","btn.soon":"敬請期待",
-        "events.carassauga.title":"Carassauga 中國館 2025","events.carassauga.brief":"在密市一同慶祝多元文化，欣賞表演、美食與互動活動。",
-        "events.tba.title":"UTM與密西沙加華人協會展覽（待發布）","events.tba.brief":"2025年9月12日，歡迎來到多倫多大學密西沙加分校，參加密西沙加華人協會的服務展示會。探索暑期工作機會，並討論了我們團隊的簡短研討會。這是一個提問、交流和規劃未來發展的絕佳機會。",
-        "events.tba2.title":"藝術文化之夜（待發布）","events.tba2.brief":"本地藝術家音樂與藝術之夜，敬請關注。",
-        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式",
-        "footer.copyright":"© 密西沙加華人協會 保留所有權利"
+<script>
+    // 自动修复图片路径：尝试大小写扩展名与常见目录
+    (function(){
+      var DIRS = ["", "images/", "img/", "assets/", "assets/images/"];
+      var EXTS = [".JPG",".jpg",".jpeg",".png",".webp"];
+      function tryNext(img, base, tried){
+        if(tried >= DIRS.length * EXTS.length) return; // stop
+        var d = Math.floor(tried / EXTS.length);
+        var e = tried % EXTS.length;
+        img.src = DIRS[d] + base + EXTS[e];
+        img.dataset.tried = tried + 1;
       }
-    };
-    const LANGS=["en","zh","zhHant"];
-    function applyI18n(lang){
-      document.title = I18N[lang]?.["title.events"] || document.title;
-      document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const k=el.getAttribute('data-i18n'); const v=I18N[lang]?.[k]; if(typeof v==='string') el.textContent=v;
+      document.querySelectorAll('img.event-photo').forEach(function(img){
+        img.addEventListener('error', function(){ 
+          var base = img.getAttribute('data-base') || "";
+          base = base.replace(/\.(jpe?g|png|webp)$/i,""); // strip ext if any
+          var tried = parseInt(img.dataset.tried||"0",10);
+          tryNext(img, base, tried);
+        });
+        // kick off lowercase first if initial fails quickly
+        img.addEventListener('load', function(){ img.dataset.ok="1"; });
+        setTimeout(function(){
+          if(!img.dataset.ok && (!img.complete || img.naturalWidth===0)){ 
+            img.dispatchEvent(new Event('error')); 
+          }
+        }, 300);
       });
-      const q=document.querySelector('.search input[name="q"]');
-      if(q) q.placeholder=(lang==="en")?"Search …":(lang==="zh"?"搜索…":"搜尋…");
-      document.documentElement.lang=(lang==="en")?"en":(lang==="zh"?"zh-Hans":"zh-Hant");
-      LANGS.forEach(code=>{const b=document.querySelector(`.lang-btn[data-lang="${code}"]`);b?.setAttribute('aria-pressed',String(code===lang));});
-    }
-    (function(){const legacy=localStorage.getItem('lang'); if(legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang',legacy); localStorage.removeItem('lang'); const saved=localStorage.getItem('cam_lang')||'zh'; applyI18n(saved);})();
-    document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>{const lang=btn.getAttribute('data-lang'); localStorage.setItem('cam_lang',lang); applyI18n(lang);}));    
-    // Header drawer & dropdown
-    function bindDropdown(id){const dd=document.getElementById(id); if(!dd) return; const t=dd.querySelector('.drop-toggle'); let timer; const open=()=>{clearTimeout(timer); dd.classList.add('open'); t?.setAttribute('aria-expanded','true')}; const close=()=>{clearTimeout(timer); timer=setTimeout(()=>{dd.classList.remove('open'); t?.setAttribute('aria-expanded','false')},140)}; dd.addEventListener('mouseenter',open); dd.addEventListener('mouseleave',close); dd.addEventListener('focusin',open); dd.addEventListener('keydown',(e)=>{if(e.key==='Escape'){close(); t?.focus();}});}
-    bindDropdown('nav-services'); bindDropdown('nav-join');
-    (function(){const drawer=document.getElementById('drawer'); const openBtn=document.getElementById('openMenu'); const closeBtn=document.getElementById('closeMenu'); const setDrawer=(o)=>{drawer?.classList.toggle('open',o); drawer?.setAttribute('aria-hidden',o?'false':'true'); openBtn?.setAttribute('aria-expanded',o?'true':'false'); document.body.style.overflow=o?'hidden':''}; openBtn?.addEventListener('click',()=>setDrawer(true)); closeBtn?.addEventListener('click',()=>setDrawer(false)); drawer?.addEventListener('click',(e)=>{if(e.target===drawer) setDrawer(false)}); function bind(ctrl){const t=document.querySelector(`.drawer-toggle[aria-controls="${ctrl}"]`); const panel=document.getElementById(ctrl); if(!t||!panel) return; t.addEventListener('click',()=>{const isOpen=t.getAttribute('aria-expanded')==='true'; t.setAttribute('aria-expanded',String(!isOpen)); panel.classList.toggle('open',!isOpen);});} bind('drawer-services'); bind('drawer-join');})();
-    // 图片封面容错
-    function setCover(id,cands){const img=document.getElementById(id); if(!img) return; img.onerror=()=>{const next=cands.shift(); if(next){img.src=next;}};}
-    setCover('cover1', ['carassauga1.jpg','carassauga1.JPG','34.jpeg','45.jpeg','images/carassauga.jpg']);
-    setCover('cover2', ['event2.jpg','event2.JPG','DSC_6596.JPG','images/event2.jpg']);
-    setCover('cover3', ['event3.jpg','event3.JPG','89.jpeg','images/event3.jpg']);
-    function alertSoon(){const lang=localStorage.getItem('cam_lang')||'zh'; alert(lang==='en'?'Details coming soon':'zhHant'===lang?'詳情即將推出':'详情即将发布');}
+    })();
   </script>
-</body>
-</html>
- 
+<!-- Auto-highlight current nav item -->
+<script>
+    (function(){
+      document.querySelectorAll('a[aria-current]').forEach(a=>a.removeAttribute('aria-current'));
+      const link = Array.from(document.querySelectorAll('.main-nav a, .drawer a')).find(a=>/events\.html$/i.test((a.getAttribute('href')||'')));
+      if(link) link.setAttribute('aria-current','page');
+    })();
+  </script>
+<script>
+// ===== i18n dictionary (English / 简体 / 繁體) =====
+const I18N = {
+en: {
+    "btn.donate":"DONATE",
+    "nav.menu":"Menu","nav.close":"Close",
+    "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+    "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+    "nav.program":"Program","nav.events":"Events","nav.join":"Join Us",
+    "nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+    "nav.contact":"Contact Us",
 
+    "hero.title":"Event",
+    "hero.subtitle":"Carassauga China Pavilion 2025",
+
+    "body.p1":"Carassauga Festival will be held on May 24–25, 2025. Hosted by the City of Mississauga every early summer, it celebrates Canada's multiculturalism with food, music, dance and cultural performances from over twenty countries. As the largest multicultural festival in Canada, it has been held for 40 years.",
+    "body.p2":"The Chinese Association of Mississauga (CAM) is the host of the China Pavilion and has long promoted Chinese culture, showcasing both traditional heritage and modern civilization. The pavilion features booths such as Chinese history and culture, artworks and handicrafts. Visitors can appreciate fine Chinese artworks, enjoy authentic Chinese cuisine, and watch traditional music and dance performances.",
+    "body.p3":"In addition, the pavilion offers interactive activities such as learning calligraphy and paper folding.",
+    "body.p4":"The China Pavilion at Carassauga is a great opportunity to learn about Chinese culture and traditions, and to experience them firsthand.",
+    "gallery.caption1":"Highlights","gallery.caption2":"Highlights","gallery.caption3":"Highlights","gallery.caption4":"Highlights","gallery.caption5":"Highlights","gallery.caption6":"Highlights","gallery.caption7":"Highlights","gallery.caption8":"Highlights","gallery.caption9":"Highlights","gallery.caption10":"Highlights",
+    "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
+  ,
+    "call.sponsor":"Sponsorship & Booths: 647-982-6733."
+  },
+  zh: {
+    "btn.donate":"捐赠",
+    "nav.menu":"菜单","nav.close":"关闭",
+    "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+    "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+    "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们",
+    "nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+    "nav.contact":"联系我们",
+
+    "hero.title":"活动",
+    "hero.subtitle":"密西沙加多元文化节·中国馆 2025",
+
+    "body.p1":"密西沙加多元文化节将于2025年5月24-25日隆重举行，这是密西沙加市政府每年初夏举行的一个大型文化节，旨在宣扬和庆祝加拿大多元文化，包括来自世界各地二十多个国家的美食、音乐、舞蹈、文化表演等，作为加拿大最大的多元文化节至今已举办了40届。",
+    "body.p2":"密西沙加华人协会是中国馆的主办方，一直以来不余遗力地推广中华文化，展示中国的传统文化和现代文明。中国馆通常设有中国历史文化、艺术品、手工艺等展示摊位。参观者可以欣赏精美的中国艺术品，品尝正宗的中国美食，观看中国传统音乐和舞蹈表演。",
+    "body.p3":"此外，中国馆还提供一些互动活动，例如学习书法、折纸等传统手工艺。",
+    "body.p4":"密西沙加多元文化节中国馆是了解中国文化和传统的绝佳机会，同时也是一个互动和体验中国文化的好地方。",
+    "gallery.caption1":"现场掠影","gallery.caption2":"现场掠影","gallery.caption3":"现场掠影","gallery.caption4":"现场掠影","gallery.caption5":"现场掠影","gallery.caption6":"现场掠影","gallery.caption7":"现场掠影","gallery.caption8":"现场掠影","gallery.caption9":"现场掠影","gallery.caption10":"现场掠影",
+    "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式","footer.copyright":"© 密西沙加华人协会 保留所有权利"
+  ,
+    "call.sponsor":"赞助与摊位：647-982-6733。"
+  },
+  zhHant: {
+    "btn.donate":"捐贈",
+    "nav.menu":"選單","nav.close":"關閉",
+    "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+    "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+    "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們",
+    "nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+    "nav.contact":"聯絡我們",
+
+    "hero.title":"活動",
+    "hero.subtitle":"密西沙加多元文化節．中國館 2025",
+
+    "body.p1":"密西沙加多元文化節將於 2025 年 5 月 24–25 日舉行，旨在弘揚並慶祝加拿大多元文化，涵蓋來自世界各地二十多個國家的美食、音樂、舞蹈與文化表演；作為加拿大最大的多元文化節已舉辦 40 屆。",
+    "body.p2":"密西沙加華人協會為中國館主辦方，長年推廣中華文化，展現傳統與現代文明。中國館設有歷史文化、藝術品與手工藝等展示攤位。參觀者可欣賞精美藝術、品嚐道地美食，並觀看傳統音樂與舞蹈表演。",
+    "body.p3":"此外，亦提供互動體驗，如書法、摺紙等傳統手工藝。",
+    "body.p4":"中國館既是認識中華文化與傳統的絕佳機會，也是一處親身體驗的好地方。",
+    "gallery.caption1":"現場掠影","gallery.caption2":"現場掠影","gallery.caption3":"現場掠影","gallery.caption4":"現場掠影","gallery.caption5":"現場掠影","gallery.caption6":"現場掠影","gallery.caption7":"現場掠影","gallery.caption8":"現場掠影","gallery.caption9":"現場掠影","gallery.caption10":"現場掠影",
+    "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式","footer.copyright":"© 密西沙加華人協會 保留所有權利"
+  ,
+    "call.sponsor":"贊助與攤位：647-982-6733。"
+  }
+};
+
+const LANGS = ["en","zh","zhHant"];
+
+function applyI18n(lang){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = I18N[lang] && I18N[lang][key];
+    if(typeof val === 'string') el.textContent = val;
+  });
+  // update placeholder in header search
+  const searchInput = document.querySelector('.search input[name="q"]');
+  if (searchInput){
+    searchInput.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…");
+  }
+  // set active state for language buttons
+  document.querySelectorAll('.lang-btn').forEach(btn=>btn.setAttribute('aria-pressed','false'));
+  const active = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+  if(active) active.setAttribute('aria-pressed','true');
+
+  document.documentElement.lang = (lang==="en") ? "en" : (lang==="zh" ? "zh-Hans" : "zh-Hant");
+}
+
+// init with saved or default zh
+(function(){
+  const saved = localStorage.getItem('cam_lang') || 'zh';
+  applyI18n(saved);
+})();
+
+// wire buttons
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const lang = btn.getAttribute('data-lang');
+    localStorage.setItem('cam_lang', lang);
+    applyI18n(lang);
+  });
+});
+</script></body>
+</html>
