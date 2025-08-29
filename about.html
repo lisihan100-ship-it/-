@@ -68,6 +68,35 @@
     .ms-year{background:#f8fafb;padding:16px;font-weight:700;color:#0f172a}
     .ms-desc{padding:16px}
     .ms-desc p{margin:6px 0}
+    /* === About 轮播与大图等高 & 去字 === */
+.about-photo{ height:420px; max-height:none; }        /* 左图固定 420px */
+.poster-card{ position:relative; }                    /* 让小圆点可以绝对定位到卡片内 */
+.poster-viewport{ height:420px; overflow:hidden; }    /* 右侧可视区同样 420px */
+.poster-slide img{ height:100%; object-fit:cover; }   /* 图铺满可视区 */
+.poster-slide figcaption{ display:none; }             /* 隐藏所有文字说明 */
+
+.poster-dots{
+  position:absolute; left:0; right:0; bottom:8px;     /* 圆点叠在图上，不再占高度 */
+  padding:0; margin:0; display:flex; justify-content:center;
+}
+
+/* 移动端降到 300px，保持一致 */
+@media (max-width:900px){
+  .about-photo{ height:300px; }
+  .poster-viewport{ height:300px; }
+}
+
+/* 顺手修正你原来的选择器小笔误，保证两个箭头样式都生效 */
+.poster-prev, .poster-next{
+  position:absolute; top:50%; transform:translateY(-50%);
+  /* 之前写成 rgba(0,0,0,45) 无效，这里改为 0.45 */
+  background:rgba(0,0,0,.45); color:#fff; border:0;
+  width:36px; height:36px; border-radius:999px;
+  display:grid; place-items:center; cursor:pointer;
+}
+.poster-prev{ left:8px; } .poster-next{ right:8px; }
+.poster-prev:hover, .poster-next:hover{ background:rgba(0,0,0,.6); }
+
   </style>
 </head>
 <body>
