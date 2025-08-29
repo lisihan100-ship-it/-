@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Services | Chinese Association of Mississauga</title>
+
+  <!-- 全站样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <!-- 本页样式（仅作用于 .page-community） -->
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b;
+      --bg:#f8fafc; --card:#ffffff; --shadow:0 10px 30px rgba(2,6,23,.10);
+      --radius:14px; --ring:#1d4ed8; --teal:#1f9a8a; --line:#d4e9e3; --light-green:rgba(47,142,47,.04);
+    }
+    /* 与全站统一的基础样式 */
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{ margin:0; font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; color:var(--text); background:var(--bg); }
+    a{ color:inherit; text-decoration:none }
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{
+      outline:none; box-shadow:0 0 0 3px var(--ring); outline-offset:2px; border-radius:8px;
+    }
+    img{ max-width:100%; height:auto; display:block }
+    .container{ max-width:1200px; margin-inline:auto; padding:0 20px }
+
+    /* —— 页面内容作用域 —— */
+    .page-community{padding:48px 0}
+    .page-community .section{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin:0 auto 32px;max-width:900px}
+    .page-community .section h2{font-size:2.2rem;font-family:serif;font-weight:700;color:var(--teal);margin-bottom:28px;line-height:1.3;position:relative;padding-bottom:12px}
+    .page-community .section h2::after{content:'';position:absolute;left:0;bottom:0;width:60px;height:3px;background:var(--brand);border-radius:2px}
+    .page-community .section h3{font-size:1.65rem;font-weight:600;color:var(--text);margin:40px 0 22px;border-bottom:2px solid var(--line);padding-bottom:12px;line-height:1.4}
+    .page-community .section h3:first-of-type{margin-top:0}
+    .page-community .section p{color:var(--muted);margin-bottom:22px;line-height:1.7;font-size:17px}
+    .page-community .section-intro{font-size:1.15rem;line-height:1.8;margin-bottom:36px;padding-right:8%;color:var(--text)}
+
+    /* 卡片（用于“Other Community Services”保持不变） */
+    .page-community .services-list{display:flex;flex-direction:column;gap:24px;margin:36px 0}
+    .page-community .service-card{background:var(--light-green);border-radius:10px;overflow:hidden;border-left:4px solid var(--brand);display:flex;flex-direction:column;transition:.25s}
+    .page-community .service-card:hover{transform:translateY(-3px);box-shadow:0 12px 20px rgba(47,142,47,.08)}
+    .page-community .service-header{padding:20px 24px;background:rgba(47,142,47,.05)}
+    .page-community .service-header h4{margin:0;font-size:1.3rem;color:var(--brand);display:flex;justify-content:space-between;align-items:center}
+    .page-community .service-content{padding:24px}
+    .page-community .service-content p{margin:0 0 12px}
+
+    /* 简洁清单（用于 Community Connections） */
+    .page-community .simple-list{
+      list-style:none; padding-left:0; margin:12px 0 8px;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px 20px;
+    }
+    .page-community .simple-list li{
+      background:var(--light-green); border-left:4px solid var(--brand);
+      border-radius:10px; padding:12px 14px; font-weight:700; color:var(--brand);
+      box-shadow:0 3px 8px rgba(2,6,23,.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 头部（与 home 一致） -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+      </a>
+
+      <div class="topbar-right">
+        <!-- 语言按钮 -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <!-- 搜索 -->
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 主导航 -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-services" data-i18n="nav.services">Services</a>
+          <div id="menu-services" class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" aria-current="page" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-join" data-i18n="nav.join">Join Us</a>
+          <div id="menu-join" class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 抽屉（移动端） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong data-i18n="menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="btn.close">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
+      <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
+      <a href="language.html" data-i18n="nav.services.language">Language & Training</a>
+      <a href="community.html" aria-current="page" data-i18n="nav.services.community">Community Services</a>
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+      <a href="Volunteer.html" data-i18n="nav.join.volunteer">Volunteer</a>
+      <a href="Donate.html" data-i18n="nav.join.donate">Donate</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+    </nav>
+  </aside>
+
+  <!-- 主体 -->
+  <main id="main-content" class="container page-community">
+    <section class="section">
+      <h2 data-i18n="pg.community.title">Community Services</h2>
+      <p class="section-intro" data-i18n="pg.community.intro">
+        We offer a variety of community services to support seniors, families, and students in Mississauga. Our programs are designed to help you connect with the community, access essential resources, and enhance your quality of life.
+      </p>
+
+      <!-- ===== Community Connections（仅清单） ===== -->
+      <h3 data-i18n="pg.community.conn">Community Connections</h3>
+      <ul class="simple-list">
+        <li data-i18n="pg.community.c1">Volunteer Training</li>
+        <li data-i18n="pg.community.c2">Line Dance</li>
+        <li data-i18n="pg.community.c3">Chinese Painting</li>
+        <li data-i18n="pg.community.c4">Taiji Class</li>
+        <li data-i18n="pg.community.c5">Chinese Folk-Dance</li>
+        <li data-i18n="pg.community.c6">PeiJing Opera</li>
+        <li data-i18n="pg.community.c7">Choir Class</li>
+        <li data-i18n="pg.community.c8">Chinese Calligraphy Class</li>
+      </ul>
+
+      <!-- ===== Other Community Services（保持不变外观，内容支持三语） ===== -->
+      <h3 data-i18n="pg.community.other">Other Community Services</h3>
+      <div class="services-list">
+        <!-- 报税 -->
+        <div class="service-card">
+          <div class="service-header"><h4 data-i18n="pg.community.o1">Community Volunteer Income Tax Program</h4></div>
+          <div class="service-content">
+            <p data-i18n="pg.community.o1.p1">Free tax clinic for low-income families provided by trained volunteers.</p>
+            <p data-i18n="pg.community.o1.p2">We can help you complete and file your income tax returns accurately and on time.</p>
+            <p><strong data-i18n="pg.community.o1.season">Season:</strong> <span data-i18n="pg.community.o1.season_time">February to April each year</span></p>
+          </div>
+        </div>
+        <!-- 学生免费公交票 -->
+        <div class="service-card">
+          <div class="service-header"><h4 data-i18n="pg.community.o2">Free Bus Tickets for Students</h4></div>
+          <div class="service-content">
+            <p data-i18n="pg.community.o2.p1">FREE BUS TICKETS for eligible students to help with transportation needs.</p>
+            <p data-i18n="pg.community.o2.p2">Contact us to find out if you qualify and how to apply for this program.</p>
+          </div>
+        </div>
+        <!-- 学生免费托育 -->
+        <div class="service-card">
+          <div class="service-header"><h4 data-i18n="pg.community.o3">Free Childcare for Students</h4></div>
+          <div class="service-content">
+            <p data-i18n="pg.community.o3.p1">FREE CHILDCARE for eligible students who need supervision for their children while attending classes or studying.</p>
+            <p data-i18n="pg.community.o3.p2">Our qualified caregivers provide a safe and nurturing environment for children.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+ <!-- Footer（统一样式与结构） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+
+  <!-- 语言与交互 -->
+  <script>
+    /* I18N 词库（英/简/繁） */
+    const I18N = {
+      en:{
+        "menu":"Menu","btn.close":"Close",
+        "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+        "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+        "nav.contact":"Contact Us","btn.donate":"DONATE",
+        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved.",
+
+        "pg.community.title":"Community Services",
+        "pg.community.intro":"We offer a variety of community services to support seniors, families, and students in Mississauga. Our programs are designed to help you connect with the community, access essential resources, and enhance your quality of life.",
+
+        "pg.community.conn":"Community Connections",
+        "pg.community.c1":"Volunteer Training",
+        "pg.community.c2":"Line Dance",
+        "pg.community.c3":"Chinese Painting",
+        "pg.community.c4":"Taiji Class",
+        "pg.community.c5":"Chinese Folk-Dance",
+        "pg.community.c6":"PeiJing Opera",
+        "pg.community.c7":"Choir Class",
+        "pg.community.c8":"Chinese Calligraphy Class",
+
+        "pg.community.other":"Other Community Services",
+        "pg.community.o1":"Community Volunteer Income Tax Program",
+        "pg.community.o1.p1":"Free tax clinic for low-income families provided by trained volunteers.",
+        "pg.community.o1.p2":"We can help you complete and file your income tax returns accurately and on time.",
+        "pg.community.o1.season":"Season:",
+        "pg.community.o1.season_time":"February to April each year",
+
+        "pg.community.o2":"Free Bus Tickets for Students",
+        "pg.community.o2.p1":"FREE BUS TICKETS for eligible students to help with transportation needs.",
+        "pg.community.o2.p2":"Contact us to find out if you qualify and how to apply for this program.",
+
+        "pg.community.o3":"Free Childcare for Students",
+        "pg.community.o3.p1":"FREE CHILDCARE for eligible students who need supervision for their children while attending classes or studying.",
+        "pg.community.o3.p2":"Our qualified caregivers provide a safe and nurturing environment for children."
+      },
+      zh:{
+        "menu":"菜单","btn.close":"关闭",
+        "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+        "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+        "nav.contact":"联系我们","btn.donate":"捐赠",
+        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式","footer.copyright":"© 密西沙加华人协会 保留所有权利。",
+
+        "pg.community.title":"社区服务",
+        "pg.community.intro":"我们提供多样的社区服务，支持密西沙加的长者、家庭与学生，帮助您连接社区、获取重要资源并提升生活品质。",
+
+        "pg.community.conn":"社区连结",
+        "pg.community.c1":"义工培训",
+        "pg.community.c2":"排舞课程",
+        "pg.community.c3":"国画课程",
+        "pg.community.c4":"太极课程",
+        "pg.community.c5":"民族舞课程",
+        "pg.community.c6":"京剧",
+        "pg.community.c7":"合唱课",
+        "pg.community.c8":"书法课",
+
+        "pg.community.other":"其他社区服务",
+        "pg.community.o1":"低收入义务报税计划",
+        "pg.community.o1.p1":"为低收入家庭提供由培训志愿者开展的免费报税服务。",
+        "pg.community.o1.p2":"我们可协助您准确、按时完成并申报所得税。",
+        "pg.community.o1.season":"时间：",
+        "pg.community.o1.season_time":"每年二月至四月",
+
+        "pg.community.o2":"学生免费公交票",
+        "pg.community.o2.p1":"为符合条件的学生提供免费公交车票，帮助解决出行需求。",
+        "pg.community.o2.p2":"请联系我们了解是否符合资格及申请方式。",
+
+        "pg.community.o3":"学生免费托育",
+        "pg.community.o3.p1":"为符合条件的学生提供免费托育服务，便于上课或学习期间有人照看子女。",
+        "pg.community.o3.p2":"我们的照护人员具备资质，环境安全且温馨。"
+      },
+      zhHant:{
+        "menu":"選單","btn.close":"關閉",
+        "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+        "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+        "nav.contact":"聯絡我們","btn.donate":"捐贈",
+        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式","footer.copyright":"© 密西沙加華人協會 保留所有權利。",
+
+        "pg.community.title":"社區服務",
+        "pg.community.intro":"我們提供多元社區服務，支持密西沙加的長者、家庭與學生，協助您連結社區、取得重要資源並提升生活品質。",
+
+        "pg.community.conn":"社區連結",
+        "pg.community.c1":"義工培訓",
+        "pg.community.c2":"排舞課",
+        "pg.community.c3":"國畫課",
+        "pg.community.c4":"太極課",
+        "pg.community.c5":"民族舞課",
+        "pg.community.c6":"京劇",
+        "pg.community.c7":"合唱課",
+        "pg.community.c8":"書法課",
+
+        "pg.community.other":"其他社區服務",
+        "pg.community.o1":"低收入義務報稅計畫",
+        "pg.community.o1.p1":"由受訓志工提供之免費報稅服務，服務對象為低收入家庭。",
+        "pg.community.o1.p2":"我們可協助您準確、準時完成並遞交報稅。",
+        "pg.community.o1.season":"期間：",
+        "pg.community.o1.season_time":"每年二月至四月",
+
+        "pg.community.o2":"學生免費公車票",
+        "pg.community.o2.p1":"為符合資格的學生提供免費公車票，以支援交通需求。",
+        "pg.community.o2.p2":"請與我們聯繫以了解資格與申請方式。",
+
+        "pg.community.o3":"學生免費托育",
+        "pg.community.o3.p1":"為符合資格的學生提供免費托育，協助上課或讀書期間有人照看子女。",
+        "pg.community.o3.p2":"我們的照護人員具備資格，環境安全且溫馨。"
+      }
+    };
+    const LANGS=["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); const v=I18N[lang]?.[k];
+        if(typeof v==="string"){ el.textContent=v; }
+      });
+      const input=document.querySelector('.search input[name="q"]');
+      if(input) input.placeholder = (lang==="en")?"Search …":(lang==="zh"?"搜索…":"搜尋…");
+      document.documentElement.lang = (lang==="en")?"en":(lang==="zh")?"zh-Hans":"zh-Hant";
+      LANGS.forEach(code=>{
+        const b=document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(b) b.setAttribute('aria-pressed', String(code===lang));
+      });
+    }
+
+    // 初始化语言
+    (function(){
+      const legacy=localStorage.getItem('lang');
+      if(legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
+      localStorage.removeItem('lang');
+      applyI18n(localStorage.getItem('cam_lang')||'en');
+    })();
+
+    // 语言按钮事件
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const lang=b.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+
+    // 顶部下拉
+    function bindDropdown(id){
+      const dd=document.getElementById(id); if(!dd) return;
+      const toggle=dd.querySelector('.drop-toggle'); let timer;
+      const open=()=>{clearTimeout(timer);dd.classList.add('open');toggle.setAttribute('aria-expanded','true');};
+      const close=()=>{clearTimeout(timer);timer=setTimeout(()=>{dd.classList.remove('open');toggle.setAttribute('aria-expanded','false');},140);};
+      dd.addEventListener('mouseenter',open); dd.addEventListener('mouseleave',close); dd.addEventListener('focusin',open);
+      dd.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle.focus();}});
+    }
+    bindDropdown('nav-services'); bindDropdown('nav-join');
+
+    // 抽屉
+    (function(){
+      const drawer=document.getElementById('drawer');
+      const openBtn=document.getElementById('openMenu');
+      const closeBtn=document.getElementById('closeMenu');
+      function setDrawer(open){
+        if(!drawer) return;
+        drawer.classList.toggle('open',open);
+        drawer.setAttribute('aria-hidden', open?'false':'true');
+        openBtn?.setAttribute('aria-expanded', open?'true':'false');
+        document.body.style.overflow=open?'hidden':'';
+      }
+      openBtn?.addEventListener('click',()=>setDrawer(true));
+      closeBtn?.addEventListener('click',()=>setDrawer(false));
+      drawer?.addEventListener('click',e=>{ if(e.target===drawer) setDrawer(false); });
+      window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer?.classList.contains('open')) setDrawer(false); });
+    })();
+  </script>
+</body>
+</html>
+
