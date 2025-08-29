@@ -111,6 +111,28 @@
 }
 .poster-prev{ left: 10px; } .poster-next{ right: 10px; }
 .poster-prev:hover, .poster-next:hover{ background: rgba(0,0,0,.6); }
+/* 让海报卡片成为定位容器 */
+.poster-card{ position: relative; }
+
+/* 小点覆盖在图片里，居中靠下 */
+.poster-dots{
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  padding: 0;                 /* 覆盖之前的 padding，免得撑开高度 */
+  display: flex; gap: 8px; justify-content: center;
+  z-index: 2;                 /* 确保在图片之上 */
+}
+
+/* 不要显示文字说明，彻底取消“写字的部分” */
+.poster-slide figcaption{ display: none !important; }
+
+/* 右侧轮播图高度与左侧大图对齐（左侧 max-height 是 420px） */
+.poster-slide img{ height: 420px; object-fit: cover; }
+
+/* 移动端稍微矮一点，避免太高 */
+@media (max-width: 900px){
+  .poster-slide img{ height: 280px; }
+}
 
   </style>
 </head>
