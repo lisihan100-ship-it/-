@@ -1,222 +1,241 @@
-<!-- filepath: c:\Users\toeri\Downloads\website\contact.html -->
 <!DOCTYPE html>
+
 <html lang="zh-Hans">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact Us | Chinese Association of Mississauga</title>
-  <style>
-    /* ====== 变量 & 基础 ====== */
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Our Team | Chinese Association of Mississauga</title>
+<!-- 全站公共样式 -->
+<link href="cam-layout.css" rel="stylesheet"/>
+<!-- 本页样式 -->
+<style>
     :root{
-      --brand:#2f8e2f;        /* 主绿：保持与你首页一致 */
-      --brand-dark:#237023;
-      --text:#1e293b;
-      --muted:#64748b;
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --shadow:0 8px 24px rgba(2,6,23,.08);
-      --radius:14px;
-      --ring:#1d4ed8;
-      --mint:#cfeee3;         /* Contact 页顶部浅绿色横幅 */
-      --teal:#1f9a8a;         /* 标题青色，贴近参考截图 */
-      --line:#d4e9e3;
+      --text:#1e293b; --teal:#1f9a8a; --line:#d4e9e3; --bg:#f8fafc;
+      --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.08);
+      --brand:#2f8e2f; --pill-bg:#eaf7ee; --pill-ring:#cfe9d6;
     }
-    *{box-sizing:border-box}
+ *{box-sizing:border-box}
     html,body{height:100%}
     body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
     a{color:inherit;text-decoration:none}
     a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ring); outline-offset:2px; border-radius:8px}
     img{max-width:100%; height:auto; display:block}
     .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);z-index:999}
+    /* 顶部横幅 */
+    .page-hero{background:#d4ede5;padding:32px 0 20px;border-bottom:1px solid var(--line);margin-bottom:18px}
+    .page-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800}
 
-    /* ====== Header（与首页一致）====== */
-    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 18px rgba(2,6,23,.06)}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .topbar .logo img{height:56px}
-    .topbar-right{display:flex;align-items:center;gap:12px}
-    .lang{height:38px;padding:0 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:#66bb2b;color:#fff;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.08)}
-    .btn-primary:hover{background:#57a326}
-    .search{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:8px;background:#fff}
-    .search input{border:0;outline:0;height:38px;padding:0 12px;min-width:220px;background:transparent}
-    .search button{height:38px;padding:0 14px;border:0;cursor:pointer;background:#1d4e89;color:#fff;font-size:16px}
-    .hamburger{display:none;border:1px solid #e2e8f0;border-radius:10px;padding:8px;background:#fff}
-    .hamburger svg{width:22px;height:22px}
+    /* 顶部区域：单列（与下方内容同宽） */
+    .team-top{display:grid;grid-template-columns:1fr;gap:22px;align-items:start;margin:14px 0 26px}
 
-    .main-nav-wrap{background:transparent}
-    .main-nav{
-      background: var(--brand);
-      margin: 10px auto 0;
-      max-width: 1200px;
-      border-radius: 10px;
-      height: 52px;
-      display:flex;align-items:center;justify-content:center;gap:6px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
-      padding:0 6px;
-    }
-    .main-nav a{
-      color:#fff;font-weight:600;letter-spacing:.2px;height:40px;display:flex;align-items:center;padding:0 14px;border-radius:8px
-    }
-    .main-nav a:hover,.main-nav a:focus-visible{background:rgba(255,255,255,.14)}
-    .main-nav a[aria-current="page"]{background:rgba(255,255,255,.22)}
+    /* Board 卡片 */
+    .board{background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid #eef2f7;overflow:hidden}
+    .board-title{color:var(--teal);font-size:28px;font-weight:800;padding:18px;border-bottom:1px solid #e5e7eb}
+    .board-grid{display:grid;grid-template-columns:1.2fr 1.8fr}
+    .board-grid div{padding:14px 18px;border-top:1px solid #eef2f7}
+    .board-grid div:nth-child(4n+1), .board-grid div:nth-child(4n+2){background:#fafafa}
+    .cell-label{color:#475569}
+    .cell-value{font-weight:600}
 
-    /* 抽屉（与首页一致） */
-    .drawer{position:fixed;inset:0 0 0 auto;width:min(86%,360px);background:#fff;box-shadow:var(--shadow);transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column}
-    .drawer.open{transform:translateX(0)}
-    .drawer header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f1f5f9}
-    .drawer nav a{display:block;padding:14px 18px;border-bottom:1px solid #f1f5f9}
-
-    /* Contact Form */
-    .contact-section {
-      margin: 40px 0;
-      padding: 20px;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .contact-section h2 {
-      color: var(--teal);
-      margin-bottom: 20px;
-    }
-    .contact-section form {
-      display: flex;
-      flex-direction: column;
-    }
-    .contact-section label {
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-    .contact-section input,
-    .contact-section textarea {
-      margin-bottom: 16px;
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    .contact-section button {
-      align-self: flex-start;
+    /* 董事姓名胶囊 */
+    .name-pill{
+      display:inline-block; width:100%; text-align:center;
+      background:var(--pill-bg);
+      border:1px solid var(--pill-ring);
+      color:#206a20; font-weight:700;
+      padding:14px 16px; border-radius:28px;
     }
 
-    /* ====== Footer（与首页一致）====== */
-    footer{background-color:var(--brand);color:#fff;padding:30px 20px;margin-top:40px}
-    footer a{color:#fff}
-    footer a:hover{text-decoration:underline}
-    .footer-container{display:grid;grid-template-columns:2fr 1.5fr;gap:20px;max-width:1200px;margin:auto}
-    @media (max-width:800px){.footer-container{grid-template-columns:1fr}}
-    footer h4{margin:0 0 10px;font-weight:800}
-    .bottom{border-top:1px solid rgba(255,255,255,0.3);padding-top:10px;font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin-top:16px}
-    .footer-social{display:flex;gap:12px;margin-top:12px}
-    .footer-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;transition:background .2s ease, transform .1s ease}
-    .footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
-    .footer-social svg{width:22px;height:22px;display:block}
-  </style>
+    /* Directors 列表胶囊网格 */
+    .director-grid{
+      list-style:none; margin:0; padding:4px 0 10px;
+      display:grid; grid-template-columns:repeat(2,minmax(220px,1fr)); gap:12px;
+    }
+    @media (max-width:700px){ .director-grid{grid-template-columns:1fr} }
+    .director-grid li{
+      background:var(--pill-bg); border:1px solid var(--pill-ring);
+      padding:12px 14px; border-radius:999px; text-align:center; font-weight:700; color:#206a20;
+    }
+
+    /* “Our Team” 主标题 */
+    .section-title{color:var(--teal);font-size:28px;font-weight:800;margin:8px 0 16px}
+
+    /* 员工卡片栅格（无小标题，仅人名+职位） */
+    .staff-grid{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+    }
+    @media (max-width:900px){ .staff-grid{grid-template-columns:1fr} }
+    .person-card{
+      background:var(--card); border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 1px 0 rgba(0,0,0,.03); padding:18px 16px;
+    }
+    .person-card strong{display:block; font-size:18px; line-height:1.3}
+    .person-card small{display:block; margin-top:6px; color:#64748b}
+  
+/* ===== Team-only fix: keep header & nav at 1200px, do not affect content/footer ===== */
+.page-team header .container,
+.page-team .main-nav.container{ max-width:1200px !important; }
+</style>
 </head>
-<body>
-  <!-- ====== Header（与你首页一致） ====== -->
-  <header>
-    <div class="topbar container">
-      <a class="logo" href="home.html" aria-label="Home">
-        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
-      </a>
-      <div class="topbar-right">
-        <select class="lang" aria-label="Language selector">
-          <option>English</option>
-          <option selected>简体中文</option>
-          <option>繁體中文</option>
-        </select>
-        <form class="search" role="search" action="#">
-          <input type="search" placeholder="Search ..." aria-label="Search" />
-          <button aria-label="Submit search">🔍</button>
-        </form>
-        <a class="btn btn-primary" href="#donate" role="button">Donate</a>
-        <button class="hamburger" aria-label="打开菜单" aria-controls="drawer" aria-expanded="false" id="openMenu">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="main-nav-wrap">
-      <nav class="main-nav container" aria-label="Primary">
-        <a href="home.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="team.html">Our Team</a>
-        <a href="services.html">Services</a>
-        <a href="program.html">Program</a>
-        <a href="events.html">Events</a>
-        <a href="join.html">Join Us</a>
-        <a href="contact.html" aria-current="page">Contact Us</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- 抽屉导航（与首页一致） -->
-  <aside class="drawer" id="drawer" aria-hidden="true">
-    <header>
-      <strong>Menu</strong>
-      <button class="btn" style="margin-left:auto" id="closeMenu">关闭</button>
-    </header>
-    <nav style="overflow:auto;padding-bottom:20px">
-      <a href="home.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="team.html">Our Team</a>
-      <a href="services.html">Services</a>
-      <a href="program.html">Program</a>
-      <a href="events.html">Events</a>
-      <a href="join.html">Join Us</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
-  </aside>
-
-  <main class="container" id="main">
-    <!-- Contact Section -->
-    <section class="contact-section" aria-label="Contact Us">
-      <h2>Contact Us</h2>
-      <form action="#" method="post">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required placeholder="Your Name" />
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="Your Email" />
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
-
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-    </section>
-  <section class="map-section container" aria-label="Our Location">
-    <h2>Find Us</h2>
-    <div style="border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(2,6,23,.08); margin-top:16px;">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.8279862264776!2d-79.66374982382769!3d43.568467271106215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b4148ed766271%3A0x6d413a8ccd7bb67b!2z5a-G6KW_5rKZ5Yqg6I-v5Lq65Y2U5pyDIENoaW5lc2UgQXNzb2NpYXRpb24gb2YgTWlzc2lzc2F1Z2E!5e0!3m2!1sen!2sca!4v1755265720941!5m2!1sen!2sca"
-        width="100%" 
-        height="400" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-  </section>
-  </main>
-
-  <!-- ====== Footer（与你首页一致） ====== -->
+<a class="skip" href="#main">跳到主内容</a>
+<body class="page-team">
+<!-- 头部（与其它页面一致） -->
+<header>
+<div class="topbar container">
+<a aria-label="Home" class="logo" href="home.html">
+<img alt="Chinese Association of Mississauga Logo" src="1.jpeg"/>
+</a>
+<div class="topbar-right">
+<div aria-label="Language" class="lang-switch" role="group">
+<button aria-pressed="false" class="lang-btn" data-lang="en">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh">简</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zhHant">繁</button>
+</div>
+<form action="search.html" class="search" method="GET" role="search">
+<input aria-label="Search" name="q" placeholder="Search …" type="search"/>
+<button aria-label="Submit search" type="submit">
+<svg aria-hidden="true" height="18" viewbox="0 0 24 24" width="18">
+<path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="11" cy="11" fill="none" r="7" stroke="currentColor" stroke-width="2"></circle>
+</svg>
+</button>
+</form>
+<a class="btn btn-primary" data-i18n="btn.donate" href="#donate" role="button">DONATE</a>
+<button aria-controls="drawer" aria-expanded="false" aria-label="打开菜单" class="hamburger" id="openMenu">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-linecap="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+<div class="main-nav-wrap">
+<nav aria-label="Primary" class="main-nav container">
+<a data-i18n="nav.home" href="home.html">Home</a>
+<a data-i18n="nav.about" href="about.html">About Us</a>
+<a aria-current="page" data-i18n="nav.team" href="team.html">Our Team</a>
+<div class="dropdown" id="nav-services">
+<a aria-expanded="false" aria-haspopup="true" class="drop-toggle" data-i18n="nav.services" href="services.html">Services</a>
+<div aria-label="Services" class="drop-menu" role="menu">
+<a data-i18n="nav.services.settlement" href="settlement.html" role="menuitem">Settlement Services</a>
+<a data-i18n="nav.services.language" href="language.html" role="menuitem">Language &amp; Training</a>
+<a data-i18n="nav.services.community" href="community.html" role="menuitem">Community Services</a>
+</div>
+</div>
+<a data-i18n="nav.program" href="program.html">Program</a>
+<a data-i18n="nav.events" href="events.html">Events</a>
+<div class="dropdown" id="nav-join">
+<a aria-expanded="false" aria-haspopup="true" class="drop-toggle" data-i18n="nav.join" href="join.html">Join Us</a>
+<div aria-label="Join Us" class="drop-menu" role="menu">
+<a data-i18n="nav.join.membership" href="membership.html" role="menuitem">Membership</a>
+<a data-i18n="nav.join.volunteer" href="Volunteer.html" role="menuitem">Volunteer</a>
+<a data-i18n="nav.join.donate" href="Donate.html" role="menuitem">Donate</a>
+</div>
+</div>
+<a data-i18n="nav.contact" href="contact.html">Contact Us</a>
+</nav>
+</div>
+</header>
+<!-- 抽屉（移动端） -->
+<aside aria-hidden="true" class="drawer" id="drawer">
+<header>
+<strong data-i18n="nav.menu">Menu</strong>
+<button class="btn" data-i18n="nav.close" id="closeMenu" style="margin-left:auto">Close</button>
+</header>
+<nav style="overflow:auto;padding-bottom:20px">
+<a data-i18n="nav.home" href="home.html">Home</a>
+<a data-i18n="nav.about" href="about.html">About Us</a>
+<a aria-current="page" data-i18n="nav.team" href="team.html">Our Team</a>
+<button aria-controls="drawer-services" aria-expanded="false" class="drawer-toggle" data-i18n="nav.services">Services</button>
+<div aria-label="Services submenu" class="drawer-submenu" id="drawer-services" role="group">
+<a data-i18n="nav.services.settlement" href="services.html#settlement">Settlement Services</a>
+<a data-i18n="nav.services.language" href="services.html#language">Language &amp; Training</a>
+<a data-i18n="nav.services.community" href="services.html#community">Community Services</a>
+</div>
+<a data-i18n="nav.program" href="program.html">Program</a>
+<a data-i18n="nav.events" href="events.html">Events</a>
+<button aria-controls="drawer-join" aria-expanded="false" class="drawer-toggle" data-i18n="nav.join">Join Us</button>
+<div aria-label="Join Us submenu" class="drawer-submenu" id="drawer-join" role="group">
+<a data-i18n="nav.join.membership" href="membership.html">Membership</a>
+<a data-i18n="nav.join.volunteer" href="Volunteer.html">Volunteer</a>
+<a data-i18n="nav.join.donate" href="Donate.html">Donate</a>
+</div>
+<a data-i18n="nav.contact" href="contact.html">Contact Us</a>
+<a data-i18n="btn.donate" href="#donate">DONATE</a>
+</nav>
+</aside>
+<!-- 横幅 -->
+<section class="page-hero">
+<div class="container"><h1 data-i18n="hero.team">Our Team</h1></div>
+</section>
+<main class="container" id="main">
+<!-- Board of Directors -->
+<section aria-label="Board of Directors" class="team-top">
+<div class="board">
+<div class="board-title" data-i18n="board.title">Board of Directors</div>
+<div aria-label="Board" class="board-grid" role="table">
+<div class="cell-label" data-i18n="board.president" role="rowheader">President</div>
+<div class="cell-value" role="cell"><span class="name-pill">Fiona Yang</span></div>
+<div class="cell-label" data-i18n="board.vicepresident" role="rowheader">Vice President</div>
+<div class="cell-value" role="cell"><span class="name-pill">Amanda Lu</span></div>
+<div class="cell-label" data-i18n="board.secretary" role="rowheader">Secretary</div>
+<div class="cell-value" role="cell"><span class="name-pill">Vicki Liu</span></div>
+<div class="cell-label" data-i18n="board.registrar" role="rowheader">Registrar</div>
+<div class="cell-value" role="cell"><span class="name-pill">Hong Mei Liu</span></div>
+<div class="cell-label" data-i18n="board.treasurer" role="rowheader">Treasurer</div>
+<div class="cell-value" role="cell"><span class="name-pill">Jie Chen</span></div>
+<!-- Directors 列表 -->
+<div class="cell-label" data-i18n="board.director" role="rowheader">Directors</div>
+<div role="cell">
+<ul class="director-grid">
+<li>Annie Wu</li><li>Candie Yang</li><li>David Wang</li><li>Eric Wen</li>
+<li>Joyce Wang</li><li>Kalen Liang</li><li>Ricky Zhen</li><li>Roy Wu</li>
+<li>Shelley Shi</li><li>Suzy Zhao</li><li>Terri Long</li><li>Yiyan Cai</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Staff（无小标题，仅人名 + 职位） -->
+<section aria-label="Staff">
+<h2 class="section-title" data-i18n="staff.title">Our Team</h2>
+<div class="staff-grid">
+<div class="person-card">
+<strong>May Ren</strong>
+<small data-i18n="role.pm">Program Manager</small>
+</div>
+<div class="person-card">
+<strong>Yang Yang</strong>
+<small data-i18n="role.pa">Program Assistant</small>
+</div>
+<div class="person-card">
+<strong>Jenny Yan</strong>
+<small data-i18n="role.settlement">Settlement Worker</small>
+</div>
+<div class="person-card">
+<strong>Kevin Mao</strong>
+<small data-i18n="role.settlement_home">Settlement Worker / Home Visit</small>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer（统一样式与结构） -->
   <footer>
     <div class="footer-container">
       <div class="footer-section">
-        <h4>Chinese Association of Mississauga</h4>
-        <p>Serving newcomers and diverse communities in Mississauga</p>
-        <a class="btn btn-primary" href="#donate" role="button">DONATE</a>
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
       </div>
       <div class="footer-section">
-        <h4>Contact</h4>
+        <h4 data-i18n="footer.contact">Contact</h4>
         <p>info@chineseassociationmississauga.com</p>
         <p>Phone：(905) 275-8558</p>
         <div class="footer-social" aria-label="Social links">
           <!-- WeChat -->
-          <a href="https://weixin.qq.com/" target="_blank" rel="noopener" aria-label="WeChat">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
               <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
@@ -228,43 +247,150 @@
             </svg>
           </a>
           <!-- Instagram -->
-          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
             </svg>
           </a>
           <!-- Facebook -->
-          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
             </svg>
           </a>
         </div>
       </div>
     </div>
-    <div class="bottom">© Chinese Association of Mississauga. All rights reserved.</div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
   </footer>
 
-  <!-- ====== JS：与首页同款的抽屉 ====== -->
-  <script>
-    // 抽屉
-    const drawer = document.getElementById('drawer');
-    const openBtn = document.getElementById('openMenu');
-    const closeBtn = document.getElementById('closeMenu');
+<!-- 多语言 -->
+<script>
+    const I18N = {
+      en:{
+        "nav.menu":"Menu","nav.close":"Close",
+        "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+        "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+        "nav.contact":"Contact Us","btn.donate":"DONATE",
 
-    function setDrawer(open){
-      if(!drawer) return;
-      drawer.classList.toggle('open', open);
-      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-      if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      document.body.style.overflow = open ? 'hidden' : '';
+        "hero.team":"Our Team",
+
+        "board.title":"Board of Directors","board.president":"President","board.vicepresident":"Vice President","board.secretary":"Secretary","board.registrar":"Registrar","board.treasurer":"Treasurer","board.director":"Directors",
+
+        "staff.title":"Our Team",
+        "role.pm":"Program Manager",
+        "role.pa":"Program Assistant",
+        "role.settlement":"Settlement Worker",
+        "role.settlement_home":"Settlement Worker / Home Visit",
+
+        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
+      },
+      zh:{
+        "nav.menu":"菜单","nav.close":"关闭",
+        "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+        "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+        "nav.contact":"联系我们","btn.donate":"捐赠",
+
+        "hero.team":"我们的团队",
+
+        "board.title":"董事会","board.president":"会长","board.vicepresident":"副会长","board.secretary":"秘书","board.registrar":"注册主任","board.treasurer":"财务","board.director":"董事",
+
+        "staff.title":"我们的团队",
+        "role.pm":"项目经理",
+        "role.pa":"项目助理",
+        "role.settlement":"安居辅导员",
+        "role.settlement_home":"安居辅导员／家访",
+
+        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式","footer.copyright":"© 密西沙加华人协会 保留所有权利。"
+      },
+      zhHant:{
+        "nav.menu":"選單","nav.close":"關閉",
+        "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+        "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+        "nav.contact":"聯絡我們","btn.donate":"捐贈",
+
+        "hero.team":"我們的團隊",
+
+        "board.title":"董事會","board.president":"會長","board.vicepresident":"副會長","board.secretary":"秘書","board.registrar":"註冊主任","board.treasurer":"財務","board.director":"董事",
+
+        "staff.title":"我們的團隊",
+        "role.pm":"項目經理",
+        "role.pa":"項目助理",
+        "role.settlement":"安居輔導員",
+        "role.settlement_home":"安居輔導員／家訪",
+
+        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式","footer.copyright":"© 密西沙加華人協會 保留所有權利。"
+      }
+    };
+
+    const LANGS=["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); const v=I18N[lang]?.[k];
+        if(typeof v==="string"){ el.textContent=v; }
+      });
+      const input=document.querySelector('.search input[name="q"]');
+      if(input) input.placeholder = (lang==="en")?"Search …":(lang==="zh"?"搜索…":"搜尋…");
+      document.documentElement.lang = (lang==="en")?"en":(lang==="zh")?"zh-Hans":"zh-Hant";
+      LANGS.forEach(code=>{
+        const b=document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(b) b.setAttribute('aria-pressed', String(code===lang));
+      });
     }
-    openBtn?.addEventListener('click', ()=> setDrawer(true));
-    closeBtn?.addEventListener('click', ()=> setDrawer(false));
-    drawer?.addEventListener('click', (e)=> { if(e.target === drawer) setDrawer(false) });
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false) });
+
+    // 初始化语言（兼容旧键）
+    (function(){
+      const legacy=localStorage.getItem('lang');
+      if(legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
+      localStorage.removeItem('lang');
+      applyI18n(localStorage.getItem('cam_lang')||'zh');
+    })();
+
+    // 切换
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const lang=b.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+
+    // 顶部下拉
+    (function(){
+      document.querySelectorAll('.main-nav .dropdown').forEach(dd=>{
+        const toggle=dd.querySelector('.drop-toggle'); let timer;
+        const open=()=>{clearTimeout(timer);dd.classList.add('open');toggle?.setAttribute('aria-expanded','true');};
+        const close=()=>{clearTimeout(timer);timer=setTimeout(()=>{dd.classList.remove('open');toggle?.setAttribute('aria-expanded','false');},140);};
+        dd.addEventListener('mouseenter',open); dd.addEventListener('mouseleave',close); dd.addEventListener('focusin',open);
+        dd.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle?.focus();}});
+      });
+    })();
+
+    // 抽屉
+    (function(){
+      const drawer=document.getElementById('drawer');
+      const openBtn=document.getElementById('openMenu');
+      const closeBtn=document.getElementById('closeMenu');
+      function setDrawer(open){
+        if(!drawer) return;
+        drawer.classList.toggle('open',open);
+        drawer.setAttribute('aria-hidden', open?'false':'true');
+        openBtn?.setAttribute('aria-expanded', open?'true':'false');
+        document.body.style.overflow=open?'hidden':'';
+      }
+      openBtn?.addEventListener('click',()=>setDrawer(true));
+      closeBtn?.addEventListener('click',()=>setDrawer(false));
+      drawer?.addEventListener('click',e=>{ if(e.target===drawer) setDrawer(false); });
+      window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer?.classList.contains('open')) setDrawer(false); });
+    })();
   </script>
 </body>
 </html>
