@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Membership | Chinese Association of Mississauga</title>
+
+  <!-- 全站样式（与 home 一致） -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <!-- 本页样式（仅作用于 .page-membership） -->
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --muted:#64748b;
+      --bg:#f8fafc; --card:#ffffff; --shadow:0 10px 30px rgba(2,6,23,.10);
+      --radius:14px; --ring:#1d4ed8; --mint:#cfeee3; --teal:#1f9a8a; --line:#d4e9e3; --accent:#14b8a6;
+      --light-green:rgba(47,142,47,.04);
+    }
+	  /* 让它与 home 的基础样式一致 */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0;
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+  color:var(--text);
+  background:var(--bg);
+}
+/* 关键：去掉链接下划线（修复导航栏外观差异） */
+a{ color:inherit; text-decoration:none }
+
+/* 焦点可见性，与首页一致的无障碍样式 */
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* 工具类，与首页一致 */
+img{ max-width:100%; height:auto; display:block }
+.container{ max-width:1200px; margin-inline:auto; padding:0 20px }
+
+
+    /* —— 页面主体作用域 —— */
+    .page-hero{background:var(--mint);padding:32px 0;margin-bottom:18px;border-bottom:1px solid var(--line)}
+    .page-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800;letter-spacing:.2px}
+
+    .page-membership{padding:40px 0}
+    .page-membership .intro{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:var(--shadow);padding:20px}
+    .page-membership .cta{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:var(--brand);color:#fff;font-weight:700}
+    .page-membership .cta:hover{background:var(--brand-dark)}
+    .page-membership .badge{display:inline-block;background:#e8f7e8;color:#115e11;border:1px solid #bfe3bf;padding:3px 8px;border-radius:999px;font-size:12px;margin-left:10px}
+
+    .page-membership .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:22px;margin-top:18px}
+    @media (max-width:980px){ .page-membership .grid{grid-template-columns:1fr} }
+
+    .page-membership .card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:var(--shadow);padding:20px}
+    .page-membership h2{color:#1f9a8a;margin:0 0 10px}
+    .page-membership h3{margin:14px 0 8px}
+
+    .page-membership .tick{list-style:none;margin:8px 0 0 0;padding:0}
+    .page-membership .tick li{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+    .page-membership .tick svg{flex:0 0 18px;margin-top:3px;color:var(--accent)}
+    .page-membership .small{color:#64748b}
+  </style>
+</head>
+<body>
+
+
+  <!-- ===== 头部（与 home 一致） ===== -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home">
+        <img src="1.jpeg" alt="Chinese Association of Mississauga Logo" />
+      </a>
+
+      <div class="topbar-right">
+        <!-- 语言按钮 -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <!-- 搜索（提交到 search.html?q=） -->
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 主导航（含下拉） -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+        <!-- Services 下拉 -->
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-services" data-i18n="nav.services">Services</a>
+          <div id="menu-services" class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <!-- Join Us 下拉 -->
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-join" data-i18n="nav.join">Join Us</a>
+          <div id="menu-join" class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" aria-current="page" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 抽屉（移动端） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong data-i18n="menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="btn.close">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
+      <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
+      <a href="language.html" data-i18n="nav.services.language">Language & Training</a>
+      <a href="community.html" data-i18n="nav.services.community">Community Services</a>
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="membership.html" aria-current="page" data-i18n="nav.join.membership">Membership</a>
+      <a href="Volunteer.html" data-i18n="nav.join.volunteer">Volunteer</a>
+      <a href="Donate.html" data-i18n="nav.join.donate">Donate</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+    </nav>
+  </aside>
+
+  <!-- ===== Hero ===== -->
+  <section class="page-hero">
+    <div class="container"><h1 data-i18n="page.title">Membership Registration</h1></div>
+  </section>
+
+  <!-- ===== 内容 ===== -->
+  <main id="main-content" class="container page-membership">
+    <!-- 简介 + CTA -->
+    <section class="intro">
+      <p data-i18n="intro.line1">Chinese Association of Mississauga (CAM) Membership Registration</p>
+      <p data-i18n="intro.line2">
+        To become a member of CAM, please complete the online Membership Registration Form and submit the membership fee payment at our CAM office. We will contact you in a timely manner once you submit the online membership application.
+      </p>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLScQ_NZcW-MAYPKfyMFLeU-GCChVomm041_22oLfY12D7-8MfA/viewform">Apply Online</a>
+      <span class="badge" data-i18n="cta.inoffice">Pay at office</span>
+    </section>
+
+    <!-- 主体两列 -->
+    <section class="grid">
+      <!-- 左：条款 -->
+      <article class="card">
+        <h2 data-i18n="terms.title">Membership Terms and Conditions</h2>
+
+        <h3 data-i18n="rules.title">Membership Rules</h3>
+        <ul class="tick">
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r1">The association's membership is on an annual basis, and the membership expires on December 31 of each year.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r2">Once you become a member, the membership fee is non-refundable.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r3">When a member renews, regardless of the renewal date, the expiration date will be December 31 of the same year.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r4">To become a member you must provide valid ID for the association to copy, such as driver's license, PR card, and passport.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r5">Adult membership fee is CAD$30, and seniors 65 and older are CAD$25.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r6">If your membership card is lost or damaged, there is a CAD$5 fee for each replacement.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r7">Members must present their membership cards when participating in any association activities or using association services.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r8">Members participating in any association activities must comply with the relevant regulations of each activity.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="rules.r9">If a member engages in any inappropriate behavior or violates the law, the association has the right to expel the member and reserves the right to pursue legal action.</span></li>
+        </ul>
+
+        <h3 style="margin-top:14px" data-i18n="privacy.title">Confidentiality Clause</h3>
+        <p class="small" data-i18n="privacy.p">
+          In accordance with Canadian Law regarding confidentiality of personal data, the Chinese Association of Mississauga will only use the member's personal data for internal purposes and will not disclose any personal information to any third-party organizations or association personnel.
+        </p>
+      </article>
+
+      <!-- 右：费用与证件 + 权益 -->
+      <aside class="card">
+        <h2 data-i18n="fees.title">Fees & ID</h2>
+        <ul class="tick">
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="fees.f1">Adult: CAD$30 / year</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="fees.f2">Senior (65+): CAD$25 / year</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="fees.f3">Card replacement: CAD$5</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="fees.f4">Valid ID required: driver’s license / PR card / passport</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="fees.f5">All memberships expire on Dec 31</span></li>
+        </ul>
+
+        <h3 style="margin-top:16px" data-i18n="benefits.title">Member Benefits</h3>
+        <ul class="tick">
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="benefits.b1">Members can get up to one year of free membership when they join the first time.</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="benefits.b2">Members can receive any services provided by the office free of charge (services may require prior appointment).</span></li>
+          <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.5 13.5l-3-3 1.4-1.4 1.6 1.6 5-5 1.4 1.4-6.4 6.4z" fill="currentColor"/></svg><span data-i18n="benefits.b3">Members can attend events organized by the association for free or at a member discount.</span></li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+ <!-- Footer（统一样式与结构） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+
+  <!-- ===== 语言与交互（与 home 一致） ===== -->
+  <script>
+    /* I18N 词库（导航/页脚 + 本页文案） */
+    const I18N = {
+      en:{
+        "menu":"Menu","btn.close":"Close",
+        "nav.home":"Home","nav.about":"About Us","nav.team":"Our Team",
+        "nav.services":"Services","nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+        "nav.program":"Program","nav.events":"Events",
+        "nav.join":"Join Us","nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+        "nav.contact":"Contact Us",
+        "btn.donate":"DONATE",
+        "footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact",
+        "footer.copyright":"© Chinese Association of Mississauga. All rights reserved.",
+
+        "page.title":"Membership Registration",
+        "intro.line1":"Chinese Association of Mississauga (CAM) Membership Registration",
+        "intro.line2":"To become a member of CAM, please complete the online Membership Registration Form and submit the membership fee payment at our CAM office. We will contact you in a timely manner once you submit the online membership application.",
+        "cta.apply":"Apply Online","cta.inoffice":"Pay at office",
+        "terms.title":"Membership Terms and Conditions",
+        "rules.title":"Membership Rules",
+        "rules.r1":"The association's membership is on an annual basis, and the membership expires on December 31 of each year.",
+        "rules.r2":"Once you become a member, the membership fee is non-refundable.",
+        "rules.r3":"When a member renews, regardless of the renewal date, the expiration date will be December 31 of the same year.",
+        "rules.r4":"To become a member you must provide valid ID for the association to copy, such as driver's license, PR card, and passport.",
+        "rules.r5":"Adult membership fee is CAD$30, and seniors 65 and older are CAD$25.",
+        "rules.r6":"If your membership card is lost or damaged, there is a CAD$5 fee for each replacement.",
+        "rules.r7":"Members must present their membership cards when participating in any association activities or using association services.",
+        "rules.r8":"Members participating in any association activities must comply with the relevant regulations of each activity.",
+        "rules.r9":"If a member engages in any inappropriate behavior or violates the law, the association has the right to expel the member and reserves the right to pursue legal action.",
+        "privacy.title":"Confidentiality Clause",
+        "privacy.p":"In accordance with Canadian Law regarding confidentiality of personal data, the Chinese Association of Mississauga will only use the member's personal data for internal purposes and will not disclose any personal information to any third-party organizations or association personnel.",
+        "fees.title":"Fees & ID","fees.f1":"Adult: CAD$30 / year","fees.f2":"Senior (65+): CAD$25 / year","fees.f3":"Card replacement: CAD$5","fees.f4":"Valid ID required: driver’s license / PR card / passport","fees.f5":"All memberships expire on Dec 31",
+        "benefits.title":"Member Benefits",
+        "benefits.b1":"Members can get up to one year of free membership when they join the first time.",
+        "benefits.b2":"Members can receive any services provided by the office free of charge (services may require prior appointment).",
+        "benefits.b3":"Members can attend events organized by the association for free or at a member discount."
+      },
+
+      zh:{
+        "menu":"菜单","btn.close":"关闭",
+        "nav.home":"首页","nav.about":"关于我们","nav.team":"团队",
+        "nav.services":"服务","nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+        "nav.program":"课程/项目","nav.events":"活动",
+        "nav.join":"加入我们","nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+        "nav.contact":"联系我们",
+        "btn.donate":"捐赠",
+        "footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式",
+        "footer.copyright":"© 密西沙加华人协会 保留所有权利",
+
+        "page.title":"会员注册",
+        "intro.line1":"密西沙加华人协会（CAM）会员注册",
+        "intro.line2":"如需成为 CAM 会员，请在线填写《会员注册表》，并到 CAM 办公室缴纳会费。在线提交后，我们会尽快与您联系。",
+        "cta.apply":"在线申请","cta.inoffice":"到办公室付款",
+        "terms.title":"会员条款与细则",
+        "rules.title":"会员守则",
+        "rules.r1":"协会会员按年度计算，每年会员资格在当年 12 月 31 日到期。",
+        "rules.r2":"一旦成为会员，会费恕不退还。",
+        "rules.r3":"会员续费时，无论续费日期为何，当年到期日均为 12 月 31 日。",
+        "rules.r4":"申请入会须提供可供复印的有效证件，如驾照、枫叶卡、护照等。",
+        "rules.r5":"成人会费每年 CAD$30；65 岁及以上长者每年 CAD$25。",
+        "rules.r6":"会员卡遗失或损坏，每次补办费用 CAD$5。",
+        "rules.r7":"参加协会活动或使用服务时，须出示会员卡。",
+        "rules.r8":"参加任何活动须遵守该活动的相关规定。",
+        "rules.r9":"如有不当行为或违法，协会有权取消会籍并保留追究法律责任的权利。",
+        "privacy.title":"保密条款",
+        "privacy.p":"根据加拿大有关个人资料保密的法律，密西沙加华人协会仅将会员个人资料用于协会内部，不会向任何第三方机构或无关人员透露。",
+        "fees.title":"费用与证件","fees.f1":"成人：CAD$30 / 年","fees.f2":"长者（65+）：CAD$25 / 年","fees.f3":"补办会员卡：CAD$5","fees.f4":"需提供有效证件：驾照 / 枫叶卡 / 护照","fees.f5":"所有会员资格到期日均为 12 月 31 日",
+        "benefits.title":"会员权益",
+        "benefits.b1":"首次入会可享最长一年的免费会籍。",
+        "benefits.b2":"可免费享受协会提供的各项服务（部分服务需预约）。",
+        "benefits.b3":"可免费或以会员价参加协会举办的活动。"
+      },
+
+      zhHant:{
+        "menu":"選單","btn.close":"關閉",
+        "nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊",
+        "nav.services":"服務","nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+        "nav.program":"課程／項目","nav.events":"活動",
+        "nav.join":"加入我們","nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+        "nav.contact":"聯絡我們",
+        "btn.donate":"捐贈",
+        "footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式",
+        "footer.copyright":"© 密西沙加華人協會 保留所有權利",
+
+        "page.title":"會員註冊",
+        "intro.line1":"密西沙加華人協會（CAM）會員註冊",
+        "intro.line2":"如欲成為 CAM 會員，請線上填寫《會員註冊表》，並至 CAM 辦公室繳交會費。提交後我們會盡快與您聯絡。",
+        "cta.apply":"線上申請","cta.inoffice":"到辦公室付款",
+        "terms.title":"會員條款與細則",
+        "rules.title":"會員守則",
+        "rules.r1":"協會會員以年度計算，每年會員資格於當年 12 月 31 日到期。",
+        "rules.r2":"一經成為會員，會費恕不退還。",
+        "rules.r3":"會員續費時，不論日期為何，當年到期日均為 12 月 31 日。",
+        "rules.r4":"申請入會須提供可供影印之有效證件，如駕照、永久居民卡、護照等。",
+        "rules.r5":"成人會費每年 CAD$30；65 歲及以上長者每年 CAD$25。",
+        "rules.r6":"會員卡遺失或損壞，每次補辦費用 CAD$5。",
+        "rules.r7":"參加協會活動或使用服務時，須出示會員卡。",
+        "rules.r8":"參加任何活動須遵守該活動之相關規定。",
+        "rules.r9":"如有不當行為或違法，協會有權取消會籍並保留法律追訴權。",
+        "privacy.title":"保密條款",
+        "privacy.p":"依據加拿大個資保密相關法律，本協會僅將會員個資用於內部，不會向任何第三方機構或無關人員透露。",
+        "fees.title":"費用與證件","fees.f1":"成人：CAD$30 / 年","fees.f2":"長者（65+）：CAD$25 / 年","fees.f3":"補辦會員卡：CAD$5","fees.f4":"需提供有效證件：駕照／永久居民卡／護照","fees.f5":"所有會員到期日均為 12 月 31 日",
+        "benefits.title":"會員權益",
+        "benefits.b1":"首次入會可享最長一年的免費會籍。",
+        "benefits.b2":"可免費享受協會提供之各項服務（部分服務需預約）。",
+        "benefits.b3":"可免費或以會員價參與協會舉辦之活動。"
+      }
+    };
+    const LANGS = ["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); const v=I18N[lang]?.[k];
+        if(typeof v==="string"){ el.textContent=v; }
+      });
+      const input=document.querySelector('.search input[name="q"]');
+      if(input) input.placeholder = (lang==="en")?"Search …":(lang==="zh"?"搜索…":"搜尋…");
+      document.documentElement.lang = (lang==="en")?"en":(lang==="zh"?"zh-Hans":"zh-Hant");
+      LANGS.forEach(code=>{
+        const b=document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(b) b.setAttribute('aria-pressed', String(code===lang));
+      });
+    }
+
+    // 迁移旧 key -> cam_lang，并初始化语言（默认 EN，与首页一致）
+    (function(){
+      const legacy=localStorage.getItem('lang');
+      if(legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
+      localStorage.removeItem('lang');
+      applyI18n(localStorage.getItem('cam_lang')||'en');
+    })();
+
+    // 语言按钮
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const lang=b.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+
+    // 顶部下拉交互
+    function bindDropdown(id){
+      const dd=document.getElementById(id); if(!dd) return;
+      const toggle=dd.querySelector('.drop-toggle'); let timer;
+      const open=()=>{clearTimeout(timer);dd.classList.add('open');toggle?.setAttribute('aria-expanded','true');};
+      const close=()=>{clearTimeout(timer);timer=setTimeout(()=>{dd.classList.remove('open');toggle?.setAttribute('aria-expanded','false');},140);};
+      dd.addEventListener('mouseenter',open); dd.addEventListener('mouseleave',close); dd.addEventListener('focusin',open);
+      dd.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle?.focus();}});
+    }
+    bindDropdown('nav-services'); bindDropdown('nav-join');
+
+    // 抽屉开关
+    (function(){
+      const drawer=document.getElementById('drawer');
+      const openBtn=document.getElementById('openMenu');
+      const closeBtn=document.getElementById('closeMenu');
+      function setDrawer(open){
+        if(!drawer) return;
+        drawer.classList.toggle('open',open);
+        drawer.setAttribute('aria-hidden', open?'false':'true');
+        openBtn?.setAttribute('aria-expanded', open?'true':'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      openBtn?.addEventListener('click',()=>setDrawer(true));
+      closeBtn?.addEventListener('click',()=>setDrawer(false));
+      drawer?.addEventListener('click',e=>{ if(e.target===drawer) setDrawer(false); });
+      window.addEventListener('keydown',e=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false); });
+    })();
+  </script>
+</body>
+</html>
