@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join Us | Chinese Association of Mississauga</title>
+
+  <!-- 统一：公共头部/导航/页脚样式 -->
+  <link rel="stylesheet" href="cam-layout.css" />
+
+  <!-- 本页 Join Us 专属样式（不覆盖公共导航/页脚） -->
+  <style>
+    :root{
+      --brand:#2f8e2f; --brand-dark:#237023; --text:#1e293b; --bg:#f8fafc;
+      --shadow:0 8px 24px rgba(2,6,23,.08); --line:#d4e9e3; --teal:#1f9a8a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin-inline:auto;padding:0 20px}
+
+    /* Hero */
+    .join-hero{background:#cfeee3;padding:32px 0;margin-bottom:18px;border-bottom:1px solid var(--line)}
+    .join-hero h1{margin:0;text-align:center;font-size:clamp(28px,4.2vw,40px);color:var(--teal);font-weight:800;letter-spacing:.2px}
+
+    /* 三个详情卡片 */
+    .detail{background:#fff;border:1px solid #1f9a8a;border-radius:17px;box-shadow:var(--shadow);padding:20px;margin:14px auto;max-width:1000px}
+    .detail h2{margin:0 0 6px;color:#1f9a8a}
+    .detail p{margin:8px 0 0;color:#475569}
+    .cta{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:var(--brand);color:#fff;margin-top:12px;font-weight:700}
+    .cta:hover{background:var(--brand-dark)}
+    .cta-ghost{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;border:2px solid var(--brand);color:var(--brand);background:#fff;margin-left:10px;font-weight:800}
+    .cta-ghost:hover{background:#ecfdf5}
+	  /* —— Join Us 页面快速美化 —— */
+/* 1) 统一容器宽度 & 英雄区节奏 */
+
+
+/* 2) 卡片弱化边框、收敛阴影、统一排版 */
+.detail{
+  display:grid; grid-template-columns: 1fr auto; grid-auto-rows:min-content;
+  align-items:start; gap:14px 22px;
+  background:#fff; border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 6px 18px rgba(2,6,23,.06); padding:22px 20px; margin:18px auto;
+}
+.detail h2{ margin:0; font-size:22px; color:#0f172a; }
+.detail p{ margin:4px 0 0; color:#475569; line-height:1.7; grid-column:1; }
+
+/* 3) CTA 主次明确：主按钮在右上，次按钮其下；移动端回落为纵向 */
+.detail .cta{ grid-column:2; grid-row:1; height:42px; padding:0 16px; border-radius:10px;
+  background:var(--brand); color:#fff; font-weight:700; box-shadow:0 2px 0 rgba(0,0,0,.06);}
+.detail .cta:hover{ background:var(--brand-dark); }
+.detail .cta-ghost{ grid-column:2; grid-row:2; height:42px; padding:0 16px; border-radius:10px;
+  border:2px solid var(--brand); color:var(--brand); background:#fff; font-weight:800; }
+.detail .cta-ghost:hover{ background:#ecfdf5; }
+
+/* 4) 细节：去掉任何可能的下划线残留（某些环境会强加） */
+.main-nav a, .main-nav a:visited, .main-nav a:hover, .main-nav a:focus-visible { text-decoration:none !important; }
+
+/* 5) 移动端回落 */
+@media (max-width:700px){
+  .detail{ display:block; padding:18px; }
+  .detail .cta, .detail .cta-ghost{ display:inline-flex; margin-top:12px; }
+}
+/* —— 让右侧两枚按钮等宽等高 —— */
+:root{
+  /* 统一按钮列宽与高度，可按需微调 */
+  --cta-w: 260px;
+  --cta-h: 46px;
+}
+
+/* 把 detail 的右侧列固定为相同宽度 */
+.detail{
+  grid-template-columns: 1fr var(--cta-w);
+}
+
+/* 两个按钮撑满右侧列，并统一高度/外观 */
+.detail .cta,
+.detail .cta-ghost{
+  width: 100%;
+  height: var(--cta-h);
+  padding: 0 16px;                 /* 高度已固定，水平内边距保留 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;             /* 两个按钮圆角一致 */
+  box-sizing: border-box;          /* 避免边框影响总宽高 */
+}
+
+/* 维持主次风格（按你之前的颜色样式即可） */
+/* .detail .cta { 背景 brand；.detail .cta-ghost { 2px 边框 } */
+
+/* 手机端：回落为单列，按钮满宽堆叠 */
+@media (max-width:700px){
+  .detail{ grid-template-columns: 1fr; }
+  .detail .cta,
+  .detail .cta-ghost{ width: 100%; }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header（来自 cam-layout.css 的统一样式） -->
+  <header>
+    <div class="topbar container">
+      <a class="logo" href="home.html" aria-label="Home"><img src="1.jpeg" alt="Chinese Association of Mississauga Logo" /></a>
+
+      <div class="topbar-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="zh" aria-pressed="false">简</button>
+          <button class="lang-btn" data-lang="zhHant" aria-pressed="false">繁</button>
+        </div>
+
+        <form class="search" role="search" action="search.html" method="GET">
+          <input type="search" name="q" placeholder="Search …" aria-label="Search" />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+
+        <button class="hamburger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="openMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 顶部导航（与其它页一致） -->
+    <div class="main-nav-wrap">
+      <nav class="main-nav container" aria-label="Primary">
+        <a href="home.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+        <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+        <!-- Services 下拉 -->
+        <div class="dropdown" id="nav-services">
+          <a href="services.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" data-i18n="nav.services">Services</a>
+          <div class="drop-menu" role="menu" aria-label="Services">
+            <a href="settlement.html" role="menuitem" data-i18n="nav.services.settlement">Settlement Services</a>
+            <a href="language.html"   role="menuitem" data-i18n="nav.services.language">Language & Training</a>
+            <a href="community.html"  role="menuitem" data-i18n="nav.services.community">Community Services</a>
+          </div>
+        </div>
+
+        <a href="program.html" data-i18n="nav.program">Program</a>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+
+        <!-- Join Us 下拉（当前页高亮） -->
+        <div class="dropdown" id="nav-join">
+          <a href="join.html" class="drop-toggle" aria-haspopup="true" aria-expanded="true" aria-current="page" data-i18n="nav.join">Join Us</a>
+          <div class="drop-menu" role="menu" aria-label="Join Us">
+            <a href="membership.html" role="menuitem" data-i18n="nav.join.membership">Membership</a>
+            <a href="Volunteer.html"  role="menuitem" data-i18n="nav.join.volunteer">Volunteer</a>
+            <a href="Donate.html"     role="menuitem" data-i18n="nav.join.donate">Donate</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Drawer（移动端） -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong data-i18n="nav.menu">Menu</strong>
+      <button class="btn" style="margin-left:auto" id="closeMenu" data-i18n="nav.close">Close</button>
+    </header>
+    <nav style="overflow:auto;padding-bottom:20px">
+      <a href="home.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="team.html" data-i18n="nav.team">Our Team</a>
+
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-services" data-i18n="nav.services">Services</button>
+      <div id="drawer-services" class="drawer-submenu" role="group">
+        <a href="settlement.html" data-i18n="nav.services.settlement">Settlement Services</a>
+        <a href="language.html"   data-i18n="nav.services.language">Language & Training</a>
+        <a href="community.html"  data-i18n="nav.services.community">Community Services</a>
+      </div>
+
+      <a href="program.html" data-i18n="nav.program">Program</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+
+      <button class="drawer-toggle" aria-expanded="false" aria-controls="drawer-join" data-i18n="nav.join">Join Us</button>
+      <div id="drawer-join" class="drawer-submenu" role="group">
+        <a href="membership.html" data-i18n="nav.join.membership">Membership</a>
+        <a href="Volunteer.html"  data-i18n="nav.join.volunteer">Volunteer</a>
+        <a href="Donate.html"     data-i18n="nav.join.donate">Donate</a>
+      </div>
+
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
+      <a href="Donate.html" data-i18n="btn.donate">DONATE</a>
+    </nav>
+  </aside>
+
+  <!-- Hero -->
+  <section class="join-hero">
+    <div class="container"><h1 data-i18n="hero.join">Join Us</h1></div>
+  </section>
+
+  <!-- 三个详情块 -->
+  <main class="container" id="main">
+    <section id="membership" class="detail" aria-label="Membership details">
+      <h2 data-i18n="join.membership">Membership</h2>
+      <p data-i18n="desc.membership">Becoming a member will give you priority access to event spots and project information, and support the long-term development of the association.</p>
+		<a class="cta-ghost" href="membership.html" data-i18n="cta.more">Learn More</a>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLScQ_NZcW-MAYPKfyMFLeU-GCChVomm041_22oLfY12D7-8MfA/viewform" target="_blank" rel="noopener" data-i18n="cta.apply">Apply for Membership</a>
+      
+    </section>
+
+    <section id="volunteer" class="detail" aria-label="Volunteer details">
+      <h2 data-i18n="join.volunteer">Volunteer</h2>
+      <p data-i18n="desc.volunteer">Join the volunteer team to assist with event execution, exhibition layout, media publicity, and other projects.</p>
+		<a class="cta-ghost" href="Volunteer.html" data-i18n="cta.more">Learn More</a>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdP_8GNGx51M8Ld6KgJSHZNki60vpWExmutp-9XwbRhgJvM-g/viewform?usp=header" target="_blank" rel="noopener" data-i18n="cta.signup">Sign Up to Volunteer</a>
+      
+    </section>
+
+    <section id="donate" class="detail" aria-label="Donate details">
+      <h2 data-i18n="join.donate">Donate</h2>
+      <p data-i18n="desc.donate">Your donation will be directly used for community services and project expansion. Thank you for your support!</p>
+      <a class="cta-ghost" href="Donate.html" data-i18n="cta.more">Learn More</a>
+    </section>
+  </main>
+
+  <!-- Footer（统一样式与结构） -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 data-i18n="footer.hours">Hours of Operations</h4>
+        <p data-i18n="footer.hours_value">Mon To Fri: 9 am – 5 pm</p>
+        <h4 data-i18n="footer.location">Our Location</h4>
+        <p>1177 Central Pkwy W Unit 16, Mississauga, ON L5C 4P3</p>
+        <a class="btn btn-primary" href="Donate.html" role="button" data-i18n="btn.donate">DONATE</a>
+      </div>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <p>info@chineseassociationmississauga.com</p>
+        <p>Phone：(905) 275-8558</p>
+        <div class="footer-social" aria-label="Social links">
+          <!-- WeChat -->
+          <a href="IMG_4315.JPG" target="_blank" rel="noopener" aria-label="WeChat QR" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M6.2 12.3l-2.4.8 1-2" fill="currentColor"/>
+              <circle cx="8.2" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="11.8" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="16" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M18.8 17.3l2 .9-.6-2" fill="currentColor"/>
+              <circle cx="14.6" cy="14" r="0.8" fill="currentColor"/>
+              <circle cx="17.4" cy="14" r="0.8" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/carassaugachinapavilion/?igsh=MWs3anpnNmlzM3M5YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener" aria-label="Instagram" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/chinapavilion.carassauga/"
+             target="_blank" rel="noopener" aria-label="Facebook" class="icon-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v6h3v-6h2.4l.6-3H13V9c0-.6.4-1 1-1z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" data-i18n="footer.copyright">© Chinese Association of Mississauga. All rights reserved.</div>
+  </footer>
+
+
+  <!-- ===== 多语言与交互（统一 cam_lang，自动迁移旧键） ===== -->
+  <script>
+    const I18N = {
+      en: { "nav.menu":"Menu","nav.close":"Close","nav.home":"Home","nav.about":"About Us","nav.team":"Our Team","nav.services":"Services",
+            "nav.services.settlement":"Settlement Services","nav.services.language":"Language & Training","nav.services.community":"Community Services",
+            "nav.program":"Program","nav.events":"Events","nav.join":"Join Us","nav.contact":"Contact Us",
+            "nav.join.membership":"Membership","nav.join.volunteer":"Volunteer","nav.join.donate":"Donate",
+            "hero.join":"Join Us",
+            "join.membership":"Membership","join.volunteer":"Volunteer","join.donate":"Donate",
+            "desc.membership":"Becoming a member will give you priority access to event spots and project information, and support the long-term development of the association.",
+            "desc.volunteer":"Join the volunteer team to assist with event execution, exhibition layout, media publicity, and other projects.",
+            "desc.donate":"Your donation will be directly used for community services and project expansion. Thank you for your support!",
+            "cta.apply":"Apply for Membership","cta.signup":"Sign Up to Volunteer","cta.donate":"Donate Now","cta.more":"Learn More",
+            "btn.donate":"DONATE","footer.hours":"Hours of Operations","footer.hours_value":"Mon To Fri: 9 am – 5 pm","footer.location":"Our Location","footer.contact":"Contact","footer.copyright":"© Chinese Association of Mississauga. All rights reserved."
+      },
+      zh: { "nav.menu":"菜单","nav.close":"关闭","nav.home":"首页","nav.about":"关于我们","nav.team":"团队","nav.services":"服务",
+            "nav.services.settlement":"安居服务","nav.services.language":"语言与培训","nav.services.community":"社区服务",
+            "nav.program":"课程/项目","nav.events":"活动","nav.join":"加入我们","nav.contact":"联系我们",
+            "nav.join.membership":"加入会员","nav.join.volunteer":"申请志愿者","nav.join.donate":"捐款",
+            "hero.join":"加入我们","join.membership":"会员","join.volunteer":"志愿者","join.donate":"捐赠",
+            "desc.membership":"成为会员可优先获得活动名额与项目信息，并支持协会的长期发展。",
+            "desc.volunteer":"加入志愿者团队，协助活动执行、展会布置、媒体宣传等工作。",
+            "desc.donate":"您的捐款将直接用于社区服务与项目扩展，感谢您的支持！",
+            "cta.apply":"申请入会","cta.signup":"报名成为志愿者","cta.donate":"立即捐赠","cta.more":"了解更多",
+            "btn.donate":"捐赠","footer.hours":"开放时间","footer.hours_value":"周一至周五：9:00 – 17:00","footer.location":"地址","footer.contact":"联系方式","footer.copyright":"© 密西沙加华人协会 保留所有权利"
+      },
+      zhHant: { "nav.menu":"選單","nav.close":"關閉","nav.home":"首頁","nav.about":"關於我們","nav.team":"團隊","nav.services":"服務",
+            "nav.services.settlement":"安居服務","nav.services.language":"語言與培訓","nav.services.community":"社區服務",
+            "nav.program":"課程／項目","nav.events":"活動","nav.join":"加入我們","nav.contact":"聯絡我們",
+            "nav.join.membership":"加入會員","nav.join.volunteer":"申請義工","nav.join.donate":"捐款",
+            "hero.join":"加入我們","join.membership":"會員","join.volunteer":"義工","join.donate":"捐贈",
+            "desc.membership":"成為會員可優先獲得活動名額與項目信息，並支持協會長期發展。",
+            "desc.volunteer":"加入義工團隊，協助活動執行、展會佈置、媒體宣傳等工作。",
+            "desc.donate":"您的捐款將直接用於社區服務與項目擴展，感謝您的支持！",
+            "cta.apply":"申請入會","cta.signup":"報名成為義工","cta.donate":"立即捐贈","cta.more":"了解更多",
+            "btn.donate":"捐贈","footer.hours":"開放時間","footer.hours_value":"週一至週五：9:00 – 17:00","footer.location":"地址","footer.contact":"聯絡方式","footer.copyright":"© 密西沙加華人協會 保留所有權利"
+      }
+    };
+
+    const LANGS = ["en","zh","zhHant"];
+
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const val = I18N[lang]?.[key];
+        if(typeof val === 'string') el.textContent = val;
+      });
+      const q = document.querySelector('.search input[name="q"]');
+      if(q){ q.placeholder = (lang==="en") ? "Search …" : (lang==="zh" ? "搜索…" : "搜尋…"); }
+      document.documentElement.lang = (lang==="en") ? "en" : (lang==="zh" ? "zh-Hans" : "zh-Hant");
+      LANGS.forEach(code=>{
+        const btn = document.querySelector(`.lang-btn[data-lang="${code}"]`);
+        if(btn) btn.setAttribute('aria-pressed', String(code===lang));
+      });
+    }
+
+    // —— 统一语言：迁移旧 'lang' -> 'cam_lang'，以后只用 'cam_lang'
+    (function(){
+      const legacy = localStorage.getItem('lang');
+      if (legacy && !localStorage.getItem('cam_lang')) localStorage.setItem('cam_lang', legacy);
+      localStorage.removeItem('lang');
+      const saved = localStorage.getItem('cam_lang') || 'zh';
+      applyI18n(saved);
+    })();
+
+    // 胶囊按钮：写 cam_lang
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const lang = btn.getAttribute('data-lang');
+        localStorage.setItem('cam_lang', lang);
+        applyI18n(lang);
+      });
+    });
+
+    // Drawer
+    (function(){
+      const drawer = document.getElementById('drawer');
+      const openBtn = document.getElementById('openMenu');
+      const closeBtn = document.getElementById('closeMenu');
+      function setDrawer(open){
+        if(!drawer) return;
+        drawer.classList.toggle('open', open);
+        drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if(openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      openBtn?.addEventListener('click', ()=> setDrawer(true));
+      closeBtn?.addEventListener('click', ()=> setDrawer(false));
+      drawer?.addEventListener('click', e=>{ if(e.target===drawer) setDrawer(false) });
+      window.addEventListener('keydown', e=>{ if(e.key==='Escape' && drawer?.classList.contains('open')) setDrawer(false) });
+    })();
+
+    // 顶部下拉
+    (function(){
+      document.querySelectorAll('.main-nav .dropdown').forEach(dd=>{
+        const toggle = dd.querySelector('.drop-toggle'); let timer;
+        const open = ()=>{ clearTimeout(timer); dd.classList.add('open'); toggle?.setAttribute('aria-expanded','true'); };
+        const close= ()=>{ clearTimeout(timer); timer=setTimeout(()=>{ dd.classList.remove('open'); toggle?.setAttribute('aria-expanded','false'); },140); };
+        dd.addEventListener('mouseenter', open);
+        dd.addEventListener('mouseleave', close);
+        dd.addEventListener('focusin', open);
+        dd.addEventListener('keydown', e=>{ if(e.key==='Escape'){ close(); toggle?.focus(); }});
+      });
+    })();
+
+    // Drawer 折叠（Services / Join）
+    (function(){
+      function bind(id){
+        const t = document.querySelector(`.drawer-toggle[aria-controls="${id}"]`);
+        const p = document.getElementById(id);
+        if(!t || !p) return;
+        t.addEventListener('click', ()=>{
+          const open = t.getAttribute('aria-expanded')==='true';
+          t.setAttribute('aria-expanded', String(!open));
+          p.classList.toggle('open', !open);
+        });
+      }
+      bind('drawer-services'); bind('drawer-join');
+    })();
+  </script>
+</body>
+</html>
